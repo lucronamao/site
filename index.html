@@ -297,6 +297,27 @@ footer .f-links a{color:#fff;text-decoration:none;display:inline-flex;align-item
   .centro h2{max-width:none}
 }
 </style>
+
+<!-- Meta Pixel: SO o base e o PageView.
+     O Purchase sai EXCLUSIVAMENTE pela CAPI da Cakto (regra dura da
+     funil-montar, secao C): duas origens sem event_id casado duplicam a
+     conversao, o Meta passa a achar que o CPA e metade do real e escala
+     criativo que da prejuizo. Nao adicionar fbq('track','Purchase') aqui. -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1541556727158977');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1541556727158977&ev=PageView&noscript=1"
+alt=""/></noscript>
 </head>
 <body>
 
