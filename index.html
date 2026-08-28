@@ -63,6 +63,12 @@ h3{font-size:var(--s2)}
 .hero h1 .serif{display:block;color:#ffd7e8}
 .sub{font-size:clamp(16px,15px + .5vw,19px);color:#f7e4ec;max-width:34ch;margin-bottom:26px}
 .sub b{color:#fff;font-weight:700}
+/* mata a duvida "app ou site?" ainda no hero: era a pergunta que mais aparecia
+   no suporte da 001, e duvida nao resolvida antes da compra vira reembolso. */
+.sub-app{font-size:14.5px;line-height:1.5;color:#f2d4e1;max-width:38ch;margin:-14px 0 24px;
+  border-left:2px solid rgba(255,255,255,.35);padding-left:12px}
+.sub-app b{color:#fff;font-weight:800}
+.sub-app span{display:block;font-size:13px;opacity:.8;margin-top:3px}
 
 /* palco do celular */
 .palco{position:relative;display:flex;justify-content:center;padding:8px 0 4px}
@@ -75,10 +81,11 @@ h3{font-size:var(--s2)}
   .hero-txt .chapeu{order:1}
   .hero-txt h1{order:2}
   .hero-txt .sub{order:3}
-  .hero-txt .palco-mob{order:4}
-  .hero-txt .tags{order:5}
-  .hero-txt .selos{order:6}
-  .hero-txt .oferta{order:7}
+  .hero-txt .sub-app{order:4}
+  .hero-txt .palco-mob{order:5}
+  .hero-txt .tags{order:6}
+  .hero-txt .selos{order:7}
+  .hero-txt .oferta{order:8}
   .palco-desk{display:none}
 }
 @media (min-width:900px){ .palco-mob{display:none} }
@@ -106,6 +113,8 @@ h3{font-size:var(--s2)}
 .selos{display:flex;flex-wrap:wrap;gap:7px;margin:22px 0 20px}
 .selos span{font-size:12px;font-weight:600;color:#f2d4e1;
   border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:6px 12px}
+.selos span.destaque{color:#fff;font-weight:800;background:rgba(255,255,255,.14);
+  border-color:rgba(255,255,255,.55)}
 
 /* cartao de preco */
 .oferta{background:#fff;color:var(--tinta);border-radius:var(--r-lg);
@@ -337,6 +346,9 @@ alt=""/></noscript>
           <span class="serif">Mas sabe quanto sobrou?</span></h1>
         <p class="sub">O aplicativo que registra a venda em <b>poucos toques</b> e mostra na hora
           o seu lucro. Sem planilha, sem Excel, <b>sem mensalidade</b>.</p>
+        <p class="sub-app"><b>É um aplicativo de verdade:</b> ganha ícone na tela inicial do seu
+          celular, abre em tela cheia igual ao WhatsApp e funciona até sem internet.
+          <span>Sem baixar de loja, sem ocupar espaço.</span></p>
 
         <div class="palco palco-mob">
           <div class="fone">
@@ -358,9 +370,9 @@ alt=""/></noscript>
         </div>
 
         <div class="selos">
+          <span class="destaque">vira ícone na sua tela inicial</span>
           <span>usado por revendedoras de verdade</span>
-          <span>vira ícone no seu celular</span>
-          <span>leve, não ocupa espaço</span>
+          <span>funciona sem internet</span>
         </div>
 
         <div class="oferta">
@@ -618,6 +630,13 @@ alt=""/></noscript>
     <div class="olho">Dúvidas</div>
     <h2>Perguntas de quem <span class="serif">chegou até aqui</span></h2>
     <div class="faq">
+      <details open><summary>É um aplicativo mesmo ou é um site?</summary>
+        <div class="r"><b>É um aplicativo.</b> A diferença é só o caminho de instalação: em vez
+        de baixar da Play Store ou da App Store, você toca em <b>Instalar</b> dentro dele e o
+        ícone do Lucro na Mão vai pra sua tela inicial, do lado do WhatsApp e do Instagram. A
+        partir daí você abre pelo ícone, <b>em tela cheia, sem barra de navegador</b>, e ele
+        funciona até sem sinal. É assim que os apps modernos funcionam, e é o que faz ele ser
+        leve e não ocupar espaço no seu celular.</div></details>
       <details><summary>Como o aplicativo funciona no meu celular?</summary>
         <div class="r">Você recebe um link, abre no celular e, em 2 toques, coloca o ícone na
         tela inicial (o próprio app te mostra como, com o passo a passo do seu aparelho). A
