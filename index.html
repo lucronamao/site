@@ -698,9 +698,24 @@ alt=""/></noscript>
 <script>
 var CHECKOUT = 'https://pay.cakto.com.br/3ko7pit';   /* front R$ 47, oferta 3ko7pit */
 (function(){
-  /* repasse de UTM + fbclid da landing para o checkout (fase 2.4 da funil-montar) */
+  /* repasse de UTM + fbclid da landing para o checkout (fase 2.4 da funil-montar).
+     localStorage com validade de 7 dias (casa com a janela de clique do Meta), pra
+     sobreviver ao fechamento da aba: em 29/08/2026 medimos 12 de 109 pedidos chegando
+     na Cakto sem UTM nenhuma, com checkoutUrl limpa. O TTL nao e opcional: sem ele uma
+     UTM velha carimbaria uma visita organica futura, trocando erro visivel por invisivel.
+     ATENCAO ao alcance: localStorage e isolado por navegador, entao isto NAO cobre o pulo
+     do navegador do Instagram pro Chrome. Esse caso depende do _fbc na CAPI. */
+  var TTL = 7 * 24 * 60 * 60 * 1000;
   var qs = location.search || '';
-  try { if (qs) sessionStorage.setItem('lnm_qs', qs); else qs = sessionStorage.getItem('lnm_qs') || ''; } catch(e){}
+  try {
+    if (qs) {
+      localStorage.setItem('lnm_qs', JSON.stringify({qs: qs, em: Date.now()}));
+    } else {
+      var salvo = JSON.parse(localStorage.getItem('lnm_qs') || 'null');
+      if (salvo && salvo.qs && (Date.now() - salvo.em) < TTL) qs = salvo.qs;
+      else if (salvo) localStorage.removeItem('lnm_qs');
+    }
+  } catch(e){}
   var alvo = qs ? CHECKOUT + (CHECKOUT.indexOf('?')>=0?'&':'?') + qs.replace(/^\?/,'') : CHECKOUT;
   document.querySelectorAll('[data-checkout]').forEach(function(a){ a.href = alvo; });
 
