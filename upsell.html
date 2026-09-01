@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Falta uma coisa | Lucro na Mão</title>
+<title>Precifique seu estoque em minutos | Lucro na Mão</title>
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="favicon-180.png">
@@ -23,13 +23,28 @@ body{font-family:var(--sans);background:var(--creme);color:var(--tinta);
 img{max-width:100%;display:block}
 .w{width:100%;max-width:680px;margin:0 auto;padding:0 20px}
 
-/* faixa de compra confirmada: primeira coisa que ela ve */
-.ok{background:var(--verde-bg);border-bottom:1px solid #cfe8da;padding:14px 0}
-.ok .w{display:flex;align-items:center;gap:11px}
-.ok svg{width:26px;height:26px;flex-shrink:0;fill:none;stroke:var(--verde);
+/* BANNER de oferta: e a primeira coisa que ela ve, e o trabalho dele e
+   sinalizar "isso aqui e diferente, presta atencao". A confirmacao da compra
+   desceu pra uma linha discreta no fim: ela ja sabe que pagou, nao precisa de
+   faixa verde grande roubando o topo. */
+.oferta{background:linear-gradient(100deg,var(--vinho),var(--vinho-prof));padding:14px 0;
+  border-top:1px solid rgba(255,255,255,.16);box-shadow:0 10px 22px -16px rgba(61,15,36,.7)}
+.oferta .w{display:flex;align-items:center;justify-content:center;gap:11px;
+  flex-wrap:wrap;text-align:center}
+.oferta .selo{background:rgba(255,255,255,.95);color:var(--vinho);font-size:10.5px;
+  font-weight:800;letter-spacing:.14em;text-transform:uppercase;border-radius:999px;
+  padding:5px 12px}
+.oferta b{color:#fff;font-size:15px;letter-spacing:-.2px}
+/* Confirmacao da compra: primeira coisa da tela, acima de tudo, e generosa.
+   Ela acabou de pagar e precisa ver que deu certo antes de qualquer oferta. */
+.ok{background:var(--verde-bg);border-bottom:1px solid #cfe8da;padding:17px 0}
+.ok .w{display:flex;align-items:center;gap:13px}
+.ok svg{width:30px;height:30px;flex-shrink:0;fill:none;stroke:var(--verde);
   stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-.ok b{display:block;font-size:15.5px;color:var(--verde)}
-.ok span{font-size:13.5px;color:var(--cinza)}
+.ok b{display:block;font-size:17px;color:var(--verde);letter-spacing:-.3px}
+.ok span{font-size:14px;color:var(--cinza);line-height:1.45}
+.conf svg{width:18px;height:18px;flex-shrink:0;fill:none;stroke:var(--verde);
+  stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
 
 .topo{background:linear-gradient(168deg,var(--vinho),var(--vinho-prof));
   padding:22px 0 20px;text-align:center}
@@ -37,36 +52,37 @@ img{max-width:100%;display:block}
 
 main{padding:30px 0 44px}
 .olho{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--vinho);margin-bottom:9px;text-align:center}
-h1{font-size:clamp(26px,22px + 2.2vw,36px);line-height:1.16;letter-spacing:-.6px;
+  color:var(--vinho);margin-bottom:10px;text-align:center}
+h1{font-family:var(--sans);font-size:31px;line-height:1.15;letter-spacing:-1.1px;
   font-weight:800;text-align:center;margin-bottom:14px}
-h1 .serif{display:block;font-family:var(--serif);font-style:italic;font-weight:400;
-  color:var(--vinho);letter-spacing:-.5px}
-.intro{text-align:center;color:var(--cinza);max-width:44ch;margin:0 auto 26px}
-.intro b{color:var(--tinta)}
+h1 .serif{display:block;font-family:var(--serif);font-weight:400;font-style:italic;
+  color:var(--vinho);letter-spacing:-.4px}
+.sub{text-align:center;color:var(--cinza);font-size:17px;max-width:30ch;
+  margin:0 auto 26px;line-height:1.5}
+.sub b{color:var(--tinta)}
 
-/* o que ela leva */
-.caixa{background:#fff;border:2px solid var(--vinho);border-radius:var(--r-lg);
-  padding:22px 20px;box-shadow:0 20px 44px -26px rgba(92,24,56,.5)}
-.caixa .nome{font-size:20px;font-weight:800;margin-bottom:3px}
-.caixa .sob{font-size:13.5px;color:var(--cinza);margin-bottom:16px}
-.itens{list-style:none;display:grid;gap:11px;margin-bottom:20px}
-.itens li{display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.5}
-.itens svg{width:19px;height:19px;flex-shrink:0;margin-top:2px;fill:none;
+/* A PROVA e o argumento. A folha de etiquetas fala sozinha, e o texto ao lado
+   dela e legenda, nao paragrafo. Regra desta pagina: ela ja comprou 30s atras,
+   entao o trabalho e mostrar UMA coisa e dar o botao, nao convencer de novo. */
+.caixa{background:#fff;border:1px solid var(--linha);border-radius:var(--r-lg);
+  padding:22px 20px 24px;box-shadow:0 24px 50px -34px rgba(61,15,36,.4)}
+.foto{border:1px solid var(--linha);border-radius:12px;overflow:hidden;
+  background:var(--rose2);margin-bottom:18px}
+.foto img{width:100%;height:auto}
+.duas{display:grid;gap:13px;margin-bottom:20px}
+.duas div{display:flex;gap:11px;align-items:flex-start;font-size:15.5px;
+  line-height:1.5;color:var(--cinza)}
+.duas b{color:var(--tinta);font-weight:700}
+.duas svg{width:21px;height:21px;flex-shrink:0;margin-top:2px;fill:none;
   stroke:var(--verde);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
-.itens b{font-weight:700}
-
-.preco{text-align:center;border-top:1px solid var(--linha);padding-top:16px}
-.preco .val{font-weight:800;font-size:44px;line-height:1;color:var(--vinho);letter-spacing:-1.6px}
-.preco .val sup{font-size:.42em;vertical-align:super;letter-spacing:0}
+.preco{text-align:center;border-top:1px solid var(--linha);padding-top:20px}
+.preco .val{font-weight:800;font-size:46px;line-height:1;color:var(--vinho);
+  letter-spacing:-1.8px}
+.preco .val sup{font-size:.4em;vertical-align:super;letter-spacing:0}
 .preco .uma{display:inline-block;background:var(--verde-bg);color:var(--verde);
-  font-size:12.5px;font-weight:800;border-radius:999px;padding:5px 13px;margin-top:9px}
-.preco .cartao{font-size:13px;color:var(--cinza);margin-top:11px}
-
-/* Os botoes que a Cakto injeta como Web Component.
-   Dois cuidados: o HOST e inline por padrao (nao estica sozinho, entao vira
-   block/width:100%), e o botao interno so aceita estilo por ::part(button),
-   que a Cakto expoe. Sem o host, o ::part sozinho fica com a largura do texto. */
+  font-size:12.5px;font-weight:800;border-radius:999px;padding:5px 13px;margin-top:10px}
+.so{text-align:center;font-size:14px;color:var(--vinho);font-weight:700;
+  margin-top:16px;line-height:1.5}
 .acao{margin-top:20px}
 cakto-upsell-buttons{display:block;width:100%}
 cakto-upsell-accept,cakto-upsell-reject{display:block;width:100%}
@@ -81,12 +97,7 @@ cakto-upsell-reject::part(button){
   font-family:var(--sans);font-size:14px;font-weight:600;border:0;
   padding:16px 8px;cursor:pointer;text-decoration:underline;line-height:1.4}
 
-.garantia{display:flex;gap:11px;align-items:flex-start;background:var(--rose2);
-  border:1px solid var(--linha);border-radius:var(--r);padding:15px 16px;margin-top:22px;
-  font-size:14px;color:var(--cinza);line-height:1.55}
-.garantia svg{width:22px;height:22px;flex-shrink:0;margin-top:1px;fill:none;
-  stroke:var(--verde);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.garantia b{color:var(--tinta)}
+.ga{text-align:center;font-size:13.5px;color:var(--cinza);margin-top:18px}
 
 footer{text-align:center;font-size:12.5px;color:var(--cinza);padding:0 20px 34px}
 </style>
@@ -120,42 +131,47 @@ alt=""/></noscript>
     <svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>
     <div>
       <b>Pagamento confirmado!</b>
-      <span>O acesso ao Controle da Lojinha está indo pro seu e-mail agora.</span>
+      <span>O acesso ao Controle da Lojinha já está indo pro seu e-mail.</span>
     </div>
   </div>
 </div>
 
 <div class="topo"><img src="logo-branca.png" alt="Lucro na Mão" width="434" height="136"></div>
 
+<div class="oferta">
+  <div class="w">
+    <span class="selo">oferta especial</span>
+    <b>Só nesta tela, e uma vez só</b>
+  </div>
+</div>
+
 <main class="w">
-  <div class="olho">Só mais uma coisa, e é rápido</div>
-  <h1>Agora você vai saber quanto lucrou.
-    <span class="serif">Mas quanto cobrar?</span></h1>
-  <p class="intro">O Controle da Lojinha te mostra o lucro <b>depois</b> da venda. A pergunta
-    que vem antes é o preço: se ele estiver errado, o app vai te mostrar um lucro pequeno com
-    clareza. <b>É esse passo que a Precificação na Mão resolve.</b></p>
+  <h1>Cansada de fazer preço e etiqueta uma por uma?
+    <span class="serif">Precifique seu estoque em minutos.</span></h1>
+  <p class="sub">O app calcula <b>por quanto vender cada peça</b>, com frete e
+    taxa já dentro, e <b>monta as etiquetas com a sua marca</b>. Você só
+    imprime e corta.</p>
 
   <div class="caixa">
-    <div class="nome">Precificação na Mão</div>
-    <div class="sob">Some ao que você acabou de comprar</div>
-    <ul class="itens">
-      <li><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>
-        <span><b>O preço certo, com tudo dentro:</b> frete e taxa da maquininha já entram na
-        conta, então a margem que aparece é a que sobra de verdade.</span></li>
-      <li><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>
-        <span><b>O lote inteiro de uma vez:</b> chegou a sacola nova da fornecedora? Você
-        precifica tudo numa tela, sem repetir conta peça por peça.</span></li>
-      <li><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>
-        <span><b>Etiquetas pra imprimir:</b> quatro modelos, incluindo a folha A4 com 8
-        etiquetas, pra colar nas peças e parar de responder "quanto é essa?".</span></li>
-      <li><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>
-        <span><b>Pago uma vez, igual ao Controle:</b> sem mensalidade, sem renovação, seu
-        pra sempre.</span></li>
-    </ul>
+    <div class="foto">
+      <img src="demo-etiquetas.png" width="1240" height="1754" loading="lazy"
+           alt="Folha A4 com 8 etiquetas de preço">
+    </div>
+
+    <div class="duas">
+      <div><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span><b>O preço certo de cada peça, sem você fazer conta.</b>
+        Frete, embalagem, taxa da maquininha e o quanto você quer ganhar: tudo
+        já entra. O lote inteiro numa tela.</span></div>
+      <div><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span><b>Antes de dar desconto, você vê quanto ainda sobra.</b>
+        Testa qualquer preço e descobre se vale a pena, na hora.</span></div>
+      <div><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span><b>E sai etiquetado, com o nome da sua lojinha.</b>
+        Sem Canva, sem Word, sem caneta. A cliente vê o preço sozinha.</span></div>
+    </div>
+
     <div class="preco">
-      <div class="val"><sup>R$</sup>97</div>
+      <div class="val"><sup>R$</sup>67</div>
       <div class="uma">uma vez só, é seu pra sempre</div>
-      <div class="cartao">No mesmo cartão, em 1 clique. Você não digita nada de novo.</div>
+      <div class="so">Só nesta tela, e em 1 clique.<br>Você não digita nada de novo.</div>
     </div>
 
     <div class="acao">
@@ -169,23 +185,18 @@ alt=""/></noscript>
           offer-type="upsell"
           upsell-reject-url="members_area"
         >
-          Sim! Quero o preço certo por R$ 97
+          Quero precificar meu estoque
         </cakto-upsell-accept>
         <cakto-upsell-reject
           upsell-reject-url="members_area"
         >
-          Não, obrigada. Quero seguir só com o Controle da Lojinha
+          Não agora, obrigada
         </cakto-upsell-reject>
       </cakto-upsell-buttons>
     </div>
   </div>
 
-  <div class="garantia">
-    <svg viewBox="0 0 24 24"><path d="M12 2.6l7.5 3v6.2c0 4.4-3 8.2-7.5 9.6-4.5-1.4-7.5-5.2-7.5-9.6V5.6l7.5-3z"/><path d="M8.6 12.2l2.4 2.4 4.4-4.8"/></svg>
-    <div><b>Os mesmos 7 dias de garantia.</b> Se achar que não é pra você, manda uma mensagem
-      e devolvemos. Recusar aqui não muda nada na compra que você já fez: o Controle da
-      Lojinha é seu de qualquer jeito.</div>
-  </div>
+  <p class="ga">Não gostou? 7 dias pra pedir de volta. Recusar não mexe na sua compra.</p>
 </main>
 
 <footer>Lucro na Mão · contato@lucronamao.online</footer>
