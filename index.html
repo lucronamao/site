@@ -113,6 +113,16 @@ h3{font-size:var(--s2)}
 .oferta{background:#fff;color:var(--tinta);border-radius:var(--r-lg);
   padding:22px 20px;text-align:center;box-shadow:0 24px 50px -26px rgba(20,4,12,.6)}
 .oferta .de{font-size:13px;font-weight:700;color:var(--cinza);margin-bottom:2px}
+/* Ancora de categoria no card de preco (A.2b da funil-montar, 01/09/2026).
+   Sem ela a leitora ve "R$ 47" e nao tem contra o que comparar, entao usa a regua
+   dela, que e R$ 0. A comparacao com assinatura ja existia na pagina, mas 6
+   rolagens abaixo: quem decide no hero nunca chegava la.
+   NAO e preco riscado inventado (erro nº 7): o numero e o preco real cobrado por
+   Stoqui e Revendi, medido em 17/08/2026 e registrado em fontes-copy.md. */
+.oferta .ancora{font-size:13px;line-height:1.45;color:var(--cinza);
+  border-bottom:1px solid var(--linha);padding-bottom:11px;margin-bottom:13px}
+.oferta .ancora s{opacity:.85}
+.oferta .ancora b{color:var(--tinta);font-weight:700}
 .oferta .val{font-weight:800;font-size:clamp(46px,38px + 3vw,60px);line-height:1;
   color:var(--vinho);letter-spacing:-2px}
 .oferta .val sup{font-size:.42em;font-weight:800;vertical-align:super;letter-spacing:0}
@@ -127,18 +137,28 @@ h3{font-size:var(--s2)}
 .oferta .sob{font-size:12.5px;color:var(--cinza);margin-top:12px;line-height:1.5}
 
 /* ---------------- FAIXA DE PROVA ---------------- */
-.faixa-prova{background:var(--rose2);border-bottom:1px solid var(--linha);padding:20px 0 22px}
-.fp{background:#fff;border:1px solid var(--linha);border-radius:var(--r);padding:16px 18px;
+/* So o print, sem a frase redigitada ao lado: a mensagem ja esta na imagem, e
+   repetir em texto obrigava a espremer o print em 132px pra caber os dois.
+   Mesmo padrao dos cards de #depoimentos (print + rodape com nome, idade e
+   estado), so que aqui um unico card, estreito e centrado, porque e abertura
+   de pagina. A imagem e cortada logo abaixo do horario (fp-melissa.jpg,
+   1170x700 do original de 991): o campo de digitacao nao prova nada. */
+.faixa-prova{background:var(--rose2);border-bottom:1px solid var(--linha);padding:22px 0 24px}
+.faixa-prova .w{display:flex;flex-direction:column;align-items:center}
+.fp{background:#fff;border:1px solid var(--linha);border-radius:var(--r);
+  overflow:hidden;padding:0;margin:0;width:100%;max-width:340px;
   box-shadow:0 10px 26px -20px rgba(61,15,36,.35)}
-.fp-estrelas{display:flex;gap:2px;margin-bottom:9px}
-.fp-estrelas svg{width:15px;height:15px;fill:#e8a02b}
-.fp blockquote{font-size:16px;line-height:1.55}
-.fp blockquote b{font-weight:700}
-.fp figcaption{display:flex;align-items:center;gap:9px;margin-top:12px;
+.fp .print{display:block;width:100%;height:auto;background:#0b141a}
+.fp figcaption{display:flex;align-items:center;gap:9px;padding:12px 16px;
+  border-top:1px solid var(--linha);
   font-size:13.5px;font-weight:700;color:var(--cinza)}
+.fp figcaption .nome{line-height:1.3}
+.fp figcaption .onde{display:block;font-weight:400;font-size:12.5px}
+.fp-estrelas{display:flex;gap:2px;margin-left:auto;flex-shrink:0}
+.fp-estrelas svg{width:14px;height:14px;fill:#e8a02b}
 .ini{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--vinho);
   color:#fff;font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center}
-.fp-link{display:inline-flex;align-items:center;min-height:44px;margin-top:4px;
+.fp-link{display:inline-flex;align-items:center;min-height:44px;margin-top:6px;
   font-size:14px;font-weight:700;color:var(--vinho);text-decoration:none;
   border-bottom:1px solid rgba(142,39,87,.3)}
 
@@ -151,6 +171,14 @@ h3{font-size:var(--s2)}
 .para li:last-child{border-bottom:0}
 .para li:before{content:'';flex-shrink:0;width:19px;height:19px;margin-top:2px;
   border-radius:50%;background:var(--verde-bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231e7d4f' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12.5l5 5L20 6.5'/%3E%3C/svg%3E") center/12px no-repeat}
+
+/* "Nao e pra voce se" (bloco 8 da A.2). Nao perde venda: derruba REEMBOLSO,
+   porque tira do funil quem ia comprar errado e pedir o dinheiro de volta em
+   3 dias. Mesma lista, so troca o sinal: x em vinho no lugar do check verde. */
+.nao{margin-top:20px}
+.nao .rot{font-size:14px;font-weight:800;color:var(--tinta);margin-bottom:2px}
+.para.neg li:before{background:var(--rose) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238e2757' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 6l12 12M18 6L6 18'/%3E%3C/svg%3E") center/11px no-repeat}
+.para.neg li{color:var(--cinza)}
 
 .dores{list-style:none;display:grid;gap:9px;margin:18px 0}
 .dores li{background:#fff;border:1px solid var(--linha);border-left:3px solid var(--vinho);
@@ -183,6 +211,16 @@ h3{font-size:var(--s2)}
   text-transform:uppercase;color:var(--cinza);border:1px solid var(--linha);
   border-radius:999px;padding:3px 9px;margin-bottom:9px}
 .app.principal .tag{color:#fff;background:var(--vinho);border-color:var(--vinho)}
+/* Selo de direcao (A.2b): sem ele o olho empata entre as 3 opcoes e a decisao
+   ADIA, e adiar no checkout e nao levar o bump. Nao viram planos separados:
+   a Cakto cobra 1 produto por link, entao 3 planos quebrariam o clique unico
+   (erro nº 4 da A.3). Aqui e so direcao visual, o checkout continua sendo um. */
+.app.principal{position:relative}
+.app .selo{position:absolute;top:-10px;right:14px;background:var(--dourado);color:#3a2c05;
+  font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  border-radius:999px;padding:4px 11px;box-shadow:0 6px 14px -8px rgba(90,70,10,.8)}
+.apps-nota{font-size:13.5px;color:var(--cinza);margin-top:13px;line-height:1.55}
+.apps-nota b{color:var(--tinta)}
 .app .pr{float:right;font-weight:800;color:var(--vinho);font-size:17px}
 .app h3{font-size:18px;margin-bottom:5px}
 .app p{font-size:14.5px;color:var(--cinza);line-height:1.5}
@@ -224,15 +262,25 @@ h3{font-size:var(--s2)}
 .garantia p{font-size:15px;color:var(--cinza);line-height:1.6;max-width:46ch;margin:0 auto}
 
 /* depoimentos */
-.depos{display:grid;gap:12px}
-.prova{position:relative;background:#fff;border:1px solid var(--linha);
-  border-radius:var(--r);padding:19px 18px 17px}
-.prova:before{content:'”';font-family:var(--serif);position:absolute;top:-6px;left:14px;
-  font-size:56px;color:var(--rose);line-height:1}
-.prova .txt{position:relative;font-size:15px;line-height:1.6;margin-bottom:13px}
-.prova .txt b{font-weight:700}
+/* Print da conversa, nao card com aspas: o balao do WhatsApp E a prova, e
+   redigitar o texto joga fora exatamente o que faz ele parecer real. Por isso
+   a imagem manda no layout e o rodape com nome, idade e estado e so a legenda.
+   Os prints tem alturas diferentes (991 a 1249px), entao nada de altura fixa:
+   cortar o balao pra alinhar comeria o fim da frase, que e onde ela conclui. */
+.depos{display:grid;gap:14px;align-items:start}
+@media (min-width:760px){.depos{grid-template-columns:1fr 1fr}}
+.prova{background:#fff;border:1px solid var(--linha);border-radius:var(--r);
+  overflow:hidden;padding:0;margin:0;
+  box-shadow:0 10px 26px -20px rgba(61,15,36,.35)}
+.prova .print{display:block;width:100%;height:auto;background:#0b141a}
 .prova .quem{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700;
-  color:var(--cinza)}
+  color:var(--cinza);padding:12px 16px;border-top:1px solid var(--linha)}
+.prova .quem .nome{line-height:1.3}
+.prova .quem .onde{display:block;font-weight:400;font-size:12.5px}
+.prova .quem .est{display:flex;gap:2px;margin-left:auto;flex-shrink:0}
+.prova .quem .est svg{width:13px;height:13px;fill:#e8a02b}
+.depos-nota{font-size:13px;color:var(--cinza);text-align:center;margin-top:18px;
+  line-height:1.55}
 
 /* FAQ */
 .faq{margin-top:18px;border-top:1px solid var(--linha)}
@@ -288,8 +336,7 @@ footer .f-links a{color:#fff;text-decoration:none;display:inline-flex;align-item
   .sub{font-size:19.5px}
   .tags{grid-template-columns:1fr 1fr;gap:9px;max-width:440px}
   .oferta{max-width:430px}
-  .faixa-prova .w{display:flex;align-items:center;gap:24px}
-  .fp{flex:1} .fp blockquote{font-size:17px}
+  .fp{max-width:380px}
   .apps{grid-template-columns:repeat(3,1fr);align-items:start}
   .caminhos{grid-template-columns:1fr 1fr;gap:16px}
   .depos{grid-template-columns:1fr 1fr;gap:16px}
@@ -365,6 +412,8 @@ alt=""/></noscript>
         </div>
 
         <div class="oferta">
+          <div class="ancora">App de loja com mensalidade: <b>R$ 39 a 109 por m&ecirc;s</b>,
+            todo m&ecirc;s. Aqui voc&ecirc; paga <b>uma vez</b>.</div>
           <div class="de">pague uma vez, use pra sempre</div>
           <div class="val"><sup>R$</sup>47</div>
           <div class="uma">pagamento único, sem mensalidade</div>
@@ -390,18 +439,11 @@ alt=""/></noscript>
 <section class="faixa-prova">
   <div class="w">
     <figure class="fp">
-      <div class="fp-estrelas" aria-label="5 de 5">
-        <svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg>
-        <svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg>
-        <svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg>
-        <svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg>
-        <svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg>
-      </div>
-      <blockquote>“Eu vendia bem mais do que imaginava, <b>mas não tinha noção de quanto
-        estava entrando de verdade.</b> Antes eu fazia tudo de cabeça.”</blockquote>
-      <figcaption><span class="ini">CF</span> Camila Ferreira, 28 · revendedora de roupas</figcaption>
+      <img class="print" src="fp-melissa.jpg" width="1170" height="700" decoding="async"
+        alt="Print de conversa no WhatsApp: &ldquo;t&ocirc; usando todo dia, antes eu nao sabia nem direito quanto eu tava lucrando, achava que sabia mas n&atilde;o sabia. agora ali no aplicativo me mostra tudo certinho, me ajudou demais mesmo principalmente no fim do m&ecirc;s quando vou fazer as contas&rdquo;">
+      <figcaption><span class="ini" aria-hidden="true">M</span><span class="nome">Melissa, 26<span class="onde">Paran&aacute;</span></span><span class="fp-estrelas" aria-label="5 de 5"><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg></span></figcaption>
     </figure>
-    <a class="fp-link" href="#depoimentos">ler os outros depoimentos</a>
+    <a class="fp-link" href="#depoimentos">ver os prints das conversas</a>
   </div>
 </section>
 
@@ -418,6 +460,14 @@ alt=""/></noscript>
         <li>Quer saber, sem fazer conta nenhuma, quanto realmente sobrou no mês</li>
         <li>Está começando agora e quer começar organizada</li>
       </ul>
+      <div class="nao">
+        <div class="rot">Não é pra você se…</div>
+        <ul class="para neg">
+          <li>Você tem loja física com equipe e precisa de caixa, balança ou leitor de código</li>
+          <li>Precisa emitir nota fiscal pelo aplicativo</li>
+          <li>Quer que outra pessoa acesse os mesmos dados de outro celular ao mesmo tempo</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -481,6 +531,7 @@ alt=""/></noscript>
       <b>Pode levar só o principal</b>, sem problema nenhum.</p>
     <div class="apps">
       <div class="app principal">
+        <div class="selo">O mais escolhido</div>
         <div class="tag">O principal</div>
         <span class="pr">R$ 47</span>
         <h3>Controle da Lojinha</h3>
@@ -501,6 +552,9 @@ alt=""/></noscript>
           frete e taxa já dentro, e monta as etiquetas com o nome da sua lojinha.</p>
       </div>
     </div>
+    <p class="apps-nota"><b>Você escolhe na hora de pagar</b>, sem instalar nada além do
+      ícone. Pode levar só o principal: os outros dois aparecem pra você decidir, e não
+      mudam nada se você disser não.</p>
   </div>
 </section>
 
@@ -593,23 +647,33 @@ alt=""/></noscript>
     <div class="olho">Quem já usa</div>
     <h2>O que elas <span class="serif">contaram</span></h2>
     <div class="depos">
-      <div class="prova">
-        <div class="txt">Eu anotava minhas vendas em conversa comigo mesma no WhatsApp e já estava ficando uma bagunça. Às vezes eu vendia e depois nem lembrava se tinha dado baixa no estoque. Comecei a usar o app e foi uma diferença absurda. <b>Agora eu cadastro a venda e já sei quanto vendi e o que ainda tenho disponível.</b> E o melhor é que paguei uma vez só e ficou meu.</div>
-        <div class="quem"><span class="ini">JM</span> Juliana Martins, 32 · revendedora de cosméticos</div>
-      </div>
-      <div class="prova">
-        <div class="txt">O que mais me surpreendeu foi descobrir que <b>eu vendia bem mais do que imaginava, mas não tinha noção de quanto estava entrando de verdade.</b> Antes eu fazia tudo de cabeça. Agora consigo olhar minhas vendas e meu estoque em poucos segundos. Comecei usando só pra testar e hoje virou uma das ferramentas que mais uso no meu negócio.</div>
-        <div class="quem"><span class="ini">CF</span> Camila Ferreira, 28 · revendedora de roupas</div>
-      </div>
-      <div class="prova">
-        <div class="txt">Eu já perdi venda porque achava que tinha determinada peça e quando fui procurar não tinha mais. <b>Depois que comecei a controlar meu estoque pelo aplicativo isso praticamente acabou.</b> O mais importante pra mim foi ser simples, porque eu não tenho paciência pra aplicativo complicado. Abro, registro e pronto.</div>
-        <div class="quem"><span class="ini">PO</span> Patrícia Oliveira, 39 · revendedora de acessórios</div>
-      </div>
-      <div class="prova">
-        <div class="txt">Comecei a revender semijoias há pouco tempo e já estava me perdendo com pedidos, estoque e vendas. Achei que esses aplicativos fossem complicados e caros, mas esse foi bem diferente. <b>Em poucos minutos já consegui entender como usar.</b> E quando vi que era vitalício, achei melhor ainda: não queria mais uma mensalidade pra pagar todo mês.</div>
-        <div class="quem"><span class="ini">LS</span> Larissa Souza, 24 · revendedora de semijoias</div>
-      </div>
+      <figure class="prova">
+        <img class="print" src="dep-denise-32-sp.jpg" width="1170" height="1017" loading="lazy" decoding="async"
+             alt="Print de conversa no WhatsApp: “gostei muito viu, é bem facil de mexer eu achei que ia ser complicado mas não, aprendi sozinha e to conseguindo me organizar bem melhor, principalmente com as entregas que eu vivia trocando. e outra por pagar só uma vez foi oque mais pesou pra mim”">
+        <figcaption class="quem"><span class="ini" aria-hidden="true">D</span><span class="nome">Denise, 32<span class="onde">São Paulo</span></span><span class="est"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg></span></figcaption>
+      </figure>
+      <figure class="prova">
+        <img class="print" src="dep-melissa-26-pr.jpg" width="1170" height="991" loading="lazy" decoding="async"
+             alt="Print de conversa no WhatsApp: “tô usando todo dia, antes eu nao sabia nem direito quanto eu tava lucrando, achava que sabia mas não sabia. agora ali no aplicativo me mostra tudo certinho, me ajudou demais mesmo principalmente no fim do mês quando vou fazer as contas”">
+        <figcaption class="quem"><span class="ini" aria-hidden="true">M</span><span class="nome">Melissa, 26<span class="onde">Paraná</span></span><span class="est"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg></span></figcaption>
+      </figure>
+      <figure class="prova">
+        <img class="print" src="dep-aline-28-sp.jpg" width="1170" height="1249" loading="lazy" decoding="async"
+             alt="Print de conversa no WhatsApp: “nossa a parte de controle de estoque pra mim foi um aliviooo, ter que ficar anotando em caderno quantas peças tenho era muito ruim, só isso ja me ajudou muito. a parte de venda tambem otima pra anotar e saber os valores certinho, muito bom”">
+        <figcaption class="quem"><span class="ini" aria-hidden="true">A</span><span class="nome">Aline, 28<span class="onde">São Paulo</span></span><span class="est"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg></span></figcaption>
+      </figure>
+      <figure class="prova">
+        <img class="print" src="dep-bruna-30-pr.jpg" width="1170" height="1071" loading="lazy" decoding="async"
+             alt="Print de conversa no WhatsApp: “ah eu recomendo sim sem duvida, é bem simples, não tem aquele monte de coisa que a gente nem usa. o que eu mais gostei foi não ter mensalidade, pq eu ja tinha pago outro antes que era mensal e nem era tão bom”">
+        <figcaption class="quem"><span class="ini" aria-hidden="true">B</span><span class="nome">Bruna, 30<span class="onde">Paraná</span></span><span class="est"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg></span></figcaption>
+      </figure>
+      <figure class="prova">
+        <img class="print" src="dep-alexandra-40-sc.jpg" width="1170" height="1125" loading="lazy" decoding="async"
+             alt="Print de conversa no WhatsApp: “pra mim valeu a pena, eu só anotava no caderno mesmo, ate ja vi uns aplicativos mas nao queria pagar mensalidade. agora muito melhor, o app ja faz a conta e mostra tudo calculado e anotado as vendas”">
+        <figcaption class="quem"><span class="ini" aria-hidden="true">A</span><span class="nome">Alexandra, 40<span class="onde">Santa Catarina</span></span><span class="est"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg></span></figcaption>
+      </figure>
     </div>
+    <p class="depos-nota">Mensagens de clientes no WhatsApp. Elas cortaram o nome e o número antes de mandar o print.</p>
   </div>
 </section>
 
