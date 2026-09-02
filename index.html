@@ -70,6 +70,27 @@ h3{font-size:var(--s2)}
    original): o visual do produto e o que torna o digital tangivel, entao vem
    antes das etiquetas e do preco, nao depois de tudo. O .hero-txt vira flex
    coluna e o palco (movido pra dentro dele por JS-free `order`) se encaixa. */
+/* ---------- dobra: a VSL precisa aparecer INTEIRA sem rolar (Vini, 02/09/2026) ----------
+   Media do texto antes: chapeu 37 + h1 187 + sub 138 = 528px de 896, sobrando so 368
+   pra uma VSL de 502px (73% dela). Aqui o texto encolhe e o video sobe. */
+@media (max-width:899px){
+  .hero{padding-top:16px}
+  .hero .marca{height:30px;margin-bottom:12px}
+  .chapeu{font-size:10.5px;margin-bottom:9px}
+  .hero h1{font-size:clamp(26px,6.4vw,33px);line-height:1.14;margin-bottom:10px}
+  .sub{font-size:15.5px;line-height:1.42;margin-bottom:14px;max-width:32ch}
+  .palco{padding:0 0 4px}
+  .fone{width:min(268px,64vw)}
+}
+/* telas baixas (<=700px de altura): aperta mais, senao a base da VSL sai da dobra */
+@media (max-width:899px) and (max-height:700px){
+  .hero{padding-top:10px}
+  .hero .marca{height:24px;margin-bottom:8px}
+  .chapeu{font-size:10px;margin-bottom:6px}
+  .hero h1{font-size:clamp(22px,5.8vw,27px);margin-bottom:7px}
+  .sub{font-size:14px;line-height:1.36;margin-bottom:10px}
+  .fone{width:min(228px,58vw)}
+}
 @media (max-width:899px){
   .hero-txt{display:flex;flex-direction:column}
   .hero-txt .chapeu{order:1}
@@ -88,6 +109,27 @@ h3{font-size:var(--s2)}
   animation:flutua 7s ease-in-out infinite}
 .fone .tela{border-radius:26px;overflow:hidden;background:var(--rose2);aspect-ratio:360/738}
 .fone .tela img,.fone .tela video{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+/* ---------- VSL do hero: toca sem som, sem controle, e o toque religa do zero ---------- */
+.vsl{position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.vsl video{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+/* a VSL e 406x728 (0,558), mais LARGA que a tela padrao do mockup (360/738 = 0,488).
+   Sem isto sobra faixa vazia em cima e embaixo do video dentro do celular. */
+.fone.fone-vsl .tela{aspect-ratio:406/728}
+/* a barra de progresso, so leitura: mostra que esta correndo, nao deixa arrastar */
+.vsl .barra{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(0,0,0,.28);z-index:3}
+.vsl .barra i{display:block;height:100%;width:0;background:var(--rosa,#c2185b);transition:width .2s linear}
+/* o botao grande de som no meio, some depois do primeiro toque */
+.vsl .som{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  z-index:4;background:rgba(20,4,12,.30);transition:opacity .25s ease}
+.vsl.tocando .som{opacity:0;pointer-events:none}
+.vsl .som b{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:7px;
+  width:104px;height:104px;border-radius:50%;background:rgba(255,255,255,.94);
+  box-shadow:0 10px 30px -8px rgba(20,4,12,.6);animation:pulsa 2.2s ease-in-out infinite}
+.vsl .som svg{width:38px;height:38px;fill:none;stroke:#1d1218;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.vsl .som span{font-size:11.5px;font-weight:800;color:#1d1218;letter-spacing:.02em;text-transform:uppercase}
+@keyframes pulsa{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@media (prefers-reduced-motion:reduce){.vsl .som b{animation:none}}
 @keyframes flutua{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 @media (prefers-reduced-motion:reduce){.fone{animation:none}}
 
@@ -382,16 +424,20 @@ alt=""/></noscript>
         <div class="chapeu">Para quem vende roupa, maquiagem ou acessório</div>
         <h1>Você vende todo dia.
           <span class="serif">Mas sabe quanto sobrou?</span></h1>
-        <p class="sub">A maioria das revendedoras não sabe. Vende bem, repõe peça, paga frete,
-          e no fim do mês <b>o dinheiro sumiu sem explicação</b>. Aqui você vê, venda por
-          venda, <b>quanto ficou com você</b>.</p>
+        <p class="sub">Vende bem, repõe peça, paga frete, e no fim do mês
+          <b>o dinheiro sumiu sem explicação</b>.</p>
 
         <div class="palco palco-mob">
-          <div class="fone">
+          <div class="fone fone-vsl">
             <div class="tela">
-              <video src="demo-uso.mp4" poster="demo-venda.png" width="720" height="1513"
-                     autoplay muted loop playsinline
-                     aria-label="O aplicativo em uso: registrando uma venda, dando baixa no estoque e mostrando o lucro"></video>
+              <div class="vsl" id="vslMob" data-vsl>
+                <video src="vsl.mp4" width="406" height="728" autoplay muted loop playsinline preload="metadata"
+                       aria-label="Como o aplicativo funciona, do cadastro do produto ao lucro da venda"></video>
+                <div class="barra"><i></i></div>
+                <div class="som" role="button" tabindex="0" aria-label="Tocar com som, do inicio">
+                  <b><svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/></svg><span>Ouvir</span></b>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -423,11 +469,16 @@ alt=""/></noscript>
       </div>
 
       <div class="palco palco-desk">
-        <div class="fone">
+        <div class="fone fone-vsl">
           <div class="tela">
-            <video src="demo-uso.mp4" poster="demo-venda.png" width="720" height="1513"
-                   autoplay muted loop playsinline
-                   aria-label="O aplicativo em uso: registrando uma venda, dando baixa no estoque e mostrando o lucro"></video>
+            <div class="vsl" id="vslDesk" data-vsl>
+                <video src="vsl.mp4" width="406" height="728" autoplay muted loop playsinline preload="metadata"
+                       aria-label="Como o aplicativo funciona, do cadastro do produto ao lucro da venda"></video>
+                <div class="barra"><i></i></div>
+                <div class="som" role="button" tabindex="0" aria-label="Tocar com som, do inicio">
+                  <b><svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/></svg><span>Ouvir</span></b>
+                </div>
+              </div>
           </div>
         </div>
       </div>
@@ -502,9 +553,14 @@ alt=""/></noscript>
           seu celular e <b>ganha ícone na sua tela inicial</b>, junto dos seus outros apps.
           Você abre e usa: sem criar conta, sem senha pra esquecer, sem ocupar espaço no
           aparelho.</p>
-        <div class="tela-app">
-          <div><img src="mockup-app.png" width="720" height="1080" loading="lazy"
-                    alt="O aplicativo aberto no resumo do mês: vendido, lucro das vendas, despesas, o que sobrou de verdade, o fiado a receber e os campeões de lucro"></div>
+        <div class="palco" style="padding:0">
+          <div class="fone">
+            <div class="tela">
+              <video src="demo-uso.mp4" poster="demo-venda.png" width="720" height="1513"
+                     autoplay muted loop playsinline preload="metadata"
+                     aria-label="O aplicativo em uso: registrando uma venda, dando baixa no estoque e mostrando o lucro"></video>
+            </div>
+          </div>
         </div>
         <p class="legenda">O resumo que você nunca teve: vendido, lucro, despesas e o que
           sobrou de verdade no mês.</p>
@@ -805,6 +861,59 @@ var CHECKOUT = 'https://pay.cakto.com.br/3ko7pit';   /* front R$ 47, oferta 3ko7
       }, {threshold:0.6}).observe(el);
     });
   }
+})();
+</script>
+
+<script>
+/* VSL do hero.
+   Regras (Vini, 02/09/2026):
+   - o video nao tem controle: nao da pra pausar, arrastar nem voltar
+   - abre MUDO, em loop, com um botao grande de som no meio
+   - ao tocar, ele REINICIA do zero e passa a tocar com som
+   - a barrinha de baixo so mostra o progresso, nao e arrastavel */
+(function(){
+  document.querySelectorAll('[data-vsl]').forEach(function(box){
+    var v = box.querySelector('video');
+    var fill = box.querySelector('.barra i');
+    var somOn = false;
+
+    /* impede pausa por clique/teclado do proprio elemento */
+    v.addEventListener('pause', function(){ if(!v.ended) v.play().catch(function(){}); });
+    v.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+
+    function progresso(){
+      if (v.duration) fill.style.width = (v.currentTime / v.duration * 100) + '%';
+    }
+    v.addEventListener('timeupdate', progresso);
+
+    function ligarSom(){
+      if (somOn) return;
+      somOn = true;
+      box.classList.add('tocando');
+      v.loop = false;          /* com som, toca uma vez ate o fim */
+      v.muted = false;
+      v.currentTime = 0;       /* REINICIA do zero */
+      v.play().catch(function(){ /* se o navegador barrar, volta pro mudo */
+        v.muted = true; v.loop = true; somOn = false; box.classList.remove('tocando'); v.play();
+      });
+    }
+
+    /* so o BOTAO liga o som. Antes o clique valia na caixa inteira, entao
+       qualquer toque perto do video (ou um clique automatico) ja religava. */
+    var botao = box.querySelector('.som');
+    botao.addEventListener('click', function(e){ e.stopPropagation(); ligarSom(); });
+    botao.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); ligarSom(); }
+    });
+    /* clique no video nao faz nada: nao pausa, nao volta, nao liga som sem querer */
+    v.addEventListener('click', function(e){ e.preventDefault(); });
+
+    /* terminou com som: volta pro estado inicial, mudo em loop */
+    v.addEventListener('ended', function(){
+      somOn = false; box.classList.remove('tocando');
+      v.muted = true; v.loop = true; v.currentTime = 0; v.play().catch(function(){});
+    });
+  });
 })();
 </script>
 </body>
