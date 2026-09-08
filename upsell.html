@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Precifique seu estoque em minutos | Lucro na Mão</title>
+<title>O preço certo do seu produto | Lucro na Mão</title>
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="favicon-180.png">
@@ -35,6 +35,38 @@ img{max-width:100%;display:block}
   font-weight:800;letter-spacing:.14em;text-transform:uppercase;border-radius:999px;
   padding:5px 12px}
 .oferta b{color:#fff;font-size:15px;letter-spacing:-.2px}
+/* BANNER reforcado 2x em 08/09/2026 (pedido do Vini). O trabalho dele e um
+   so: fazer ela PARAR, porque acabou de pagar e o instinto e sair pra
+   procurar o e-mail. Entao aqui NAO entra argumento (conveniencia, 1 toque,
+   preco): argumento e depois, junto do botao. Aqui e chamada pura.
+   O selo tem ponto piscando (tipo "ao vivo"), a faixa tem brilho que
+   atravessa, e a borda inferior marca a separacao do conteudo. */
+.oferta{padding:22px 0 20px;position:relative;overflow:hidden;
+  border-bottom:3px solid var(--vinho)}
+.oferta .w{flex-direction:column;gap:11px;position:relative;z-index:1}
+.oferta b.grande{font-size:27px;font-weight:800;letter-spacing:-.7px;
+  line-height:1.12;text-wrap:balance;
+  text-shadow:0 2px 12px rgba(0,0,0,.28)}
+@media (min-width:520px){.oferta b.grande{font-size:31px}}
+/* selo: maior, com ponto piscando */
+.oferta .selo{display:inline-flex;align-items:center;gap:7px;
+  font-size:12.5px;letter-spacing:.17em;padding:7px 16px;
+  box-shadow:0 4px 14px rgba(0,0,0,.22);
+  animation:pulso 2s ease-in-out infinite}
+.oferta .selo .pisca{width:7px;height:7px;border-radius:50%;
+  background:var(--vinho);flex-shrink:0;
+  animation:piscando 1.1s ease-in-out infinite}
+@keyframes pulso{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes piscando{0%,100%{opacity:1}50%{opacity:.2}}
+/* brilho que atravessa a faixa, discreto e continuo */
+.oferta::after{content:'';position:absolute;top:0;bottom:0;width:45%;
+  left:-60%;z-index:0;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.13),transparent);
+  animation:varre 4.5s ease-in-out infinite}
+@keyframes varre{0%{left:-60%}55%,100%{left:115%}}
+@media (prefers-reduced-motion:reduce){
+  .oferta .selo,.oferta .selo .pisca,.oferta::after{animation:none}
+  .oferta::after{display:none}}
 /* Confirmacao da compra: primeira coisa da tela, acima de tudo, e generosa.
    Ela acabou de pagar e precisa ver que deu certo antes de qualquer oferta. */
 .ok{background:var(--verde-bg);border-bottom:1px solid #cfe8da;padding:17px 0}
@@ -61,14 +93,29 @@ h1 .serif{display:block;font-family:var(--serif);font-weight:400;font-style:ital
   margin:0 auto 26px;line-height:1.5}
 .sub b{color:var(--tinta)}
 
-/* A PROVA e o argumento. A folha de etiquetas fala sozinha, e o texto ao lado
-   dela e legenda, nao paragrafo. Regra desta pagina: ela ja comprou 30s atras,
-   entao o trabalho e mostrar UMA coisa e dar o botao, nao convencer de novo. */
+/* A PROVA e o argumento, e desde 08/09/2026 a prova e a TELA DO SIMULADOR
+   dizendo "vendendo a R$ 39,90 voce PERDE R$ 3,06 por peca", nao a folha de
+   etiquetas (que desceu pro ultimo bloco). Motivo: o aceite era de 1,2% contra
+   premissa de 10%, porque a pagina vendia OUTRA dor (trabalho braçal de fazer
+   etiqueta) em vez da dor que o anuncio pagou pra trazer (nao sei quanto sobra).
+   Regra desta pagina: ela ja comprou 30s atras, entao o trabalho e mostrar UMA
+   coisa e dar o botao, nao convencer de novo. */
 .caixa{background:#fff;border:1px solid var(--linha);border-radius:var(--r-lg);
   padding:22px 20px 24px;box-shadow:0 24px 50px -34px rgba(61,15,36,.4)}
 .foto{border:1px solid var(--linha);border-radius:12px;overflow:hidden;
   background:var(--rose2);margin-bottom:18px}
 .foto img{width:100%;height:auto}
+/* legenda da prova: diz o que ela esta vendo na tela, porque print de app
+   sem legenda o leitor nao decodifica em 2 segundos */
+.leg{font-size:13.5px;color:var(--cinza);text-align:center;margin:-6px 0 18px;
+  line-height:1.45;padding:0 6px}
+.leg b{color:var(--vinho)}
+/* a linha da dor, logo abaixo do h1: e o unico paragrafo da pagina que
+   fala do MES DELA, e nao do produto */
+.cena{background:var(--rose2);border:1px solid var(--linha);border-radius:var(--r);
+  padding:16px 18px;font-size:15.5px;line-height:1.55;color:var(--cinza);
+  margin-bottom:22px}
+.cena b{color:var(--tinta)}
 .duas{display:grid;gap:13px;margin-bottom:20px}
 .duas div{display:flex;gap:11px;align-items:flex-start;font-size:15.5px;
   line-height:1.5;color:var(--cinza)}
@@ -86,12 +133,27 @@ h1 .serif{display:block;font-family:var(--serif);font-weight:400;font-style:ital
 .acao{margin-top:20px}
 cakto-upsell-buttons{display:block;width:100%}
 cakto-upsell-accept,cakto-upsell-reject{display:block;width:100%}
+/* CTA reforcado em 08/09/2026 (pedido do Vini): maior, mais alto e com
+   brilho, porque e o unico botao que importa nesta tela. */
 cakto-upsell-accept::part(button){
-  display:block;width:100%;background:linear-gradient(165deg,#8e2757,#5c1838);
-  color:#fff;font-family:var(--sans);font-size:17px;font-weight:800;letter-spacing:-.2px;
-  border:0;border-radius:var(--r);padding:17px 18px;cursor:pointer;line-height:1.3;
-  box-shadow:0 14px 26px -14px rgba(92,24,56,.8)}
-cakto-upsell-accept::part(button):active{transform:translateY(1px)}
+  display:block;width:100%;background:linear-gradient(165deg,#a52d64,#5c1838);
+  color:#fff;font-family:var(--sans);font-size:19.5px;font-weight:800;letter-spacing:-.3px;
+  border:0;border-radius:var(--r);padding:22px 18px;cursor:pointer;line-height:1.25;
+  box-shadow:0 18px 34px -14px rgba(92,24,56,.9);
+  animation:respira 2.8s ease-in-out infinite}
+cakto-upsell-accept::part(button):active{transform:translateY(2px);animation:none}
+@keyframes respira{
+  0%,100%{box-shadow:0 18px 34px -14px rgba(92,24,56,.9)}
+  50%{box-shadow:0 18px 44px -10px rgba(165,45,100,.95)}}
+@media (prefers-reduced-motion:reduce){
+  cakto-upsell-accept::part(button){animation:none}}
+/* selo logo acima do botao: a vantagem concreta de clicar AQUI */
+.toque{display:flex;align-items:center;justify-content:center;gap:8px;
+  background:var(--verde-bg);color:var(--verde);border:1px solid #cfe8da;
+  border-radius:999px;font-size:13.5px;font-weight:800;padding:9px 14px;
+  margin-bottom:13px;text-align:center;line-height:1.3}
+.toque svg{width:17px;height:17px;flex-shrink:0;fill:none;stroke:var(--verde);
+  stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
 cakto-upsell-reject::part(button){
   display:block;width:100%;background:transparent;color:var(--cinza);
   font-family:var(--sans);font-size:14px;font-weight:600;border:0;
@@ -138,43 +200,82 @@ alt=""/></noscript>
 
 <div class="topo"><img src="logo-branca.png" alt="Lucro na Mão" width="434" height="136"></div>
 
+<!-- BANNER: agressivo de proposito (pedido do Vini, 08/09/2026). Ela acabou de
+     pagar e o instinto e sair da tela pra procurar o e-mail, entao o banner tem
+     ~3 segundos pra fazer ela PARAR.
+     O QUE ELE NAO DIZ, e e regra: nada de "so nesta tela", "esta tela nao volta"
+     ou "depois o preco sobe". Conferido em 08/09/2026 com o Vini: o mesmo app
+     aparece DEPOIS dentro do hub, pelo mesmo link e o mesmo R$ 67. Escassez de
+     tela e de preco seria FALSA, e a risco-br proibe (linhas 233-234: contador
+     que reinicia e "ultimas vagas" em digital).
+     A vantagem REAL, e a unica que pode ser dita: aqui e 1 CLIQUE, porque o
+     pagamento dela acabou de ser aprovado e nao precisa ser digitado de novo.
+     A urgencia e de CONVENIENCIA, nao de medo. -->
 <div class="oferta">
   <div class="w">
-    <span class="selo">oferta especial</span>
-    <b>Só nesta tela, e uma vez só</b>
+    <span class="selo">
+      <span class="pisca"></span>
+      oferta especial
+    </span>
+    <b class="grande">Antes de você começar,<br>leia isto</b>
   </div>
 </div>
 
 <main class="w">
-  <h1>Cansada de fazer preço e etiqueta uma por uma?
-    <span class="serif">Precifique seu estoque em minutos.</span></h1>
-  <p class="sub">O app calcula <b>por quanto vender cada peça</b>, com frete e
-    taxa já dentro, e <b>monta as etiquetas com a sua marca</b>. Você só
-    imprime e corta.</p>
+  <!-- HEADLINE, reescrita em 08/09/2026 apos critica do Vini: a versao anterior
+       ("Logo o Controle vai te mostrar quanto sobrou. E se sobrar pouco?") abria
+       a dor mas NAO dizia o que o produto e, e ela tinha que rolar ate a imagem
+       pra descobrir. A regra que valeu (oferta-vence-produto.md, elemento 1):
+       a headline responde "isso e sobre mim?" com ESPECIFICIDADE.
+       Agora nomeia a solucao (calcular o preco certo) e o resultado (quanto
+       sobra) na mesma respiracao, e a dor desceu pra linha de apoio.
+       VOCABULARIO: "margem" NAO entra. O voz-do-publico.md da 004 lista
+       "margem de contribuicao" entre as palavras que ela nao diz, e a LP do
+       front usa "quanto sobrou" 3x e "margem" 0x. Decisao do Vini nesta sessao. -->
+  <h1>Como calcular o preço certo do seu produto
+    <span class="serif">e parar de vender no prejuízo sem saber</span></h1>
+  <p class="sub">Pare de chutar o preço.
+    <b>O chute é o que come o seu lucro.</b></p>
+
+  <div class="cena">
+    Você vai registrar suas vendas e abrir o resumo do mês. Aí aparece o lucro de
+    cada produto, e quase sempre tem um que <b>deixou muito menos do que você
+    imaginava</b>. Quando isso acontecer, o problema quase nunca é a venda:
+    <b>é o preço que foi feito no chute.</b>
+  </div>
 
   <div class="caixa">
     <div class="foto">
-      <img src="demo-etiquetas.png" width="1240" height="1754" loading="lazy"
-           alt="Folha A4 com 8 etiquetas de preço">
+      <img src="demo-simulador.png" width="664" height="784" loading="lazy"
+           alt="Tela do app avisando que vender a R$ 39,90 dá prejuízo de R$ 3,06 por peça">
     </div>
+    <p class="leg">Produto que custou R$ 32, com frete e embalagem: a R$ 39,90 ele
+      <b>dá prejuízo de R$ 3,06</b> depois da taxa. O app avisa antes de você
+      anunciar.</p>
 
     <div class="duas">
-      <div><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span><b>O preço certo de cada peça, sem você fazer conta.</b>
+      <div><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span><b>Descubra o preço certo antes de anunciar.</b>
         Frete, embalagem, taxa da maquininha e o quanto você quer ganhar: tudo
-        já entra. O lote inteiro numa tela.</span></div>
-      <div><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span><b>Antes de dar desconto, você vê quanto ainda sobra.</b>
-        Testa qualquer preço e descobre se vale a pena, na hora.</span></div>
-      <div><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span><b>E sai etiquetado, com o nome da sua lojinha.</b>
-        Sem Canva, sem Word, sem caneta. A cliente vê o preço sozinha.</span></div>
+        já entra na conta. Você não faz nada.</span></div>
+      <div><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span><b>&ldquo;E se eu vender por 39,90?&rdquo;</b>
+        Você digita o preço e vê na hora quanto sobra. Antes de dar desconto,
+        antes de fechar promoção, antes de responder a cliente.</span></div>
+      <div><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span><b>O lote inteiro numa tela.</b>
+        Comprou 20 produtos? Põe o frete do pedido uma vez e sai o preço de cada
+        um. E já sai etiquetado com o nome da sua lojinha.</span></div>
     </div>
 
     <div class="preco">
       <div class="val"><sup>R$</sup>67</div>
       <div class="uma">uma vez só, é seu pra sempre</div>
-      <div class="so">Só nesta tela, e em 1 clique.<br>Você não digita nada de novo.</div>
+      <div class="so">Em 1 toque, sem digitar pagamento de novo.<br>O acesso entra junto com o do Controle.</div>
     </div>
 
     <div class="acao">
+      <div class="toque">
+        <svg viewBox="0 0 24 24"><path d="M13 2L4.1 12.7c-.6.7-.1 1.8.8 1.8H11l-1 7.5 8.9-10.7c.6-.7.1-1.8-.8-1.8H12l1-7.5z"/></svg>
+        Seu pagamento já está aprovado: é só 1 toque
+      </div>
       <cakto-upsell-buttons>
         <cakto-upsell-accept
           bg-color="#8e2757ff"
@@ -185,7 +286,7 @@ alt=""/></noscript>
           offer-type="upsell"
           upsell-reject-url="members_area"
         >
-          Quero precificar meu estoque
+          Quero parar de vender no prejuízo
         </cakto-upsell-accept>
         <cakto-upsell-reject
           upsell-reject-url="members_area"
