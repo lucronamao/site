@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Catálogo na Mão | Lucro na Mão</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="favicon-180.png">
+<style>
+:root{
+  --vinho:#8e2757; --vinho-esc:#5c1838; --vinho-prof:#3d0f24;
+  --rose:#f6e7ee; --rose2:#fdf6f9; --creme:#fffaf6;
+  --tinta:#2a1f28; --cinza:#6f6478; --linha:#ecdfe6;
+  --verde:#1e7d4f; --verde-bg:#e8f5ee;
+  --r:16px; --r-lg:26px;
+  --serif:ui-serif,Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--sans);background:var(--creme);color:var(--tinta);
+  font-size:16px;line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+.w{width:100%;max-width:680px;margin:0 auto;padding:0 20px}
+
+/* BANNER de oferta: e a primeira coisa que ela ve, e o trabalho dele e
+   sinalizar "isso aqui e diferente, presta atencao". A confirmacao da compra
+   desceu pra uma linha discreta no fim: ela ja sabe que pagou, nao precisa de
+   faixa verde grande roubando o topo. */
+.oferta{background:linear-gradient(100deg,var(--vinho),var(--vinho-prof));padding:14px 0;
+  border-top:1px solid rgba(255,255,255,.16);box-shadow:0 10px 22px -16px rgba(61,15,36,.7)}
+.oferta .w{display:flex;align-items:center;justify-content:center;gap:11px;
+  flex-wrap:wrap;text-align:center}
+.oferta .selo{background:rgba(255,255,255,.95);color:var(--vinho);font-size:10.5px;
+  font-weight:800;letter-spacing:.14em;text-transform:uppercase;border-radius:999px;
+  padding:5px 12px}
+.oferta b{color:#fff;font-size:15px;letter-spacing:-.2px}
+/* BANNER reforcado 2x em 08/09/2026 (pedido do Vini). O trabalho dele e um
+   so: fazer ela PARAR, porque acabou de pagar e o instinto e sair pra
+   procurar o e-mail. Entao aqui NAO entra argumento (conveniencia, 1 toque,
+   preco): argumento e depois, junto do botao. Aqui e chamada pura.
+   O selo tem ponto piscando (tipo "ao vivo"), a faixa tem brilho que
+   atravessa, e a borda inferior marca a separacao do conteudo. */
+.oferta{padding:22px 0 20px;position:relative;overflow:hidden;
+  border-bottom:3px solid var(--vinho)}
+.oferta .w{flex-direction:column;gap:11px;position:relative;z-index:1}
+.oferta b.grande{font-size:27px;font-weight:800;letter-spacing:-.7px;
+  line-height:1.12;text-wrap:balance;
+  text-shadow:0 2px 12px rgba(0,0,0,.28)}
+@media (min-width:520px){.oferta b.grande{font-size:31px}}
+/* selo: maior, com ponto piscando */
+.oferta .selo{display:inline-flex;align-items:center;gap:7px;
+  font-size:12.5px;letter-spacing:.17em;padding:7px 16px;
+  box-shadow:0 4px 14px rgba(0,0,0,.22);
+  animation:pulso 2s ease-in-out infinite}
+.oferta .selo .pisca{width:7px;height:7px;border-radius:50%;
+  background:var(--vinho);flex-shrink:0;
+  animation:piscando 1.1s ease-in-out infinite}
+@keyframes pulso{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes piscando{0%,100%{opacity:1}50%{opacity:.2}}
+/* brilho que atravessa a faixa, discreto e continuo */
+.oferta::after{content:'';position:absolute;top:0;bottom:0;width:45%;
+  left:-60%;z-index:0;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.13),transparent);
+  animation:varre 4.5s ease-in-out infinite}
+@keyframes varre{0%{left:-60%}55%,100%{left:115%}}
+@media (prefers-reduced-motion:reduce){
+  .oferta .selo,.oferta .selo .pisca,.oferta::after{animation:none}
+  .oferta::after{display:none}}
+/* Confirmacao da compra: primeira coisa da tela, acima de tudo, e generosa.
+   Ela acabou de pagar e precisa ver que deu certo antes de qualquer oferta. */
+.ok{background:var(--verde-bg);border-bottom:1px solid #cfe8da;padding:17px 0}
+.ok .w{display:flex;align-items:center;gap:13px}
+.ok svg{width:30px;height:30px;flex-shrink:0;fill:none;stroke:var(--verde);
+  stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.ok b{display:block;font-size:17px;color:var(--verde);letter-spacing:-.3px}
+.ok span{font-size:14px;color:var(--cinza);line-height:1.45}
+.conf svg{width:18px;height:18px;flex-shrink:0;fill:none;stroke:var(--verde);
+  stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+
+.topo{background:linear-gradient(168deg,var(--vinho),var(--vinho-prof));
+  padding:22px 0 20px;text-align:center}
+.topo img{height:34px;width:auto;margin:0 auto}
+
+main{padding:30px 0 44px}
+.olho{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--vinho);margin-bottom:10px;text-align:center}
+h1{font-family:var(--sans);font-size:31px;line-height:1.15;letter-spacing:-1.1px;
+  font-weight:800;text-align:center;margin-bottom:14px}
+h1 .serif{display:block;font-family:var(--serif);font-weight:400;font-style:italic;
+  color:var(--vinho);letter-spacing:-.4px}
+.sub{text-align:center;color:var(--cinza);font-size:17px;max-width:30ch;
+  margin:0 auto 26px;line-height:1.5}
+.sub b{color:var(--tinta)}
+
+/* A PROVA e o argumento, e desde 08/09/2026 a prova e a TELA DO SIMULADOR
+   dizendo "vendendo a R$ 39,90 voce PERDE R$ 3,06 por peca", nao a folha de
+   etiquetas (que desceu pro ultimo bloco). Motivo: o aceite era de 1,2% contra
+   premissa de 10%, porque a pagina vendia OUTRA dor (trabalho braçal de fazer
+   etiqueta) em vez da dor que o anuncio pagou pra trazer (nao sei quanto sobra).
+   Regra desta pagina: ela ja comprou 30s atras, entao o trabalho e mostrar UMA
+   coisa e dar o botao, nao convencer de novo. */
+.caixa{background:#fff;border:1px solid var(--linha);border-radius:var(--r-lg);
+  padding:22px 20px 24px;box-shadow:0 24px 50px -34px rgba(61,15,36,.4)}
+.foto{border:1px solid var(--linha);border-radius:12px;overflow:hidden;
+  background:var(--rose2);margin-bottom:18px}
+.foto img{width:100%;height:auto}
+/* legenda da prova: diz o que ela esta vendo na tela, porque print de app
+   sem legenda o leitor nao decodifica em 2 segundos */
+.leg{font-size:13.5px;color:var(--cinza);text-align:center;margin:-6px 0 18px;
+  line-height:1.45;padding:0 6px}
+.leg b{color:var(--vinho)}
+/* a linha da dor, logo abaixo do h1: e o unico paragrafo da pagina que
+   fala do MES DELA, e nao do produto */
+.cena{background:var(--rose2);border:1px solid var(--linha);border-radius:var(--r);
+  padding:16px 18px;font-size:15.5px;line-height:1.55;color:var(--cinza);
+  margin-bottom:22px}
+.cena b{color:var(--tinta)}
+.duas{display:grid;gap:10px;margin-bottom:18px}
+.duas div{display:flex;gap:10px;align-items:center;font-size:15px;
+  line-height:1.4;color:var(--cinza)}
+.duas b{color:var(--tinta);font-weight:700}
+.duas svg{width:21px;height:21px;flex-shrink:0;margin-top:2px;fill:none;
+  stroke:var(--verde);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.preco{text-align:center;border-top:1px solid var(--linha);padding-top:20px}
+.preco .val{font-weight:800;font-size:46px;line-height:1;color:var(--vinho);
+  letter-spacing:-1.8px}
+.preco .val sup{font-size:.4em;vertical-align:super;letter-spacing:0}
+.preco .uma{display:inline-block;background:var(--verde-bg);color:var(--verde);
+  font-size:12.5px;font-weight:800;border-radius:999px;padding:5px 13px;margin-top:10px}
+.so{text-align:center;font-size:14px;color:var(--vinho);font-weight:700;
+  margin-top:16px;line-height:1.5}
+.acao{margin-top:20px}
+cakto-upsell-buttons{display:block;width:100%}
+cakto-upsell-accept,cakto-upsell-reject{display:block;width:100%}
+/* CTA reforcado em 08/09/2026 (pedido do Vini): maior, mais alto e com
+   brilho, porque e o unico botao que importa nesta tela. */
+cakto-upsell-accept::part(button){
+  display:block;width:100%;background:linear-gradient(165deg,#a52d64,#5c1838);
+  color:#fff;font-family:var(--sans);font-size:19.5px;font-weight:800;letter-spacing:-.3px;
+  border:0;border-radius:var(--r);padding:22px 18px;cursor:pointer;line-height:1.25;
+  box-shadow:0 18px 34px -14px rgba(92,24,56,.9);
+  animation:respira 2.8s ease-in-out infinite}
+cakto-upsell-accept::part(button):active{transform:translateY(2px);animation:none}
+@keyframes respira{
+  0%,100%{box-shadow:0 18px 34px -14px rgba(92,24,56,.9)}
+  50%{box-shadow:0 18px 44px -10px rgba(165,45,100,.95)}}
+@media (prefers-reduced-motion:reduce){
+  cakto-upsell-accept::part(button){animation:none}}
+/* selo logo acima do botao: a vantagem concreta de clicar AQUI */
+.toque{display:flex;align-items:center;justify-content:center;gap:8px;
+  background:var(--verde-bg);color:var(--verde);border:1px solid #cfe8da;
+  border-radius:999px;font-size:13.5px;font-weight:800;padding:9px 14px;
+  margin-bottom:13px;text-align:center;line-height:1.3}
+.toque svg{width:17px;height:17px;flex-shrink:0;fill:none;stroke:var(--verde);
+  stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+cakto-upsell-reject::part(button){
+  display:block;width:100%;background:transparent;color:var(--cinza);
+  font-family:var(--sans);font-size:14px;font-weight:600;border:0;
+  padding:16px 8px;cursor:pointer;text-decoration:underline;line-height:1.4}
+
+.ga{text-align:center;font-size:13.5px;color:var(--cinza);margin-top:18px}
+
+footer{text-align:center;font-size:12.5px;color:var(--cinza);padding:0 20px 34px}
+
+/* ===== VSL, no mesmo padrao da LP (21/09/2026) =====
+   Regra do Vini: "em formato VSL, igual da LP". Entao: toca sozinha SEM SOM ao
+   abrir, sem controles de navegador, com um botao grande de som no meio e barra
+   de progresso que nao deixa arrastar. O toque no botao REINICIA do zero com
+   som, senao ela ouviria a narracao pela metade.
+   `playsinline` e obrigatorio: sem ele o iPhone abre em tela cheia e tira a
+   compradora da pagina de checkout. */
+.vsl{position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--linha);
+  background:#000;margin:0 auto 14px;max-width:340px;
+  box-shadow:0 18px 40px -26px rgba(61,15,36,.55);aspect-ratio:1080/1350}
+.vsl video{width:100%;height:100%;object-fit:cover;display:block;background:#000}
+.vsl .barra-p{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(0,0,0,.28);z-index:3}
+.vsl .barra-p i{display:block;height:100%;width:0;background:var(--vinho);transition:width .2s linear}
+.vsl .som{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  z-index:4;background:rgba(20,4,12,.30);transition:opacity .25s ease;border:0;padding:0;
+  width:100%;cursor:pointer}
+.vsl.tocando .som{opacity:0;pointer-events:none}
+.vsl .som b{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;
+  width:96px;height:96px;border-radius:50%;background:rgba(255,255,255,.94);
+  box-shadow:0 10px 30px -8px rgba(20,4,12,.6);animation:pulsa 2.2s ease-in-out infinite}
+.vsl .som svg{width:34px;height:34px;fill:none;stroke:#1d1218;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.vsl .som span{font-size:11px;font-weight:800;color:#1d1218;letter-spacing:.02em;text-transform:uppercase}
+@keyframes pulsa{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@media (prefers-reduced-motion:reduce){.vsl .som b{animation:none}}
+
+/* ===== O CTA AQUI E LINK, NAO BOTAO DE 1 CLIQUE (21/09/2026) =====
+   Esta pagina e a versao PRE-COMPRA, aberta pelo app por quem ainda nao tem o
+   Catalogo. Os elementos <cakto-upsell-*> so funcionam logo apos um pagamento
+   aprovado (eles levam o upsell de 1 clique), entao aqui o CTA e um link normal
+   pro checkout. A cara e a mesma do botao da outra pagina, de proposito. */
+.cta-link{display:block;width:100%;text-align:center;text-decoration:none;
+  background:linear-gradient(180deg,#a32e64,#8e2757);color:#fff;font-weight:800;
+  font-size:18.5px;letter-spacing:-.2px;padding:19px 18px;border-radius:14px;
+  box-shadow:0 12px 26px -12px rgba(142,39,87,.75);line-height:1.25;
+  animation:pulsaBtn 2.6s ease-in-out infinite}
+.cta-link:active{transform:translateY(2px);animation:none}
+@keyframes pulsaBtn{0%,100%{transform:scale(1)}50%{transform:scale(1.018)}}
+@media (prefers-reduced-motion:reduce){.cta-link{animation:none}}
+.barra .cta-link{padding:13px 12px;font-size:15.5px;border-radius:12px;animation:none}
+
+/* ===== BARRA FIXA (21/09/2026) =====
+   Regra do Vini: "falta o botao que segue a tela, hoje o usuario tem que ir ate
+   embaixo". Igual a LP: aparece depois que a dobra passa e some quando o botao
+   de verdade entra em cena, pra nao competirem. */
+.barra{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,250,246,.95);
+  backdrop-filter:blur(10px);border-top:1px solid var(--linha);padding:10px 16px;
+  padding-bottom:calc(10px + env(safe-area-inset-bottom));display:none;gap:12px;align-items:center}
+.barra.on{display:flex}
+.barra .p{font-weight:800;color:var(--vinho);font-size:19px;line-height:1;white-space:nowrap}
+.barra .p small{display:block;font-size:10.5px;color:var(--cinza);font-weight:700}
+.barra .cta{flex:1}
+/* o botao da Cakto dentro da barra: mesma cara do de baixo, so mais baixo */
+.barra cakto-upsell-accept{display:block}
+.barra cakto-upsell-accept button,.barra cakto-upsell-accept a{padding:13px 12px!important;font-size:15.5px!important}
+
+/* a dobra: headline + video tem que caber SEM ROLAR. Numa tela de 844px o topo
+   (faixa + banner + logo) come ~300px, entao o texto aqui e curto de proposito. */
+@media (max-height:820px){
+  h1{font-size:27px}
+  .sub{margin-bottom:12px}
+  .vsl{max-width:290px}
+}
+</style>
+
+<!-- Meta Pixel: SO o base e o PageView.
+     O Purchase sai EXCLUSIVAMENTE pela CAPI da Cakto (regra dura da
+     funil-montar, secao C): duas origens sem event_id casado duplicam a
+     conversao, o Meta passa a achar que o CPA e metade do real e escala
+     criativo que da prejuizo. Nao adicionar fbq('track','Purchase') aqui. -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1541556727158977');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1541556727158977&ev=PageView&noscript=1"
+alt=""/></noscript>
+</head>
+<body>
+
+<div class="topo"><img src="logo-branca.png" alt="Lucro na Mão" width="434" height="136"></div>
+
+<!-- BANNER: agressivo de proposito (pedido do Vini, 08/09/2026). Ela acabou de
+     pagar e o instinto e sair da tela pra procurar o e-mail, entao o banner tem
+     ~3 segundos pra fazer ela PARAR.
+     O QUE ELE NAO DIZ, e e regra: nada de "so nesta tela", "esta tela nao volta"
+     ou "depois o preco sobe". Conferido em 08/09/2026 com o Vini: o mesmo app
+     aparece DEPOIS dentro do hub, pelo mesmo link e o mesmo R$ 67. Escassez de
+     tela e de preco seria FALSA, e a risco-br proibe (linhas 233-234: contador
+     que reinicia e "ultimas vagas" em digital).
+     A vantagem REAL, e a unica que pode ser dita: aqui e 1 CLIQUE, porque o
+     pagamento dela acabou de ser aprovado e nao precisa ser digitado de novo.
+     A urgencia e de CONVENIENCIA, nao de medo. -->
+<div class="oferta">
+  <div class="w">
+    <span class="selo">
+      <span class="pisca"></span>
+      oferta especial
+    </span>
+    <b class="grande">Falta só isto pra<br>vender mais no WhatsApp</b>
+  </div>
+</div>
+
+<main class="w">
+  <!-- HEADLINE, reescrita em 08/09/2026 apos critica do Vini: a versao anterior
+       ("Logo o Controle vai te mostrar quanto sobrou. E se sobrar pouco?") abria
+       a dor mas NAO dizia o que o produto e, e ela tinha que rolar ate a imagem
+       pra descobrir. A regra que valeu (oferta-vence-produto.md, elemento 1):
+       a headline responde "isso e sobre mim?" com ESPECIFICIDADE.
+       Agora nomeia a solucao (calcular o preco certo) e o resultado (quanto
+       sobra) na mesma respiracao, e a dor desceu pra linha de apoio.
+       VOCABULARIO: "margem" NAO entra. O voz-do-publico.md da 004 lista
+       "margem de contribuicao" entre as palavras que ela nao diz, e a LP do
+       front usa "quanto sobrou" 3x e "margem" 0x. Decisao do Vini nesta sessao. -->
+  <!-- HEADLINE reescrita em 21/09/2026: o upsell deixou de ser Precificacao na
+       Mao e virou CATALOGO na Mao. Motivo (decisao do Vini): "ninguem vai pagar
+       para precificar algo". Precificar e trabalho de bastidor, usado uma vez;
+       catalogo e ferramenta de vender, usada toda semana.
+       A headline nomeia a SOLUCAO e o RESULTADO na mesma respiracao, como a
+       anterior fazia, e a dor desce pra linha de apoio (a cutucada que o Vini
+       escreveu: "voce ainda manda foto uma por uma?"). -->
+  <h1>Seu catálogo pronto
+    <span class="serif">pra mandar no WhatsApp</span></h1>
+  <p class="sub">Você ainda manda as fotos <b>uma por uma?</b></p>
+
+  <!-- A VSL vem ANTES da caixa: em 39s ela ve o catalogo sair do estoque e
+       chegar na conversa, que e mais do que qualquer print explica. -->
+  <div class="vsl" id="vslBox" data-vsl>
+    <video src="vsl-catalogo.mp4" poster="vsl-capa.jpg"
+           muted loop autoplay playsinline preload="metadata"
+           aria-label="Vídeo mostrando o catálogo sendo montado e enviado no WhatsApp"></video>
+    <button type="button" class="som" aria-label="Tocar com som">
+      <b>
+        <svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7"/><path d="M18.5 5.5a9 9 0 010 13"/></svg>
+        <span>ouvir</span>
+      </b>
+    </button>
+    <div class="barra-p"><i></i></div>
+  </div>
+
+  <div class="caixa">
+    <div class="foto">
+      <img src="demo-zap.jpg" width="664" height="830" loading="lazy"
+           alt="Conversa no WhatsApp: o catálogo enviado e a cliente escolhendo duas peças">
+    </div>
+    <p class="leg">Ela vê tudo de uma vez e <b>já escolhe</b>,
+      sem você responder preço um por um.</p>
+
+  <div class="cena">
+    Mandar foto solta e responder <b>"quanto é?"</b> o dia todo cansa,
+    e faz a freguesa desistir no meio.
+  </div>
+
+
+    <div class="duas">
+      <div><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span>Sai pronto do seu estoque: <b>você não cadastra nada de novo</b></span></div>
+      <div><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span>Um toque e vai pro WhatsApp, <b>com a sua mensagem</b></span></div>
+      <div><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span>Do jeito que <b>loja grande manda</b>: organizado e com preço</span></div>
+    </div>
+
+    <div class="preco">
+      <div class="val"><sup>R$</sup>67</div>
+      <div class="uma">uma vez só, é seu pra sempre</div>
+      <div class="so">O acesso entra junto com o do Controle.</div>
+    </div>
+
+    <div class="acao">
+      <div class="toque">
+        <svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>
+        Pagamento único: é seu pra sempre
+      </div>
+      <a class="cta-link" href="https://pay.cakto.com.br/qd7cbqf"
+         target="_blank" rel="noopener">Quero o meu catálogo pronto</a>
+    </div>
+  </div>
+
+  <p class="ga">Não gostou? 7 dias pra pedir de volta, sem perguntas.</p>
+</main>
+
+<footer>Lucro na Mão · contato@lucronamao.online</footer>
+
+
+<!-- BARRA FIXA: o CTA segue a tela, como na LP. Ela some quando o botao de
+     verdade aparece, pra nao existirem dois botoes iguais na mesma dobra. -->
+<div class="barra" id="barraFixa">
+  <div class="p">R$ 67<small>uma vez só</small></div>
+  <div class="cta">
+    <a class="cta-link" href="https://pay.cakto.com.br/qd7cbqf"
+       target="_blank" rel="noopener">Quero o meu catálogo</a>
+  </div>
+</div>
+
+<script>
+/* ===== VSL no padrao da LP (21/09/2026) =====
+   Toca sozinha sem som; o botao religa DO ZERO com audio. Se o navegador barrar
+   o autoplay com som (politica de midia), volta pro mudo sem quebrar a pagina. */
+(function(){
+  var box = document.getElementById('vslBox');
+  if (!box) return;
+  var v = box.querySelector('video');
+  var fill = box.querySelector('.barra-p i');
+  var somOn = false;
+
+  v.addEventListener('pause', function(){ if (!v.ended && !somOn) v.play().catch(function(){}); });
+  v.addEventListener('timeupdate', function(){
+    if (v.duration) fill.style.width = (v.currentTime / v.duration * 100) + '%';
+  });
+
+  box.querySelector('.som').addEventListener('click', function(e){
+    e.stopPropagation();
+    if (somOn) return;
+    somOn = true;
+    box.classList.add('tocando');
+    v.loop = false;
+    v.muted = false;
+    v.currentTime = 0;
+    v.play().catch(function(){
+      v.muted = true; v.loop = true; somOn = false; box.classList.remove('tocando'); v.play();
+    });
+  });
+})();
+
+/* ===== BARRA FIXA =====
+   Aparece depois que a dobra passa, e some quando o botao real entra na tela:
+   dois botoes iguais visiveis ao mesmo tempo confundem. */
+(function(){
+  var barra = document.getElementById('barraFixa');
+  var acao = document.querySelector('main .acao');
+  if (!barra || !acao) return;
+  function ver(){
+    var r = acao.getBoundingClientRect();
+    var passouDobra = window.scrollY > 240;
+    /* "na tela" aqui quer dizer VISIVEL DE VERDADE: o botao tem que estar acima
+       da linha de baixo com folga. Usar `r.top < innerHeight` fazia a barra
+       piscar, porque o botao encostando na borda ja contava como visivel. */
+    var acaoVisivel = r.top < (window.innerHeight - 90) && r.bottom > 60;
+    barra.classList.toggle('on', passouDobra && !acaoVisivel);
+  }
+  window.addEventListener('scroll', ver, {passive:true});
+  window.addEventListener('resize', ver);
+  ver();
+})();
+</script>
+</body>
+</html>
