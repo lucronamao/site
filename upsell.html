@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>O preço certo do seu produto | Lucro na Mão</title>
+<title>O catálogo da sua lojinha pronto pra mandar | Lucro na Mão</title>
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="favicon-180.png">
@@ -162,6 +162,56 @@ cakto-upsell-reject::part(button){
 .ga{text-align:center;font-size:13.5px;color:var(--cinza);margin-top:18px}
 
 footer{text-align:center;font-size:12.5px;color:var(--cinza);padding:0 20px 34px}
+
+/* ===== VSL, no mesmo padrao da LP (21/09/2026) =====
+   Regra do Vini: "em formato VSL, igual da LP". Entao: toca sozinha SEM SOM ao
+   abrir, sem controles de navegador, com um botao grande de som no meio e barra
+   de progresso que nao deixa arrastar. O toque no botao REINICIA do zero com
+   som, senao ela ouviria a narracao pela metade.
+   `playsinline` e obrigatorio: sem ele o iPhone abre em tela cheia e tira a
+   compradora da pagina de checkout. */
+.vsl{position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--linha);
+  background:#000;margin:0 auto 14px;max-width:340px;
+  box-shadow:0 18px 40px -26px rgba(61,15,36,.55);aspect-ratio:1080/1350}
+.vsl video{width:100%;height:100%;object-fit:cover;display:block;background:#000}
+.vsl .barra-p{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(0,0,0,.28);z-index:3}
+.vsl .barra-p i{display:block;height:100%;width:0;background:var(--vinho);transition:width .2s linear}
+.vsl .som{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  z-index:4;background:rgba(20,4,12,.30);transition:opacity .25s ease;border:0;padding:0;
+  width:100%;cursor:pointer}
+.vsl.tocando .som{opacity:0;pointer-events:none}
+.vsl .som b{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;
+  width:96px;height:96px;border-radius:50%;background:rgba(255,255,255,.94);
+  box-shadow:0 10px 30px -8px rgba(20,4,12,.6);animation:pulsa 2.2s ease-in-out infinite}
+.vsl .som svg{width:34px;height:34px;fill:none;stroke:#1d1218;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.vsl .som span{font-size:11px;font-weight:800;color:#1d1218;letter-spacing:.02em;text-transform:uppercase}
+@keyframes pulsa{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@media (prefers-reduced-motion:reduce){.vsl .som b{animation:none}}
+
+/* ===== BARRA FIXA (21/09/2026) =====
+   Regra do Vini: "falta o botao que segue a tela, hoje o usuario tem que ir ate
+   embaixo". Igual a LP: aparece depois que a dobra passa e some quando o botao
+   de verdade entra em cena, pra nao competirem. */
+.barra{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,250,246,.95);
+  backdrop-filter:blur(10px);border-top:1px solid var(--linha);padding:10px 16px;
+  padding-bottom:calc(10px + env(safe-area-inset-bottom));display:none;gap:12px;align-items:center}
+.barra.on{display:flex}
+.barra .p{font-weight:800;color:var(--vinho);font-size:19px;line-height:1;white-space:nowrap}
+.barra .p small{display:block;font-size:10.5px;color:var(--cinza);font-weight:700}
+.barra .cta{flex:1}
+/* o botao da Cakto dentro da barra: mesma cara do de baixo, so mais baixo */
+.barra cakto-upsell-accept{display:block}
+.barra cakto-upsell-accept button,.barra cakto-upsell-accept a{padding:13px 12px!important;font-size:15.5px!important}
+
+/* a dobra: headline + video tem que caber SEM ROLAR. Numa tela de 844px o topo
+   (faixa + banner + logo) come ~300px, entao o texto aqui e curto de proposito. */
+@media (max-height:820px){
+  h1{font-size:27px}
+  .sub{margin-bottom:12px}
+  .vsl{max-width:290px}
+}
 </style>
 
 <!-- Meta Pixel: SO o base e o PageView.
@@ -232,27 +282,50 @@ alt=""/></noscript>
        VOCABULARIO: "margem" NAO entra. O voz-do-publico.md da 004 lista
        "margem de contribuicao" entre as palavras que ela nao diz, e a LP do
        front usa "quanto sobrou" 3x e "margem" 0x. Decisao do Vini nesta sessao. -->
-  <h1>Como calcular o preço certo do seu produto
-    <span class="serif">e parar de vender no prejuízo sem saber</span></h1>
-  <p class="sub">Pare de chutar o preço.
-    <b>O chute é o que come o seu lucro.</b></p>
+  <!-- HEADLINE reescrita em 21/09/2026: o upsell deixou de ser Precificacao na
+       Mao e virou CATALOGO na Mao. Motivo (decisao do Vini): "ninguem vai pagar
+       para precificar algo". Precificar e trabalho de bastidor, usado uma vez;
+       catalogo e ferramenta de vender, usada toda semana.
+       A headline nomeia a SOLUCAO e o RESULTADO na mesma respiracao, como a
+       anterior fazia, e a dor desce pra linha de apoio (a cutucada que o Vini
+       escreveu: "voce ainda manda foto uma por uma?"). -->
+  <h1>Seu catálogo pronto
+    <span class="serif">pra mandar no WhatsApp</span></h1>
+  <p class="sub">Você ainda manda as fotos <b>uma por uma?</b></p>
 
-  <div class="cena">
-    O Controle vai te mostrar o lucro de cada produto. Quando aparecer um que
-    <b>deixou quase nada</b>, o problema não é a venda: é o preço.
+  <!-- A VSL vem ANTES da caixa: em 39s ela ve o catalogo sair do estoque e
+       chegar na conversa, que e mais do que qualquer print explica. -->
+  <div class="vsl" id="vslBox" data-vsl>
+    <video src="vsl-catalogo.mp4" poster="vsl-capa.jpg"
+           muted loop autoplay playsinline preload="metadata"
+           aria-label="Vídeo mostrando o catálogo sendo montado e enviado no WhatsApp"></video>
+    <button type="button" class="som" aria-label="Tocar com som">
+      <b>
+        <svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7"/><path d="M18.5 5.5a9 9 0 010 13"/></svg>
+        <span>ouvir</span>
+      </b>
+    </button>
+    <div class="barra-p"><i></i></div>
   </div>
 
   <div class="caixa">
     <div class="foto">
-      <img src="demo-simulador.png" width="664" height="784" loading="lazy"
-           alt="Tela do app avisando que vender a R$ 39,90 dá prejuízo de R$ 3,06 por peça">
+      <img src="demo-zap.jpg" width="664" height="830" loading="lazy"
+           alt="Conversa no WhatsApp: o catálogo enviado e a cliente escolhendo duas peças">
     </div>
-    <p class="leg">Custou R$ 32 com frete e embalagem. A R$ 39,90,
-      <b>dá prejuízo de R$ 3,06</b> depois da taxa.</p>
+    <p class="leg">Ela vê tudo de uma vez e <b>já escolhe</b>,
+      sem você responder preço um por um.</p>
+
+  <div class="cena">
+    Mandar foto solta e responder <b>"quanto é?"</b> o dia todo cansa,
+    e faz a freguesa desistir no meio.
+  </div>
+
 
     <div class="duas">
-      <div><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span>Frete, embalagem e taxa da maquininha <b>já entram na conta</b></span></div>
-      <div><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span>O <b>lote inteiro</b> de uma vez, e já sai etiquetado</span></div>
+      <div><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span>Sai pronto do seu estoque: <b>você não cadastra nada de novo</b></span></div>
+      <div><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span>Um toque e vai pro WhatsApp, <b>com a sua mensagem</b></span></div>
+      <div><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span>Do jeito que <b>loja grande manda</b>: organizado e com preço</span></div>
     </div>
 
     <div class="preco">
@@ -276,7 +349,7 @@ alt=""/></noscript>
           offer-type="upsell"
           upsell-reject-url="members_area"
         >
-          Quero parar de vender no prejuízo
+          Quero o meu catálogo pronto
         </cakto-upsell-accept>
         <cakto-upsell-reject
           upsell-reject-url="members_area"
@@ -293,5 +366,78 @@ alt=""/></noscript>
 <footer>Lucro na Mão · contato@lucronamao.online</footer>
 
 <script type="text/javascript" src="https://caktoscripts.nyc3.cdn.digitaloceanspaces.com/upsell.js"></script>
+
+<!-- BARRA FIXA: o CTA segue a tela, como na LP. Ela some quando o botao de
+     verdade aparece, pra nao existirem dois botoes iguais na mesma dobra. -->
+<div class="barra" id="barraFixa">
+  <div class="p">R$ 67<small>uma vez só</small></div>
+  <div class="cta">
+    <cakto-upsell-buttons>
+      <cakto-upsell-accept
+        bg-color="#8e2757ff"
+        text-color="#ffffff"
+        upsell-accept-url="members_area"
+        offer-id="qd7cbqf"
+        app-base-url="https://app.cakto.com.br"
+        offer-type="upsell"
+        upsell-reject-url="members_area"
+      >
+        Quero o meu catálogo
+      </cakto-upsell-accept>
+    </cakto-upsell-buttons>
+  </div>
+</div>
+
+<script>
+/* ===== VSL no padrao da LP (21/09/2026) =====
+   Toca sozinha sem som; o botao religa DO ZERO com audio. Se o navegador barrar
+   o autoplay com som (politica de midia), volta pro mudo sem quebrar a pagina. */
+(function(){
+  var box = document.getElementById('vslBox');
+  if (!box) return;
+  var v = box.querySelector('video');
+  var fill = box.querySelector('.barra-p i');
+  var somOn = false;
+
+  v.addEventListener('pause', function(){ if (!v.ended && !somOn) v.play().catch(function(){}); });
+  v.addEventListener('timeupdate', function(){
+    if (v.duration) fill.style.width = (v.currentTime / v.duration * 100) + '%';
+  });
+
+  box.querySelector('.som').addEventListener('click', function(e){
+    e.stopPropagation();
+    if (somOn) return;
+    somOn = true;
+    box.classList.add('tocando');
+    v.loop = false;
+    v.muted = false;
+    v.currentTime = 0;
+    v.play().catch(function(){
+      v.muted = true; v.loop = true; somOn = false; box.classList.remove('tocando'); v.play();
+    });
+  });
+})();
+
+/* ===== BARRA FIXA =====
+   Aparece depois que a dobra passa, e some quando o botao real entra na tela:
+   dois botoes iguais visiveis ao mesmo tempo confundem. */
+(function(){
+  var barra = document.getElementById('barraFixa');
+  var acao = document.querySelector('main .acao');
+  if (!barra || !acao) return;
+  function ver(){
+    var r = acao.getBoundingClientRect();
+    var passouDobra = window.scrollY > 240;
+    /* "na tela" aqui quer dizer VISIVEL DE VERDADE: o botao tem que estar acima
+       da linha de baixo com folga. Usar `r.top < innerHeight` fazia a barra
+       piscar, porque o botao encostando na borda ja contava como visivel. */
+    var acaoVisivel = r.top < (window.innerHeight - 90) && r.bottom > 60;
+    barra.classList.toggle('on', passouDobra && !acaoVisivel);
+  }
+  window.addEventListener('scroll', ver, {passive:true});
+  window.addEventListener('resize', ver);
+  ver();
+})();
+</script>
 </body>
 </html>
