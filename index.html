@@ -115,6 +115,11 @@ h3{font-size:var(--s2)}
 /* a VSL e 406x728 (0,558), mais LARGA que a tela padrao do mockup (360/738 = 0,488).
    Sem isto sobra faixa vazia em cima e embaixo do video dentro do celular. */
 .fone.fone-vsl .tela{aspect-ratio:406/728}
+/* VSL v9 (28/09/2026): sem moldura de celular. A filmagem ja mostra a mao segurando o celular, e a
+   moldura desenhada em volta virava "celular dentro do celular". Agora e um cartao de video. */
+.fone.fone-vsl{padding:0;background:none;border-radius:24px;animation:none;
+  box-shadow:0 26px 56px -24px rgba(20,4,12,.8),0 0 0 1px rgba(255,255,255,.14)}
+.fone.fone-vsl .tela{border-radius:24px;background:#140a10}
 /* a barra de progresso, so leitura: mostra que esta correndo, nao deixa arrastar */
 .vsl .barra{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(0,0,0,.28);z-index:3}
 .vsl .barra i{display:block;height:100%;width:0;background:var(--rosa,#c2185b);transition:width .2s linear}
@@ -431,7 +436,7 @@ alt=""/></noscript>
           <div class="fone fone-vsl">
             <div class="tela">
               <div class="vsl" id="vslMob" data-vsl>
-                <video src="vsl.mp4" width="406" height="728" autoplay muted loop playsinline preload="metadata"
+                <video src="vsl.mp4" poster="vsl-v9-capa.jpg" width="406" height="728" autoplay muted loop playsinline preload="metadata"
                        aria-label="Como o aplicativo funciona, do cadastro do produto ao lucro da venda"></video>
                 <div class="barra"><i></i></div>
                 <div class="som" role="button" tabindex="0" aria-label="Tocar com som, do inicio">
@@ -472,7 +477,7 @@ alt=""/></noscript>
         <div class="fone fone-vsl">
           <div class="tela">
             <div class="vsl" id="vslDesk" data-vsl>
-                <video src="vsl.mp4" width="406" height="728" autoplay muted loop playsinline preload="metadata"
+                <video src="vsl.mp4" poster="vsl-v9-capa.jpg" width="406" height="728" autoplay muted loop playsinline preload="metadata"
                        aria-label="Como o aplicativo funciona, do cadastro do produto ao lucro da venda"></video>
                 <div class="barra"><i></i></div>
                 <div class="som" role="button" tabindex="0" aria-label="Tocar com som, do inicio">
