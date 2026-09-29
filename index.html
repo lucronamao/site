@@ -7,6 +7,7 @@
 <title>Controle da Lojinha | Lucro na Mão</title>
 <meta name="description" content="O aplicativo que registra a venda em poucos toques e mostra na hora o seu lucro. Pago uma vez, sem planilha e sem mensalidade.">
 <meta name="theme-color" content="#8e2757">
+<link rel="preload" as="image" href="vsl-v9-capa.jpg" fetchpriority="high">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="96x96" href="favicon-96.png">
 <link rel="apple-touch-icon" href="favicon-180.png">
@@ -436,7 +437,7 @@ alt=""/></noscript>
           <div class="fone fone-vsl">
             <div class="tela">
               <div class="vsl" id="vslMob" data-vsl>
-                <video src="vsl.mp4" poster="vsl-v9-capa.jpg" width="406" height="728" autoplay muted loop playsinline preload="metadata"
+                <video src="vsl.mp4" poster="vsl-v9-capa.jpg" width="406" height="728" muted loop playsinline preload="none"
                        aria-label="Como o aplicativo funciona, do cadastro do produto ao lucro da venda"></video>
                 <div class="barra"><i></i></div>
                 <div class="som" role="button" tabindex="0" aria-label="Tocar com som, do inicio">
@@ -477,7 +478,7 @@ alt=""/></noscript>
         <div class="fone fone-vsl">
           <div class="tela">
             <div class="vsl" id="vslDesk" data-vsl>
-                <video src="vsl.mp4" poster="vsl-v9-capa.jpg" width="406" height="728" autoplay muted loop playsinline preload="metadata"
+                <video src="vsl.mp4" poster="vsl-v9-capa.jpg" width="406" height="728" muted loop playsinline preload="none"
                        aria-label="Como o aplicativo funciona, do cadastro do produto ao lucro da venda"></video>
                 <div class="barra"><i></i></div>
                 <div class="som" role="button" tabindex="0" aria-label="Tocar com som, do inicio">
@@ -495,7 +496,7 @@ alt=""/></noscript>
 <section class="faixa-prova">
   <div class="w">
     <figure class="fp">
-      <img class="print" src="fp-melissa.jpg" width="1170" height="700" decoding="async"
+      <img class="print" src="fp-melissa.jpg" width="1170" height="700" loading="lazy" decoding="async"
         alt="Print de conversa no WhatsApp: &ldquo;t&ocirc; usando todo dia, antes eu nao sabia nem direito quanto eu tava lucrando, achava que sabia mas n&atilde;o sabia. agora ali no aplicativo me mostra tudo certinho, me ajudou demais mesmo principalmente no fim do m&ecirc;s quando vou fazer as contas&rdquo;">
       <figcaption><span class="ini" aria-hidden="true">M</span><span class="nome">Melissa, 26<span class="onde">Paran&aacute;</span></span><span class="fp-estrelas" aria-label="5 de 5"><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg></span></figcaption>
     </figure>
@@ -561,8 +562,8 @@ alt=""/></noscript>
         <div class="palco" style="padding:0">
           <div class="fone">
             <div class="tela">
-              <video src="demo-uso.mp4" poster="demo-venda.png" width="720" height="1513"
-                     autoplay muted loop playsinline preload="metadata"
+              <video data-src="demo-uso.mp4" data-poster="demo-venda.png" data-sob-demanda width="720" height="1513"
+                     muted loop playsinline preload="none"
                      aria-label="O aplicativo em uso: registrando uma venda, dando baixa no estoque e mostrando o lucro"></video>
             </div>
           </div>
@@ -915,12 +916,39 @@ var CHECKOUT = 'https://pay.cakto.com.br/3ko7pit';   /* front R$ 47, oferta 3ko7
     /* clique no video nao faz nada: nao pausa, nao volta, nao liga som sem querer */
     v.addEventListener('click', function(e){ e.preventDefault(); });
 
+    /* CARREGAMENTO (29/09/2026): a pagina tem DUAS VSLs (celular e computador) e so uma aparece.
+       Com autoplay no HTML as duas baixavam, e a VSL visivel ficava com metade da banda no 4G.
+       Agora so a visivel carrega e toca; a escondida nunca baixa. */
+    function visivel(){ return box.offsetParent !== null && box.getBoundingClientRect().width > 0; }
+    function comecar(){
+      if (!visivel() || box.dataset.iniciada) return;
+      box.dataset.iniciada = '1';
+      v.preload = 'auto';
+      v.play().catch(function(){});
+    }
+    comecar();
+    window.addEventListener('resize', comecar);
+
     /* terminou com som: volta pro estado inicial, mudo em loop */
     v.addEventListener('ended', function(){
       somOn = false; box.classList.remove('tocando');
       v.muted = true; v.loop = true; v.currentTime = 0; v.play().catch(function(){});
     });
   });
+
+  /* demo de uso: o video e a capa so carregam quando a pessoa chega perto dele */
+  var demos = document.querySelectorAll('video[data-sob-demanda]');
+  function carregar(d){
+    if (d.dataset.carregado) return; d.dataset.carregado = '1';
+    d.poster = d.dataset.poster; d.src = d.dataset.src; d.preload = 'auto';
+    d.play().catch(function(){});
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting) { carregar(e.target); io.unobserve(e.target); } });
+    }, { rootMargin: '600px 0px' });
+    demos.forEach(function(d){ io.observe(d); });
+  } else { demos.forEach(carregar); }
 })();
 </script>
 </body>
