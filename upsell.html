@@ -128,6 +128,16 @@ h1 .serif{display:block;font-family:var(--serif);font-weight:400;font-style:ital
 .preco .val sup{font-size:.4em;vertical-align:super;letter-spacing:0}
 .preco .uma{display:inline-block;background:var(--verde-bg);color:var(--verde);
   font-size:12.5px;font-weight:800;border-radius:999px;padding:5px 13px;margin-top:10px}
+/* ===== DE R$ 97 POR R$ 67, POR TEMPO LIMITADO (06/10/2026, Vini) =====
+   O preco de antes era 97 (ate 01/09/2026) e a pagina nao dizia. O Vini pode voltar
+   pra 97, entao o 67 vai como preco por tempo limitado. */
+.preco .lim{display:inline-flex;align-items:center;gap:6px;background:var(--vinho);color:#fff;
+  font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  border-radius:999px;padding:6px 13px;margin-bottom:12px}
+.preco .lim svg{width:14px;height:14px;fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.preco .de{font-size:16px;color:var(--cinza);font-weight:600;margin-bottom:4px}
+.preco .de s{text-decoration-thickness:2px;text-decoration-color:var(--vinho)}
+.barra .p .de-mini{display:block;font-size:11px;color:var(--cinza);font-weight:600;text-decoration:line-through;line-height:1}
 .so{text-align:center;font-size:14px;color:var(--vinho);font-weight:700;
   margin-top:16px;line-height:1.5}
 .acao{margin-top:20px}
@@ -260,7 +270,11 @@ alt=""/></noscript>
      que reinicia e "ultimas vagas" em digital).
      A vantagem REAL, e a unica que pode ser dita: aqui e 1 CLIQUE, porque o
      pagamento dela acabou de ser aprovado e nao precisa ser digitado de novo.
-     A urgencia e de CONVENIENCIA, nao de medo. -->
+     A urgencia e de CONVENIENCIA, nao de medo.
+     ATUALIZADO 06/10/2026 (decisao do Vini): o preco aparece como "de R$ 97 por
+     R$ 67, por tempo limitado". Base: 97 foi o preco praticado ate 01/09/2026, e o
+     Vini pretende voltar pra 97. Continua proibido: contador, "so nesta tela" e
+     "esta tela nao volta". -->
 <div class="oferta">
   <div class="w">
     <span class="selo">
@@ -329,6 +343,8 @@ alt=""/></noscript>
     </div>
 
     <div class="preco">
+      <div class="lim"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9.5 2.5h5"/></svg>preço por tempo limitado</div>
+      <div class="de">de <s>R$ 97</s> por</div>
       <div class="val"><sup>R$</sup>67</div>
       <div class="uma">uma vez só, é seu pra sempre</div>
       <div class="so">O acesso entra junto com o do Controle.</div>
@@ -370,7 +386,7 @@ alt=""/></noscript>
 <!-- BARRA FIXA: o CTA segue a tela, como na LP. Ela some quando o botao de
      verdade aparece, pra nao existirem dois botoes iguais na mesma dobra. -->
 <div class="barra" id="barraFixa">
-  <div class="p">R$ 67<small>uma vez só</small></div>
+  <div class="p"><span class="de-mini">de R$ 97</span>R$ 67<small>tempo limitado</small></div>
   <div class="cta">
     <cakto-upsell-buttons>
       <cakto-upsell-accept
