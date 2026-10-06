@@ -414,6 +414,18 @@ alt=""/></noscript>
   window.addEventListener('resize', ver);
   ver();
 })();
+
+/* ===== ORIGEM ATE O CHECKOUT (06/10/2026) =====
+   Esta pagina e aberta pelo app (utm_source=app&utm_medium=preco). Sem repassar,
+   o pedido chegava na Cakto sem UTM e o painel nao tinha como saber de onde veio.
+   Repassa a query inteira, do jeito que chegou, nos dois botoes de compra. */
+(function(){
+  var qs = (location.search || '').replace(/^\?/, '');
+  if (!qs) return;
+  document.querySelectorAll('a.cta-link[href*="pay.cakto.com.br"]').forEach(function(a){
+    a.href = a.href + (a.href.indexOf('?') >= 0 ? '&' : '?') + qs;
+  });
+})();
 </script>
 </body>
 </html>
