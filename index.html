@@ -140,9 +140,11 @@ h3{font-size:var(--s2)}
   /* no computador o celular sobe para o TOPO da coluna, ao lado do titulo: centralizado na altura do
      texto ele passava da primeira tela em notebook (79 a 111px em 1366x768/800, medido 13/10) */
   .palco-desk{align-self:start;padding-top:6px} }
-/* a barra de progresso, so leitura: mostra que esta correndo, nao deixa arrastar */
-.vsl .barra{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(0,0,0,.28);z-index:3}
-.vsl .barra i{display:block;height:100%;width:0;background:var(--rosa,#c2185b);transition:width .2s linear}
+/* a barra de progresso, so leitura: mostra que esta correndo, nao deixa arrastar. Chamava .barra e a
+   regra da barra fixa de compra (.barra{display:none}) escondia ela: nome proprio desde 13/10/2026 */
+.vsl .progresso{position:absolute;left:18px;right:18px;bottom:9px;height:4px;border-radius:4px;overflow:hidden;
+  background:rgba(255,255,255,.32);box-shadow:0 1px 3px rgba(0,0,0,.35);z-index:3}
+.vsl .progresso i{display:block;height:100%;width:0;border-radius:4px;background:#ff3d8b;transition:width .2s linear}
 /* o botao grande de som no meio, some depois do primeiro toque */
 .vsl .som{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
   z-index:4;background:rgba(20,4,12,.30);transition:opacity .25s ease}
@@ -164,7 +166,7 @@ h3{font-size:var(--s2)}
 .vsl .pausa b{display:flex;align-items:center;justify-content:center;width:76px;height:76px;border-radius:50%;
   background:rgba(255,255,255,.94);box-shadow:0 10px 30px -8px rgba(20,4,12,.6)}
 .vsl .pausa svg{width:30px;height:30px;margin-left:5px;fill:#1d1218}
-.vsl .mudo{position:absolute;right:9px;bottom:10px;z-index:5;width:34px;height:34px;padding:0;border:0;border-radius:50%;
+.vsl .mudo{position:absolute;right:10px;bottom:20px;z-index:5;width:34px;height:34px;padding:0;border:0;border-radius:50%;
   background:rgba(20,4,12,.62);display:none;align-items:center;justify-content:center;cursor:pointer;
   -webkit-tap-highlight-color:transparent}
 .vsl.tocando .mudo{display:flex}
@@ -480,7 +482,7 @@ alt=""/></noscript>
               <div class="vsl" id="vslMob" data-vsl>
                 <video src="vsl-v10.mp4" poster="vsl-v10-capa.jpg" width="406" height="728" muted loop playsinline preload="none"
                        aria-label="Como o aplicativo funciona, do cadastro do produto ao lucro da venda"></video>
-                <div class="barra"><i></i></div>
+                <div class="progresso"><i></i></div>
                 <div class="pausa" aria-hidden="true"><b><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></b></div>
                 <button class="mudo" type="button" aria-label="Silenciar"><svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><g class="ondas"><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/></g><g class="x"><path d="m16 9 6 6"/><path d="m22 9-6 6"/></g></svg></button>
                 <div class="som" role="button" tabindex="0" aria-label="Tocar com som, do inicio">
@@ -523,7 +525,7 @@ alt=""/></noscript>
             <div class="vsl" id="vslDesk" data-vsl>
                 <video src="vsl-v10.mp4" poster="vsl-v10-capa.jpg" width="406" height="728" muted loop playsinline preload="none"
                        aria-label="Como o aplicativo funciona, do cadastro do produto ao lucro da venda"></video>
-                <div class="barra"><i></i></div>
+                <div class="progresso"><i></i></div>
                 <div class="pausa" aria-hidden="true"><b><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></b></div>
                 <button class="mudo" type="button" aria-label="Silenciar"><svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><g class="ondas"><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/></g><g class="x"><path d="m16 9 6 6"/><path d="m22 9-6 6"/></g></svg></button>
                 <div class="som" role="button" tabindex="0" aria-label="Tocar com som, do inicio">
@@ -930,7 +932,7 @@ var CHECKOUT = 'https://pay.cakto.com.br/3ko7pit';   /* front R$ 47, oferta 3ko7
   var menosMovimento = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.querySelectorAll('[data-vsl]').forEach(function(box){
     var v = box.querySelector('video');
-    var fill = box.querySelector('.barra i');
+    var fill = box.querySelector('.progresso i');
     var mudo = box.querySelector('.mudo');
     var somOn = false, pausaDela = false, pausaDaAba = false;
 
