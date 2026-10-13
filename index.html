@@ -116,11 +116,30 @@ h3{font-size:var(--s2)}
 /* a VSL e 406x728 (0,558), mais LARGA que a tela padrao do mockup (360/738 = 0,488).
    Sem isto sobra faixa vazia em cima e embaixo do video dentro do celular. */
 .fone.fone-vsl .tela{aspect-ratio:406/728}
-/* VSL v9 (28/09/2026): sem moldura de celular. A filmagem ja mostra a mao segurando o celular, e a
-   moldura desenhada em volta virava "celular dentro do celular". Agora e um cartao de video. */
-.fone.fone-vsl{padding:0;background:none;border-radius:24px;animation:none;
-  box-shadow:0 26px 56px -24px rgba(20,4,12,.8),0 0 0 1px rgba(255,255,255,.14)}
-.fone.fone-vsl .tela{border-radius:24px;background:#140a10}
+/* VSL v10 (13/10/2026): volta a MOLDURA de celular, a pedido do Vini ("o video ta solto"). A v9 tinha
+   tirado porque a filmagem ja mostrava a mao segurando o celular; a v10 abre com a apresentadora.
+   Borda escura, ilha no topo da tela e botoes laterais. Sem a animacao de flutuar: atrapalha assistir. */
+.fone.fone-vsl{padding:7px;border-radius:40px;animation:none;
+  background:linear-gradient(150deg,#3a2731 0%,#140b10 45%,#0d070a 70%,#2e1f27 100%);
+  box-shadow:0 30px 60px -26px rgba(20,4,12,.9),0 0 0 1px rgba(0,0,0,.55),inset 0 0 0 1.5px rgba(255,255,255,.13)}
+.fone.fone-vsl:before,.fone.fone-vsl:after{content:'';position:absolute;width:3px;border-radius:2px;
+  background:linear-gradient(90deg,#2e1f27,#4a3440)}
+.fone.fone-vsl:before{right:-3px;top:24%;height:11%}
+.fone.fone-vsl:after{left:-3px;top:19%;height:15%}
+/* a ilha mora numa faixa preta no topo da tela, como num celular de verdade com video 9:16: em cima do
+   video ela cobria o titulo do proprio video */
+.fone.fone-vsl .tela{position:relative;border-radius:33px;background:#000;aspect-ratio:auto;padding-top:22px}
+.fone.fone-vsl .vsl{aspect-ratio:406/728}
+.fone.fone-vsl .ilha{position:absolute;top:5px;left:50%;transform:translateX(-50%);width:27%;height:13px;
+  border-radius:20px;background:#1a1a1a;box-shadow:inset 0 0 0 1px rgba(255,255,255,.05);z-index:6;pointer-events:none}
+/* LARGURA da moldura: vem DEPOIS da regra base .fone (que antes anulava as de celular por vir depois)
+   e cabe inteira na primeira tela, medida em 360x640, 375x667, 390x844, 412x915 e 360x780 */
+@media (max-width:899px){ .fone.fone-vsl{width:min(300px,76vw)} }
+@media (max-width:899px) and (max-height:700px){ .fone.fone-vsl{width:min(244px,65vw)} }
+@media (min-width:900px){ .fone.fone-vsl{width:min(300px,100%)}
+  /* no computador o celular sobe para o TOPO da coluna, ao lado do titulo: centralizado na altura do
+     texto ele passava da primeira tela em notebook (79 a 111px em 1366x768/800, medido 13/10) */
+  .palco-desk{align-self:start;padding-top:6px} }
 /* a barra de progresso, so leitura: mostra que esta correndo, nao deixa arrastar */
 .vsl .barra{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(0,0,0,.28);z-index:3}
 .vsl .barra i{display:block;height:100%;width:0;background:var(--rosa,#c2185b);transition:width .2s linear}
@@ -136,6 +155,24 @@ h3{font-size:var(--s2)}
 .vsl .som span{font-size:11.5px;font-weight:800;color:#1d1218;letter-spacing:.02em;text-transform:uppercase}
 @keyframes pulsa{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
 @media (prefers-reduced-motion:reduce){.vsl .som b{animation:none}}
+/* CONTROLES (13/10/2026, pesquisa no log): com som ligado, um toque no video PAUSA e outro CONTINUA;
+   o botao do canto SILENCIA e religa (no iPhone o site nao controla volume, so mudo). Avancar e
+   voltar continuam travados: a barra so mostra o progresso. */
+.vsl .pausa{position:absolute;inset:0;z-index:4;display:none;align-items:center;justify-content:center;
+  background:rgba(20,4,12,.38)}
+.vsl.pausado .pausa{display:flex}
+.vsl .pausa b{display:flex;align-items:center;justify-content:center;width:76px;height:76px;border-radius:50%;
+  background:rgba(255,255,255,.94);box-shadow:0 10px 30px -8px rgba(20,4,12,.6)}
+.vsl .pausa svg{width:30px;height:30px;margin-left:5px;fill:#1d1218}
+.vsl .mudo{position:absolute;right:9px;bottom:10px;z-index:5;width:34px;height:34px;padding:0;border:0;border-radius:50%;
+  background:rgba(20,4,12,.62);display:none;align-items:center;justify-content:center;cursor:pointer;
+  -webkit-tap-highlight-color:transparent}
+.vsl.tocando .mudo{display:flex}
+.vsl .mudo svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.vsl .mudo .x{display:none}
+.vsl.sem-som .mudo .x{display:inline}
+.vsl.sem-som .mudo .ondas{display:none}
+.vsl .mudo:focus-visible,.vsl:focus-visible{outline:2px solid #fff;outline-offset:2px}
 @keyframes flutua{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 @media (prefers-reduced-motion:reduce){.fone{animation:none}}
 
@@ -439,11 +476,13 @@ alt=""/></noscript>
 
         <div class="palco palco-mob">
           <div class="fone fone-vsl">
-            <div class="tela">
+            <div class="tela"><span class="ilha" aria-hidden="true"></span>
               <div class="vsl" id="vslMob" data-vsl>
                 <video src="vsl-v10.mp4" poster="vsl-v10-capa.jpg" width="406" height="728" muted loop playsinline preload="none"
                        aria-label="Como o aplicativo funciona, do cadastro do produto ao lucro da venda"></video>
                 <div class="barra"><i></i></div>
+                <div class="pausa" aria-hidden="true"><b><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></b></div>
+                <button class="mudo" type="button" aria-label="Silenciar"><svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><g class="ondas"><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/></g><g class="x"><path d="m16 9 6 6"/><path d="m22 9-6 6"/></g></svg></button>
                 <div class="som" role="button" tabindex="0" aria-label="Tocar com som, do inicio">
                   <b><svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/></svg><span>Ouvir</span></b>
                 </div>
@@ -480,11 +519,13 @@ alt=""/></noscript>
 
       <div class="palco palco-desk">
         <div class="fone fone-vsl">
-          <div class="tela">
+          <div class="tela"><span class="ilha" aria-hidden="true"></span>
             <div class="vsl" id="vslDesk" data-vsl>
                 <video src="vsl-v10.mp4" poster="vsl-v10-capa.jpg" width="406" height="728" muted loop playsinline preload="none"
                        aria-label="Como o aplicativo funciona, do cadastro do produto ao lucro da venda"></video>
                 <div class="barra"><i></i></div>
+                <div class="pausa" aria-hidden="true"><b><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></b></div>
+                <button class="mudo" type="button" aria-label="Silenciar"><svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><g class="ondas"><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/></g><g class="x"><path d="m16 9 6 6"/><path d="m22 9-6 6"/></g></svg></button>
                 <div class="som" role="button" tabindex="0" aria-label="Tocar com som, do inicio">
                   <b><svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/></svg><span>Ouvir</span></b>
                 </div>
@@ -878,19 +919,21 @@ var CHECKOUT = 'https://pay.cakto.com.br/3ko7pit';   /* front R$ 47, oferta 3ko7
 
 <script>
 /* VSL do hero.
-   Regras (Vini, 02/09/2026):
-   - o video nao tem controle: nao da pra pausar, arrastar nem voltar
+   Regras (Vini, 02/09/2026, revistas em 13/10/2026 depois da pesquisa registrada no log):
    - abre MUDO, em loop, com um botao grande de som no meio
-   - ao tocar, ele REINICIA do zero e passa a tocar com som
-   - a barrinha de baixo so mostra o progresso, nao e arrastavel */
+   - ao tocar em "Ouvir", REINICIA do zero e toca uma vez com som
+   - com som: um toque no video PAUSA e outro CONTINUA; o botao do canto silencia e religa
+   - trocou de aba ou bloqueou a tela: pausa, e ao voltar continua de onde parou
+   - avancar e voltar continuam travados: a barrinha so mostra o progresso
+   - quem pede menos movimento no sistema (prefers-reduced-motion) nao ve o loop mudo */
 (function(){
+  var menosMovimento = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.querySelectorAll('[data-vsl]').forEach(function(box){
     var v = box.querySelector('video');
     var fill = box.querySelector('.barra i');
-    var somOn = false;
+    var mudo = box.querySelector('.mudo');
+    var somOn = false, pausaDela = false, pausaDaAba = false;
 
-    /* impede pausa por clique/teclado do proprio elemento */
-    v.addEventListener('pause', function(){ if(!v.ended) v.play().catch(function(){}); });
     v.addEventListener('contextmenu', function(e){ e.preventDefault(); });
 
     function progresso(){
@@ -898,27 +941,50 @@ var CHECKOUT = 'https://pay.cakto.com.br/3ko7pit';   /* front R$ 47, oferta 3ko7
     }
     v.addEventListener('timeupdate', progresso);
 
+    function marcarMudo(sem){
+      box.classList.toggle('sem-som', sem);
+      mudo.setAttribute('aria-label', sem ? 'Ligar o som' : 'Silenciar');
+    }
+
     function ligarSom(){
       if (somOn) return;
-      somOn = true;
-      box.classList.add('tocando');
+      somOn = true; pausaDela = false;
+      box.classList.add('tocando'); box.classList.remove('pausado');
+      box.tabIndex = 0;
       v.loop = false;          /* com som, toca uma vez ate o fim */
-      v.muted = false;
+      v.muted = false; marcarMudo(false);
       v.currentTime = 0;       /* REINICIA do zero */
       v.play().catch(function(){ /* se o navegador barrar, volta pro mudo */
-        v.muted = true; v.loop = true; somOn = false; box.classList.remove('tocando'); v.play();
+        v.muted = true; v.loop = true; somOn = false; box.classList.remove('tocando'); box.removeAttribute('tabindex');
+        if (!menosMovimento) v.play().catch(function(){});
       });
     }
 
-    /* so o BOTAO liga o som. Antes o clique valia na caixa inteira, entao
-       qualquer toque perto do video (ou um clique automatico) ja religava. */
+    /* o BOTAO grande liga o som; antes disso, tocar no video nao faz nada alem disso */
     var botao = box.querySelector('.som');
     botao.addEventListener('click', function(e){ e.stopPropagation(); ligarSom(); });
     botao.addEventListener('keydown', function(e){
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); ligarSom(); }
     });
-    /* clique no video nao faz nada: nao pausa, nao volta, nao liga som sem querer */
-    v.addEventListener('click', function(e){ e.preventDefault(); });
+
+    /* com som: tocar no video pausa ou continua */
+    function alternar(){
+      if (!somOn) return;
+      if (v.paused) { pausaDela = false; v.play().catch(function(){}); }
+      else { pausaDela = true; v.pause(); }
+    }
+    box.addEventListener('click', function(e){ if (somOn && !mudo.contains(e.target)) { e.preventDefault(); alternar(); } });
+    box.addEventListener('keydown', function(e){
+      if (somOn && e.target === box && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); alternar(); }
+    });
+    v.addEventListener('pause', function(){ if (somOn && !v.ended) box.classList.add('pausado'); });
+    v.addEventListener('play', function(){ box.classList.remove('pausado'); });
+
+    /* o botao do canto: silencia e religa, sem pausar nem voltar */
+    mudo.addEventListener('click', function(e){
+      e.stopPropagation(); e.preventDefault();
+      v.muted = !v.muted; marcarMudo(v.muted);
+    });
 
     /* CARREGAMENTO (29/09/2026): a pagina tem DUAS VSLs (celular e computador) e so uma aparece.
        Com autoplay no HTML as duas baixavam, e a VSL visivel ficava com metade da banda no 4G.
@@ -927,16 +993,29 @@ var CHECKOUT = 'https://pay.cakto.com.br/3ko7pit';   /* front R$ 47, oferta 3ko7
     function comecar(){
       if (!visivel() || box.dataset.iniciada) return;
       box.dataset.iniciada = '1';
-      v.preload = 'auto';
-      v.play().catch(function(){});
+      v.preload = menosMovimento ? 'metadata' : 'auto';
+      if (!menosMovimento) v.play().catch(function(){});
     }
     comecar();
     window.addEventListener('resize', comecar);
 
+    /* trocou de aba ou bloqueou a tela: pausa; ao voltar, continua de onde parou */
+    document.addEventListener('visibilitychange', function(){
+      if (!box.dataset.iniciada) return;
+      if (document.hidden) {
+        if (!v.paused) { pausaDaAba = true; v.pause(); }
+      } else if (pausaDaAba) {
+        pausaDaAba = false;
+        if (!pausaDela && (somOn || !menosMovimento)) v.play().catch(function(){});
+      }
+    });
+
     /* terminou com som: volta pro estado inicial, mudo em loop */
     v.addEventListener('ended', function(){
-      somOn = false; box.classList.remove('tocando');
-      v.muted = true; v.loop = true; v.currentTime = 0; v.play().catch(function(){});
+      somOn = false; pausaDela = false;
+      box.classList.remove('tocando', 'pausado'); box.removeAttribute('tabindex');
+      v.muted = true; marcarMudo(false); v.loop = true; v.currentTime = 0;
+      if (!menosMovimento) v.play().catch(function(){});
     });
   });
 
