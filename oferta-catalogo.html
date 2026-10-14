@@ -2,240 +2,173 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Catálogo na Mão | Lucro na Mão</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Foto solta não vende. Catálogo vende. | Lucro na Mão</title>
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="favicon-180.png">
+<!-- ===== PAGINA DO CATALOGO PARA QUEM CHEGA PELO APP (reescrita 14/10/2026, pedido do Vini: "vamos
+     melhorar essa tela tambem, usa a VSL nova, que ficou MUITO melhor, e melhora tambem a copy").
+     E a irma da upsell.html (o pos-compra), com o mesmo esqueleto aprovado nesta data: banner de
+     exclusividade, "Foto solta nao vende. Catalogo vende.", a VSL v2 inteira na primeira tela no celular
+     da LP, e depois do video so o cartao de preco. O que muda, porque quem le aqui JA E CLIENTE e chegou
+     pelo app (o card travado ou a faixa do Catalogo), e nao acabou de pagar:
+     - sem a faixa de confirmacao de pagamento, sem o "nao feche esta tela" e sem o aviso do segundo Pix;
+     - o botao e LINK NORMAL pro checkout (os botoes de 1 clique da Cakto sao do pos-compra e nem
+       funcionariam aqui), e o script do fim repassa a origem (utm_source=app...) pro pedido;
+     - SEM o script de visitas do painel: a rastreio-e-capi.md manda por SO na pagina de vendas, e com o
+       mesmo ?o= as visitas de cliente entrariam na conta da LP. Medir esta pagina pede id proprio no painel.
+     Escassez e exclusividade so as verdadeiras (iguais as da upsell): so quem tem o Controle ve esta
+     oferta; "preco de lancamento" e o 97 riscado sao decisao do Vini de 06/10. Contador so com data real. -->
 <style>
 :root{
-  --vinho:#8e2757; --vinho-esc:#5c1838; --vinho-prof:#3d0f24;
+  --vinho:#8e2757; --vinho-esc:#5c1838; --vinho-prof:#3d0f24; --pink:#ff3d8b;
   --rose:#f6e7ee; --rose2:#fdf6f9; --creme:#fffaf6;
   --tinta:#2a1f28; --cinza:#6f6478; --linha:#ecdfe6;
   --verde:#1e7d4f; --verde-bg:#e8f5ee;
-  --r:16px; --r-lg:26px;
+  --r:16px; --r-lg:24px;
   --serif:ui-serif,Georgia,'Times New Roman',serif;
   --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
 body{font-family:var(--sans);background:var(--creme);color:var(--tinta);
-  font-size:16px;line-height:1.6;overflow-x:hidden}
+  font-size:16px;line-height:1.5;overflow-x:hidden}
 img{max-width:100%;display:block}
-.w{width:100%;max-width:680px;margin:0 auto;padding:0 20px}
+.w{width:100%;max-width:520px;margin:0 auto;padding:0 16px}
 
-/* BANNER de oferta: e a primeira coisa que ela ve, e o trabalho dele e
-   sinalizar "isso aqui e diferente, presta atencao". A confirmacao da compra
-   desceu pra uma linha discreta no fim: ela ja sabe que pagou, nao precisa de
-   faixa verde grande roubando o topo. */
-.oferta{background:linear-gradient(100deg,var(--vinho),var(--vinho-prof));padding:14px 0;
-  border-top:1px solid rgba(255,255,255,.16);box-shadow:0 10px 22px -16px rgba(61,15,36,.7)}
-.oferta .w{display:flex;align-items:center;justify-content:center;gap:11px;
-  flex-wrap:wrap;text-align:center}
-.oferta .selo{background:rgba(255,255,255,.95);color:var(--vinho);font-size:10.5px;
-  font-weight:800;letter-spacing:.14em;text-transform:uppercase;border-radius:999px;
-  padding:5px 12px}
-.oferta b{color:#fff;font-size:15px;letter-spacing:-.2px}
-/* BANNER reforcado 2x em 08/09/2026 (pedido do Vini). O trabalho dele e um
-   so: fazer ela PARAR, porque acabou de pagar e o instinto e sair pra
-   procurar o e-mail. Entao aqui NAO entra argumento (conveniencia, 1 toque,
-   preco): argumento e depois, junto do botao. Aqui e chamada pura.
-   O selo tem ponto piscando (tipo "ao vivo"), a faixa tem brilho que
-   atravessa, e a borda inferior marca a separacao do conteudo. */
-.oferta{padding:22px 0 20px;position:relative;overflow:hidden;
-  border-bottom:3px solid var(--vinho)}
-.oferta .w{flex-direction:column;gap:11px;position:relative;z-index:1}
-.oferta b.grande{font-size:27px;font-weight:800;letter-spacing:-.7px;
-  line-height:1.12;text-wrap:balance;
-  text-shadow:0 2px 12px rgba(0,0,0,.28)}
-@media (min-width:520px){.oferta b.grande{font-size:31px}}
-/* selo: maior, com ponto piscando */
-.oferta .selo{display:inline-flex;align-items:center;gap:7px;
-  font-size:12.5px;letter-spacing:.17em;padding:7px 16px;
-  box-shadow:0 4px 14px rgba(0,0,0,.22);
-  animation:pulso 2s ease-in-out infinite}
-.oferta .selo .pisca{width:7px;height:7px;border-radius:50%;
-  background:var(--vinho);flex-shrink:0;
+/* 2. banner: chamada pura, faz ela PARAR. O argumento vem depois, junto do botao */
+.alerta{background:linear-gradient(100deg,var(--vinho),var(--vinho-prof));padding:11px 0 12px;
+  position:relative;overflow:hidden;border-bottom:3px solid var(--pink)}
+.alerta .w{display:flex;flex-direction:column;align-items:center;gap:7px;position:relative;z-index:1;text-align:center}
+.selo{display:inline-flex;align-items:center;gap:7px;background:#fff;color:var(--vinho);
+  font-size:10.5px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;border-radius:999px;
+  padding:5px 12px;box-shadow:0 4px 14px rgba(0,0,0,.22);animation:pulso 2s ease-in-out infinite}
+.selo .pisca{width:7px;height:7px;border-radius:50%;background:var(--pink);flex-shrink:0;
   animation:piscando 1.1s ease-in-out infinite}
+.alerta b{color:#fff;font-size:23px;font-weight:800;letter-spacing:-.6px;line-height:1.1;
+  text-shadow:0 2px 12px rgba(0,0,0,.28)}
+.alerta::after{content:'';position:absolute;top:0;bottom:0;width:45%;left:-60%;z-index:0;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.14),transparent);
+  animation:varre 4.5s ease-in-out infinite}
 @keyframes pulso{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
 @keyframes piscando{0%,100%{opacity:1}50%{opacity:.2}}
-/* brilho que atravessa a faixa, discreto e continuo */
-.oferta::after{content:'';position:absolute;top:0;bottom:0;width:45%;
-  left:-60%;z-index:0;pointer-events:none;
-  background:linear-gradient(100deg,transparent,rgba(255,255,255,.13),transparent);
-  animation:varre 4.5s ease-in-out infinite}
 @keyframes varre{0%{left:-60%}55%,100%{left:115%}}
-@media (prefers-reduced-motion:reduce){
-  .oferta .selo,.oferta .selo .pisca,.oferta::after{animation:none}
-  .oferta::after{display:none}}
-/* Confirmacao da compra: primeira coisa da tela, acima de tudo, e generosa.
-   Ela acabou de pagar e precisa ver que deu certo antes de qualquer oferta. */
-.ok{background:var(--verde-bg);border-bottom:1px solid #cfe8da;padding:17px 0}
-.ok .w{display:flex;align-items:center;gap:13px}
-.ok svg{width:30px;height:30px;flex-shrink:0;fill:none;stroke:var(--verde);
-  stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-.ok b{display:block;font-size:17px;color:var(--verde);letter-spacing:-.3px}
-.ok span{font-size:14px;color:var(--cinza);line-height:1.45}
-.conf svg{width:18px;height:18px;flex-shrink:0;fill:none;stroke:var(--verde);
-  stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
 
-.topo{background:linear-gradient(168deg,var(--vinho),var(--vinho-prof));
-  padding:22px 0 20px;text-align:center}
-.topo img{height:34px;width:auto;margin:0 auto}
+/* 3. o hero: frase seca que provoca e ja diz o que e (molde aprovado 06/10) + a ponte com o Controle */
+.hero{padding-top:14px;text-align:center}
+h1{font-size:clamp(25px,7.4vw,33px);line-height:1.08;letter-spacing:-1.1px;font-weight:800;margin-bottom:8px}
+h1 s{text-decoration-thickness:3px;text-decoration-color:var(--pink);color:var(--cinza)}
+h1 .serif{display:block;font-family:var(--serif);font-weight:400;font-style:italic;color:var(--vinho);letter-spacing:-.5px}
+.sub{font-size:16px;line-height:1.38;color:var(--cinza);margin:0 auto 12px}
+.sub b{color:var(--tinta);white-space:nowrap}
 
-main{padding:30px 0 44px}
-.olho{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--vinho);margin-bottom:10px;text-align:center}
-h1{font-family:var(--sans);font-size:31px;line-height:1.15;letter-spacing:-1.1px;
-  font-weight:800;text-align:center;margin-bottom:14px}
-h1 .serif{display:block;font-family:var(--serif);font-weight:400;font-style:italic;
-  color:var(--vinho);letter-spacing:-.4px}
-.sub{text-align:center;color:var(--cinza);font-size:17px;max-width:30ch;
-  margin:0 auto 26px;line-height:1.5}
-.sub b{color:var(--tinta)}
-
-/* A PROVA e o argumento, e desde 08/09/2026 a prova e a TELA DO SIMULADOR
-   dizendo "vendendo a R$ 39,90 voce PERDE R$ 3,06 por peca", nao a folha de
-   etiquetas (que desceu pro ultimo bloco). Motivo: o aceite era de 1,2% contra
-   premissa de 10%, porque a pagina vendia OUTRA dor (trabalho braçal de fazer
-   etiqueta) em vez da dor que o anuncio pagou pra trazer (nao sei quanto sobra).
-   Regra desta pagina: ela ja comprou 30s atras, entao o trabalho e mostrar UMA
-   coisa e dar o botao, nao convencer de novo. */
-.caixa{background:#fff;border:1px solid var(--linha);border-radius:var(--r-lg);
-  padding:22px 20px 24px;box-shadow:0 24px 50px -34px rgba(61,15,36,.4)}
-.foto{border:1px solid var(--linha);border-radius:12px;overflow:hidden;
-  background:var(--rose2);margin-bottom:18px}
-.foto img{width:100%;height:auto}
-/* legenda da prova: diz o que ela esta vendo na tela, porque print de app
-   sem legenda o leitor nao decodifica em 2 segundos */
-.leg{font-size:13.5px;color:var(--cinza);text-align:center;margin:-6px 0 18px;
-  line-height:1.45;padding:0 6px}
-.leg b{color:var(--vinho)}
-/* a linha da dor, logo abaixo do h1: e o unico paragrafo da pagina que
-   fala do MES DELA, e nao do produto */
-.cena{background:var(--rose2);border:1px solid var(--linha);border-radius:var(--r);
-  padding:16px 18px;font-size:15.5px;line-height:1.55;color:var(--cinza);
-  margin-bottom:22px}
-.cena b{color:var(--tinta)}
-.duas{display:grid;gap:10px;margin-bottom:18px}
-.duas div{display:flex;gap:10px;align-items:center;font-size:15px;
-  line-height:1.4;color:var(--cinza)}
-.duas b{color:var(--tinta);font-weight:700}
-.duas svg{width:21px;height:21px;flex-shrink:0;margin-top:2px;fill:none;
-  stroke:var(--verde);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
-.preco{text-align:center;border-top:1px solid var(--linha);padding-top:20px}
-.preco .val{font-weight:800;font-size:46px;line-height:1;color:var(--vinho);
-  letter-spacing:-1.8px}
-.preco .val sup{font-size:.4em;vertical-align:super;letter-spacing:0}
-.preco .uma{display:inline-block;background:var(--verde-bg);color:var(--verde);
-  font-size:12.5px;font-weight:800;border-radius:999px;padding:5px 13px;margin-top:10px}
-/* ===== DE R$ 97 POR R$ 67, POR TEMPO LIMITADO (06/10/2026, Vini) =====
-   O preco de antes era 97 (ate 01/09/2026) e a pagina nao dizia. O Vini pode voltar
-   pra 97, entao o 67 vai como preco por tempo limitado. */
-.preco .lim{display:inline-flex;align-items:center;gap:6px;background:var(--vinho);color:#fff;
-  font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
-  border-radius:999px;padding:6px 13px;margin-bottom:12px}
-.preco .lim svg{width:14px;height:14px;fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-.preco .de{font-size:16px;color:var(--cinza);font-weight:600;margin-bottom:4px}
-.preco .de s{text-decoration-thickness:2px;text-decoration-color:var(--vinho)}
-.barra .p .de-mini{display:block;font-size:11px;color:var(--cinza);font-weight:600;text-decoration:line-through;line-height:1}
-.so{text-align:center;font-size:14px;color:var(--vinho);font-weight:700;
-  margin-top:16px;line-height:1.5}
-.acao{margin-top:20px}
-cakto-upsell-buttons{display:block;width:100%}
-cakto-upsell-accept,cakto-upsell-reject{display:block;width:100%}
-/* CTA reforcado em 08/09/2026 (pedido do Vini): maior, mais alto e com
-   brilho, porque e o unico botao que importa nesta tela. */
-cakto-upsell-accept::part(button){
-  display:block;width:100%;background:linear-gradient(165deg,#a52d64,#5c1838);
-  color:#fff;font-family:var(--sans);font-size:19.5px;font-weight:800;letter-spacing:-.3px;
-  border:0;border-radius:var(--r);padding:22px 18px;cursor:pointer;line-height:1.25;
-  box-shadow:0 18px 34px -14px rgba(92,24,56,.9);
-  animation:respira 2.8s ease-in-out infinite}
-cakto-upsell-accept::part(button):active{transform:translateY(2px);animation:none}
-@keyframes respira{
-  0%,100%{box-shadow:0 18px 34px -14px rgba(92,24,56,.9)}
-  50%{box-shadow:0 18px 44px -10px rgba(165,45,100,.95)}}
-@media (prefers-reduced-motion:reduce){
-  cakto-upsell-accept::part(button){animation:none}}
-/* selo logo acima do botao: a vantagem concreta de clicar AQUI */
-.toque{display:flex;align-items:center;justify-content:center;gap:8px;
-  background:var(--verde-bg);color:var(--verde);border:1px solid #cfe8da;
-  border-radius:999px;font-size:13.5px;font-weight:800;padding:9px 14px;
-  margin-bottom:13px;text-align:center;line-height:1.3}
-.toque svg{width:17px;height:17px;flex-shrink:0;fill:none;stroke:var(--verde);
-  stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
-cakto-upsell-reject::part(button){
-  display:block;width:100%;background:transparent;color:var(--cinza);
-  font-family:var(--sans);font-size:14px;font-weight:600;border:0;
-  padding:16px 8px;cursor:pointer;text-decoration:underline;line-height:1.4}
-
-.ga{text-align:center;font-size:13.5px;color:var(--cinza);margin-top:18px}
-
-footer{text-align:center;font-size:12.5px;color:var(--cinza);padding:0 20px 34px}
-
-/* ===== VSL, no mesmo padrao da LP (21/09/2026) =====
-   Regra do Vini: "em formato VSL, igual da LP". Entao: toca sozinha SEM SOM ao
-   abrir, sem controles de navegador, com um botao grande de som no meio e barra
-   de progresso que nao deixa arrastar. O toque no botao REINICIA do zero com
-   som, senao ela ouviria a narracao pela metade.
-   `playsinline` e obrigatorio: sem ele o iPhone abre em tela cheia e tira a
-   compradora da pagina de checkout. */
-.vsl{position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;
-  border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--linha);
-  background:#000;margin:0 auto 14px;max-width:340px;
-  box-shadow:0 18px 40px -26px rgba(61,15,36,.55);aspect-ratio:1080/1350}
-.vsl video{width:100%;height:100%;object-fit:cover;display:block;background:#000}
-.vsl .barra-p{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(0,0,0,.28);z-index:3}
-.vsl .barra-p i{display:block;height:100%;width:0;background:var(--vinho);transition:width .2s linear}
+/* 4. VSL no MESMO celular da LP (pedido do Vini, 14/10/2026: "mockupzinho de celular igual da LP"):
+   borda escura, ilha numa faixa preta no topo, botoes laterais. O player tambem e o da LP (som que
+   reinicia do zero, toque pausa, botao de mudo, barra que nao deixa arrastar).
+   A VSL v2 (14/10, `vsl-catalogo-v2.mp4`) e 9:16 como a da LP e entra INTEIRA na tela do celular,
+   com a faixa da ilha em cima e a do indicador embaixo. Nao cortar: titulo e legenda vao queimados
+   no video e a lateral comia as frases (testado com a v1 4:5). --ar e a proporcao da area do video
+   (406/722). A v1 (`vsl-catalogo.mp4`, 4:5) segue no repo para voltar. O tamanho vem da ALTURA livre
+   da primeira tela: o script `encaixar` mede e grava. Sem script, cai no tamanho de baixo. */
+.palco{display:flex;justify-content:center;padding-bottom:6px}
+.fone{--ar:.5623;position:relative;width:min(62vw,250px);padding:7px;border-radius:40px;
+  background:linear-gradient(150deg,#3a2731 0%,#140b10 45%,#0d070a 70%,#2e1f27 100%);
+  box-shadow:0 30px 60px -26px rgba(20,4,12,.9),0 0 0 1px rgba(0,0,0,.55),inset 0 0 0 1.5px rgba(255,255,255,.13)}
+.fone:before,.fone:after{content:'';position:absolute;width:3px;border-radius:2px;
+  background:linear-gradient(90deg,#2e1f27,#4a3440)}
+.fone:before{right:-3px;top:24%;height:11%}
+.fone:after{left:-3px;top:19%;height:15%}
+.fone .tela{position:relative;border-radius:33px;overflow:hidden;background:#000;padding:22px 0 16px}
+.fone .tela:after{content:'';position:absolute;bottom:6px;left:50%;transform:translateX(-50%);width:34%;height:4px;
+  border-radius:4px;background:rgba(255,255,255,.55);pointer-events:none}
+.fone .ilha{position:absolute;top:5px;left:50%;transform:translateX(-50%);width:27%;height:13px;
+  border-radius:20px;background:#1a1a1a;box-shadow:inset 0 0 0 1px rgba(255,255,255,.05);z-index:6;pointer-events:none}
+.vsl{position:relative;aspect-ratio:var(--ar);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.vsl video{width:100%;height:100%;object-fit:cover;object-position:center;display:block;background:#000}
+.vsl .progresso{position:absolute;left:14px;right:14px;bottom:9px;height:4px;border-radius:4px;overflow:hidden;
+  background:rgba(255,255,255,.32);box-shadow:0 1px 3px rgba(0,0,0,.35);z-index:3}
+.vsl .progresso i{display:block;height:100%;width:0;border-radius:4px;background:var(--pink);transition:width .2s linear}
 .vsl .som{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  z-index:4;background:rgba(20,4,12,.30);transition:opacity .25s ease;border:0;padding:0;
-  width:100%;cursor:pointer}
+  z-index:4;background:rgba(20,4,12,.28);transition:opacity .25s ease}
 .vsl.tocando .som{opacity:0;pointer-events:none}
 .vsl .som b{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;
   width:96px;height:96px;border-radius:50%;background:rgba(255,255,255,.94);
   box-shadow:0 10px 30px -8px rgba(20,4,12,.6);animation:pulsa 2.2s ease-in-out infinite}
-.vsl .som svg{width:34px;height:34px;fill:none;stroke:#1d1218;stroke-width:2;
-  stroke-linecap:round;stroke-linejoin:round}
+.vsl .som svg{width:34px;height:34px;fill:none;stroke:#1d1218;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .vsl .som span{font-size:11px;font-weight:800;color:#1d1218;letter-spacing:.02em;text-transform:uppercase}
+.vsl .pausa{position:absolute;inset:0;z-index:4;display:none;align-items:center;justify-content:center;background:rgba(20,4,12,.38)}
+.vsl.pausado .pausa{display:flex}
+.vsl .pausa b{display:flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;
+  background:rgba(255,255,255,.94);box-shadow:0 10px 30px -8px rgba(20,4,12,.6)}
+.vsl .pausa svg{width:28px;height:28px;margin-left:5px;fill:#1d1218}
+.vsl .mudo{position:absolute;right:9px;bottom:20px;z-index:5;width:34px;height:34px;padding:0;border:0;border-radius:50%;
+  background:rgba(20,4,12,.62);display:none;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.vsl.tocando .mudo{display:flex}
+.vsl .mudo svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.vsl .mudo .x{display:none}
+.vsl.sem-som .mudo .x{display:inline}
+.vsl.sem-som .mudo .ondas{display:none}
+.vsl .mudo:focus-visible,.vsl:focus-visible{outline:2px solid #fff;outline-offset:2px}
 @keyframes pulsa{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
-@media (prefers-reduced-motion:reduce){.vsl .som b{animation:none}}
 
-/* ===== O CTA AQUI E LINK, NAO BOTAO DE 1 CLIQUE (21/09/2026) =====
-   Esta pagina e a versao PRE-COMPRA, aberta pelo app por quem ainda nao tem o
-   Catalogo. Os elementos <cakto-upsell-*> so funcionam logo apos um pagamento
-   aprovado (eles levam o upsell de 1 clique), entao aqui o CTA e um link normal
-   pro checkout. A cara e a mesma do botao da outra pagina, de proposito. */
-.cta-link{display:block;width:100%;text-align:center;text-decoration:none;
-  background:linear-gradient(180deg,#a32e64,#8e2757);color:#fff;font-weight:800;
-  font-size:18.5px;letter-spacing:-.2px;padding:19px 18px;border-radius:14px;
-  box-shadow:0 12px 26px -12px rgba(142,39,87,.75);line-height:1.25;
-  animation:pulsaBtn 2.6s ease-in-out infinite}
+main{padding:16px 0 36px}
+
+/* 5. a oferta, e SO a oferta (Vini, 14/10/2026: "depois da VSL ficou muita informacao, ta MUITO
+   poluido, so deixar o valor da promocao"). A lista de itens saiu, e com ela o Cobrar na Mao:
+   quem levou o bump ja tem, entao nesta tela ele nao entra. Tudo centrado na mesma coluna do celular. */
+.oferta{max-width:380px;margin:0 auto;background:#fff;border:1px solid var(--linha);border-radius:var(--r-lg);
+  padding:18px 18px 16px;text-align:center;box-shadow:0 24px 50px -34px rgba(61,15,36,.45)}
+.oferta .lim{display:inline-flex;align-items:center;gap:6px;background:var(--pink);color:#fff;font-size:11.5px;font-weight:800;
+  letter-spacing:.07em;text-transform:uppercase;border-radius:999px;padding:6px 12px;margin-bottom:10px}
+.oferta .lim svg{width:14px;height:14px;fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.oferta .de{font-size:17px;color:var(--cinza);font-weight:600;line-height:1.2}
+.oferta .de s{text-decoration-thickness:2px;text-decoration-color:var(--pink);color:var(--tinta)}
+.oferta .val{font-weight:800;font-size:58px;line-height:1;color:var(--vinho);letter-spacing:-2px;margin-top:2px}
+.oferta .val sup{font-size:.36em;vertical-align:super;letter-spacing:0;margin-right:3px}
+.oferta .tl{font-size:14px;color:var(--pink);font-weight:800;margin-top:8px;line-height:1.3;text-wrap:balance}
+.oferta .uma{font-size:13px;color:var(--cinza);font-weight:700;margin-top:2px}
+/* contador: so aparece com data REAL em FIM_DO_PRECO */
+.relogio{display:none;margin:12px auto 0;max-width:300px;background:var(--vinho-prof);color:#fff;border-radius:12px;padding:9px 12px}
+.relogio.on{display:block}
+.relogio small{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.8}
+.relogio b{font-size:21px;font-variant-numeric:tabular-nums;letter-spacing:.5px}
+
+/* 6. a acao: link pro checkout com a mesma cara do botao do upsell */
+.acao{margin-top:16px}
+.cta-link{display:block;width:100%;text-align:center;text-decoration:none;background:linear-gradient(165deg,#b2306c,#5c1838);
+  color:#fff;font-family:var(--sans);font-size:19px;font-weight:800;letter-spacing:-.3px;border-radius:var(--r);
+  padding:21px 16px;line-height:1.2;text-wrap:balance;box-shadow:0 18px 34px -14px rgba(92,24,56,.9);
+  animation:respira 2.8s ease-in-out infinite;-webkit-tap-highlight-color:transparent}
 .cta-link:active{transform:translateY(2px);animation:none}
-@keyframes pulsaBtn{0%,100%{transform:scale(1)}50%{transform:scale(1.018)}}
-@media (prefers-reduced-motion:reduce){.cta-link{animation:none}}
-.barra .cta-link{padding:13px 12px;font-size:15.5px;border-radius:12px;animation:none}
+@keyframes respira{0%,100%{box-shadow:0 18px 34px -14px rgba(92,24,56,.9)}50%{box-shadow:0 18px 44px -10px rgba(255,61,139,.75)}}
+.entrega{font-size:12.5px;line-height:1.4;color:var(--cinza);text-align:center;margin-top:11px;text-wrap:balance}
 
-/* ===== BARRA FIXA (21/09/2026) =====
-   Regra do Vini: "falta o botao que segue a tela, hoje o usuario tem que ir ate
-   embaixo". Igual a LP: aparece depois que a dobra passa e some quando o botao
-   de verdade entra em cena, pra nao competirem. */
-.barra{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,250,246,.95);
-  backdrop-filter:blur(10px);border-top:1px solid var(--linha);padding:10px 16px;
-  padding-bottom:calc(10px + env(safe-area-inset-bottom));display:none;gap:12px;align-items:center}
+.ga{font-size:12.5px;color:var(--cinza);margin:14px auto 0;text-align:center;line-height:1.4;max-width:34ch;text-wrap:balance}
+
+footer{text-align:center;font-size:12px;color:var(--cinza);padding:0 16px 96px}
+footer a{color:var(--cinza)}
+
+/* 7. barra fixa: aparece depois que a VSL sai da tela e some quando o botao de verdade entra */
+.barra{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,250,246,.96);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--linha);padding:9px 14px;
+  padding-bottom:calc(9px + env(safe-area-inset-bottom));display:none;gap:12px;align-items:center}
 .barra.on{display:flex}
-.barra .p{font-weight:800;color:var(--vinho);font-size:19px;line-height:1;white-space:nowrap}
-.barra .p small{display:block;font-size:10.5px;color:var(--cinza);font-weight:700}
+.barra .p{font-weight:800;color:var(--vinho);font-size:21px;line-height:1;white-space:nowrap}
+.barra .p s{display:block;font-size:11px;color:var(--cinza);font-weight:600;text-decoration-color:var(--pink)}
+.barra .p small{display:block;font-size:10px;color:var(--pink);font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
 .barra .cta{flex:1}
-/* o botao da Cakto dentro da barra: mesma cara do de baixo, so mais baixo */
-.barra cakto-upsell-accept{display:block}
-.barra cakto-upsell-accept button,.barra cakto-upsell-accept a{padding:13px 12px!important;font-size:15.5px!important}
+.barra .cta-link{padding:14px 10px;font-size:15.5px;animation:none}
 
-/* a dobra: headline + video tem que caber SEM ROLAR. Numa tela de 844px o topo
-   (faixa + banner + logo) come ~300px, entao o texto aqui e curto de proposito. */
-@media (max-height:820px){
-  h1{font-size:27px}
-  .sub{margin-bottom:12px}
-  .vsl{max-width:290px}
+@media (prefers-reduced-motion:reduce){
+  .selo,.selo .pisca,.vsl .som b,.cta-link{animation:none}
+  .alerta::after{display:none}}
+
+/* telas baixas: aperta o topo pra VSL caber inteira */
+@media (max-height:640px){
+  .alerta{padding:8px 0 9px}.alerta .w{gap:5px}.alerta b{font-size:20px}
+  .hero{padding-top:10px}h1{font-size:clamp(23px,6.6vw,28px);margin-bottom:6px}
+  .sub{font-size:14px;margin-bottom:9px}
 }
 </style>
 
@@ -262,177 +195,217 @@ alt=""/></noscript>
 </head>
 <body>
 
-<div class="topo"><img src="logo-branca.png" alt="Lucro na Mão" width="434" height="136"></div>
-
-<!-- BANNER: agressivo de proposito (pedido do Vini, 08/09/2026). Ela acabou de
-     pagar e o instinto e sair da tela pra procurar o e-mail, entao o banner tem
-     ~3 segundos pra fazer ela PARAR.
-     O QUE ELE NAO DIZ, e e regra: nada de "so nesta tela", "esta tela nao volta"
-     ou "depois o preco sobe". Conferido em 08/09/2026 com o Vini: o mesmo app
-     aparece DEPOIS dentro do hub, pelo mesmo link e o mesmo R$ 67. Escassez de
-     tela e de preco seria FALSA, e a risco-br proibe (linhas 233-234: contador
-     que reinicia e "ultimas vagas" em digital).
-     A vantagem REAL, e a unica que pode ser dita: aqui e 1 CLIQUE, porque o
-     pagamento dela acabou de ser aprovado e nao precisa ser digitado de novo.
-     A urgencia e de CONVENIENCIA, nao de medo.
-     ATUALIZADO 06/10/2026 (decisao do Vini): o preco aparece como "de R$ 97 por
-     R$ 67, por tempo limitado". Base: 97 foi o preco praticado ate 01/09/2026, e o
-     Vini pretende voltar pra 97. Continua proibido: contador, "so nesta tela" e
-     "esta tela nao volta". -->
-<div class="oferta">
+<!-- EXCLUSIVIDADE: so quem tem o Controle chega aqui (a pagina abre de dentro do app), e o Catalogo monta
+     o catalogo com o estoque do Controle. -->
+<div class="alerta">
   <div class="w">
-    <span class="selo">
-      <span class="pisca"></span>
-      oferta especial
-    </span>
-    <b class="grande">Falta só isto pra<br>vender mais no WhatsApp</b>
+    <span class="selo"><span class="pisca"></span>só pra quem tem o Controle</span>
+    <b>Oferta exclusiva pra você</b>
+  </div>
+</div>
+
+<div class="w hero">
+  <h1><s>Foto solta</s> não vende.
+    <span class="serif">Catálogo vende.</span></h1>
+  <p class="sub">O seu estoque vira um <b>catálogo pronto</b><br>pra enviar no WhatsApp.</p>
+
+  <div class="palco" id="palco">
+    <div class="fone" id="fone">
+     <div class="tela"><span class="ilha" aria-hidden="true"></span>
+      <div class="vsl" data-vsl>
+        <video src="vsl-catalogo-v2.mp4" poster="vsl-catalogo-v2-capa.jpg" width="406" height="722"
+               muted loop playsinline preload="none"
+               aria-label="Vídeo mostrando o catálogo saindo do estoque e chegando no WhatsApp da cliente"></video>
+        <div class="progresso"><i></i></div>
+        <div class="pausa" aria-hidden="true"><b><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></b></div>
+        <button class="mudo" type="button" aria-label="Silenciar"><svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><g class="ondas"><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/></g><g class="x"><path d="m16 9 6 6"/><path d="m22 9-6 6"/></g></svg></button>
+        <div class="som" role="button" tabindex="0" aria-label="Tocar com som, do início">
+          <b><svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/></svg><span>Ouvir</span></b>
+        </div>
+      </div>
+     </div>
+    </div>
   </div>
 </div>
 
 <main class="w">
-  <!-- HEADLINE, reescrita em 08/09/2026 apos critica do Vini: a versao anterior
-       ("Logo o Controle vai te mostrar quanto sobrou. E se sobrar pouco?") abria
-       a dor mas NAO dizia o que o produto e, e ela tinha que rolar ate a imagem
-       pra descobrir. A regra que valeu (oferta-vence-produto.md, elemento 1):
-       a headline responde "isso e sobre mim?" com ESPECIFICIDADE.
-       Agora nomeia a solucao (calcular o preco certo) e o resultado (quanto
-       sobra) na mesma respiracao, e a dor desceu pra linha de apoio.
-       VOCABULARIO: "margem" NAO entra. O voz-do-publico.md da 004 lista
-       "margem de contribuicao" entre as palavras que ela nao diz, e a LP do
-       front usa "quanto sobrou" 3x e "margem" 0x. Decisao do Vini nesta sessao. -->
-  <!-- HEADLINE reescrita em 21/09/2026: o upsell deixou de ser Precificacao na
-       Mao e virou CATALOGO na Mao. Motivo (decisao do Vini): "ninguem vai pagar
-       para precificar algo". Precificar e trabalho de bastidor, usado uma vez;
-       catalogo e ferramenta de vender, usada toda semana.
-       A headline nomeia a SOLUCAO e o RESULTADO na mesma respiracao, como a
-       anterior fazia, e a dor desce pra linha de apoio (a cutucada que o Vini
-       escreveu: "voce ainda manda foto uma por uma?"). -->
-  <h1>Seu catálogo pronto
-    <span class="serif">pra mandar no WhatsApp</span></h1>
-  <p class="sub">Você ainda manda as fotos <b>uma por uma?</b></p>
+  <div class="oferta">
+    <div class="lim"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9.5 2.5h5"/></svg>preço de lançamento</div>
+    <div class="de">de <s>R$ 97</s> por</div>
+    <div class="val"><sup>R$</sup>67</div>
+    <div class="tl">por tempo limitado: depois volta pra R$ 97</div>
+    <div class="uma">uma vez só · sem mensalidade · é seu pra sempre</div>
+    <div class="relogio" id="relogio"><small>o preço de lançamento acaba em</small><b>--</b></div>
 
-  <!-- A VSL vem ANTES da caixa: em 39s ela ve o catalogo sair do estoque e
-       chegar na conversa, que e mais do que qualquer print explica. -->
-  <div class="vsl" id="vslBox" data-vsl>
-    <video src="vsl-catalogo.mp4" poster="vsl-capa.jpg"
-           muted loop autoplay playsinline preload="metadata"
-           aria-label="Vídeo mostrando o catálogo sendo montado e enviado no WhatsApp"></video>
-    <button type="button" class="som" aria-label="Tocar com som">
-      <b>
-        <svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7"/><path d="M18.5 5.5a9 9 0 010 13"/></svg>
-        <span>ouvir</span>
-      </b>
-    </button>
-    <div class="barra-p"><i></i></div>
-  </div>
-
-  <div class="caixa">
-    <div class="foto">
-      <img src="demo-zap.jpg" width="664" height="830" loading="lazy"
-           alt="Conversa no WhatsApp: o catálogo enviado e a cliente escolhendo duas peças">
-    </div>
-    <p class="leg">Ela vê tudo de uma vez e <b>já escolhe</b>,
-      sem você responder preço um por um.</p>
-
-  <div class="cena">
-    Mandar foto solta e responder <b>"quanto é?"</b> o dia todo cansa,
-    e faz a freguesa desistir no meio.
-  </div>
-
-
-    <div class="duas">
-      <div><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span>Sai pronto do seu estoque: <b>você não cadastra nada de novo</b></span></div>
-      <div><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span>Um toque e vai pro WhatsApp, <b>com a sua mensagem</b></span></div>
-      <div><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span>Do jeito que <b>loja grande manda</b>: organizado e com preço</span></div>
-    </div>
-
-    <div class="preco">
-      <div class="lim"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9.5 2.5h5"/></svg>preço por tempo limitado</div>
-      <div class="de">de <s>R$ 97</s> por</div>
-      <div class="val"><sup>R$</sup>67</div>
-      <div class="uma">uma vez só, é seu pra sempre</div>
-      <div class="so">O acesso entra junto com o do Controle.</div>
-    </div>
-
-    <div class="acao">
-      <div class="toque">
-        <svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>
-        Pagamento único: é seu pra sempre
-      </div>
-      <a class="cta-link" href="https://pay.cakto.com.br/qd7cbqf"
-         target="_blank" rel="noopener">Quero o meu catálogo pronto</a>
+    <div class="acao" id="acao">
+      <a class="cta-link" href="https://pay.cakto.com.br/qd7cbqf" target="_blank" rel="noopener">SIM! Quero o meu catálogo pronto</a>
+      <p class="entrega">Pix ou cartão. O acesso chega no seu <span style="white-space:nowrap">e-mail</span> assim que o pagamento aprovar.</p>
     </div>
   </div>
 
-  <p class="ga">Não gostou? 7 dias pra pedir de volta, sem perguntas.</p>
+  <p class="ga">7 dias pra pedir de volta, pela própria plataforma.</p>
 </main>
 
-<footer>Lucro na Mão · contato@lucronamao.online</footer>
+<footer><a href="termos.html">Termos de uso</a> · <a href="privacidade.html">Privacidade</a></footer>
 
 
-<!-- BARRA FIXA: o CTA segue a tela, como na LP. Ela some quando o botao de
-     verdade aparece, pra nao existirem dois botoes iguais na mesma dobra. -->
 <div class="barra" id="barraFixa">
-  <div class="p"><span class="de-mini">de R$ 97</span>R$ 67<small>tempo limitado</small></div>
+  <div class="p"><s>R$ 97</s>R$ 67<small>lançamento</small></div>
   <div class="cta">
-    <a class="cta-link" href="https://pay.cakto.com.br/qd7cbqf"
-       target="_blank" rel="noopener">Quero o meu catálogo</a>
+    <a class="cta-link" href="https://pay.cakto.com.br/qd7cbqf" target="_blank" rel="noopener">Quero o meu catálogo</a>
   </div>
 </div>
 
 <script>
-/* ===== VSL no padrao da LP (21/09/2026) =====
-   Toca sozinha sem som; o botao religa DO ZERO com audio. Se o navegador barrar
-   o autoplay com som (politica de midia), volta pro mudo sem quebrar a pagina. */
+/* ===== A VSL CABE INTEIRA NA PRIMEIRA TELA =====
+   Mede quanto sobra de altura abaixo do titulo e dimensiona o celular por ela.
+   Altura do celular = 14 (borda) + 22 (faixa da ilha) + 16 (faixa do indicador) + largura do video / --ar.
+   So recalcula quando a LARGURA muda (girar o celular): no celular a altura muda sozinha
+   quando a barra do navegador some, e recalcular ai faria a pagina pular durante a rolagem. */
 (function(){
-  var box = document.getElementById('vslBox');
-  if (!box) return;
-  var v = box.querySelector('video');
-  var fill = box.querySelector('.barra-p i');
-  var somOn = false;
+  var palco = document.getElementById('palco'), fone = document.getElementById('fone');
+  if (!palco || !fone) return;
+  var larguraAntes = 0;
+  function encaixar(forcar){
+    if (!forcar && window.innerWidth === larguraAntes) return;
+    larguraAntes = window.innerWidth;
+    var ar = parseFloat(getComputedStyle(fone).getPropertyValue('--ar')) || .5623;
+    var topo = palco.getBoundingClientRect().top + window.scrollY;
+    var livre = Math.min(window.innerHeight - topo - 14, 560);   /* folga pra sombra */
+    var larg = (Math.max(livre, 300) - 52) * ar + 14;
+    fone.style.width = Math.round(Math.min(larg, palco.clientWidth - 8)) + 'px';
+  }
+  window.encaixarVsl = function(){ encaixar(true); };
+  encaixar();
+  window.addEventListener('resize', function(){ encaixar(); });
+})();
 
-  v.addEventListener('pause', function(){ if (!v.ended && !somOn) v.play().catch(function(){}); });
-  v.addEventListener('timeupdate', function(){
-    if (v.duration) fill.style.width = (v.currentTime / v.duration * 100) + '%';
-  });
+/* ===== VSL: o mesmo comportamento da LP (13/10/2026) =====
+   abre MUDA em loop; "Ouvir" reinicia do zero com som; com som, toque pausa e continua;
+   o botao do canto silencia; trocou de aba pausa; avancar e voltar travados. */
+(function(){
+  var menosMovimento = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('[data-vsl]').forEach(function(box){
+    var v = box.querySelector('video');
+    var fill = box.querySelector('.progresso i');
+    var mudo = box.querySelector('.mudo');
+    var somOn = false, pausaDela = false, pausaDaAba = false;
 
-  box.querySelector('.som').addEventListener('click', function(e){
-    e.stopPropagation();
-    if (somOn) return;
-    somOn = true;
-    box.classList.add('tocando');
-    v.loop = false;
-    v.muted = false;
-    v.currentTime = 0;
-    v.play().catch(function(){
-      v.muted = true; v.loop = true; somOn = false; box.classList.remove('tocando'); v.play();
+    v.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+    v.addEventListener('timeupdate', function(){
+      if (v.duration) fill.style.width = (v.currentTime / v.duration * 100) + '%';
+    });
+
+    function marcarMudo(sem){
+      box.classList.toggle('sem-som', sem);
+      mudo.setAttribute('aria-label', sem ? 'Ligar o som' : 'Silenciar');
+    }
+
+    function ligarSom(){
+      if (somOn) return;
+      somOn = true; pausaDela = false;
+      box.classList.add('tocando'); box.classList.remove('pausado');
+      box.tabIndex = 0;
+      v.loop = false;
+      v.muted = false; marcarMudo(false);
+      v.currentTime = 0;
+      v.play().catch(function(){
+        v.muted = true; v.loop = true; somOn = false; box.classList.remove('tocando'); box.removeAttribute('tabindex');
+        if (!menosMovimento) v.play().catch(function(){});
+      });
+    }
+
+    var botao = box.querySelector('.som');
+    botao.addEventListener('click', function(e){ e.stopPropagation(); ligarSom(); });
+    botao.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); ligarSom(); }
+    });
+
+    function alternar(){
+      if (!somOn) return;
+      if (v.paused) { pausaDela = false; v.play().catch(function(){}); }
+      else { pausaDela = true; v.pause(); }
+    }
+    box.addEventListener('click', function(e){ if (somOn && !mudo.contains(e.target)) { e.preventDefault(); alternar(); } });
+    box.addEventListener('keydown', function(e){
+      if (somOn && e.target === box && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); alternar(); }
+    });
+    v.addEventListener('pause', function(){ if (somOn && !v.ended) box.classList.add('pausado'); });
+    v.addEventListener('play', function(){ box.classList.remove('pausado'); });
+
+    mudo.addEventListener('click', function(e){
+      e.stopPropagation(); e.preventDefault();
+      v.muted = !v.muted; marcarMudo(v.muted);
+    });
+
+    v.preload = menosMovimento ? 'metadata' : 'auto';
+    if (!menosMovimento) v.play().catch(function(){});
+
+    document.addEventListener('visibilitychange', function(){
+      if (document.hidden) {
+        if (!v.paused) { pausaDaAba = true; v.pause(); }
+      } else if (pausaDaAba) {
+        pausaDaAba = false;
+        if (!pausaDela && (somOn || !menosMovimento)) v.play().catch(function(){});
+      }
+    });
+
+    v.addEventListener('ended', function(){
+      somOn = false; pausaDela = false;
+      box.classList.remove('tocando', 'pausado'); box.removeAttribute('tabindex');
+      v.muted = true; marcarMudo(false); v.loop = true; v.currentTime = 0;
+      if (!menosMovimento) v.play().catch(function(){});
     });
   });
 })();
 
+/* ===== CONTADOR, SO COM DATA REAL =====
+   Vazio = sem contador (a pagina diz so "tempo limitado"). Preencher SO quando o preco de fato
+   for mudar nessa data, aqui, na oferta-catalogo.html do app e na oferta da Cakto. Contador que
+   reinicia ou data que passa e nada muda e escassez falsa: proibido.
+   Formato: '2026-10-19T23:59:00-03:00'. Na previa local (localhost ou arquivo), ?fim= simula. */
+var FIM_DO_PRECO = '';
+(function(){
+  var fim = FIM_DO_PRECO;
+  if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname) || location.protocol === 'file:') {
+    var p = new URLSearchParams(location.search).get('fim'); if (p) fim = p;
+  }
+  var alvo = fim ? new Date(fim).getTime() : NaN;
+  var caixa = document.getElementById('relogio');
+  if (!caixa || isNaN(alvo) || alvo <= Date.now()) return;
+  var b = caixa.querySelector('b');
+  function dois(n){ return (n < 10 ? '0' : '') + n; }
+  function tic(){
+    var s = Math.floor((alvo - Date.now()) / 1000);
+    if (s <= 0) { caixa.classList.remove('on'); clearInterval(t); return; }
+    var d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60), ss = s % 60;
+    b.textContent = (d ? d + 'd ' : '') + dois(h) + 'h ' + dois(m) + 'min ' + dois(ss) + 's';
+  }
+  caixa.classList.add('on'); tic();
+  var t = setInterval(tic, 1000);
+})();
+
 /* ===== BARRA FIXA =====
-   Aparece depois que a dobra passa, e some quando o botao real entra na tela:
+   Aparece depois que a VSL sai da tela, e some quando o botao de verdade entra em cena:
    dois botoes iguais visiveis ao mesmo tempo confundem. */
 (function(){
   var barra = document.getElementById('barraFixa');
-  var acao = document.querySelector('main .acao');
-  if (!barra || !acao) return;
+  var acao = document.getElementById('acao');
+  var palco = document.getElementById('palco');
+  if (!barra || !acao || !palco) return;
   function ver(){
     var r = acao.getBoundingClientRect();
-    var passouDobra = window.scrollY > 240;
-    /* "na tela" aqui quer dizer VISIVEL DE VERDADE: o botao tem que estar acima
-       da linha de baixo com folga. Usar `r.top < innerHeight` fazia a barra
-       piscar, porque o botao encostando na borda ja contava como visivel. */
+    var passouVsl = palco.getBoundingClientRect().bottom < 60;
     var acaoVisivel = r.top < (window.innerHeight - 90) && r.bottom > 60;
-    barra.classList.toggle('on', passouDobra && !acaoVisivel);
+    barra.classList.toggle('on', passouVsl && !acaoVisivel);
   }
   window.addEventListener('scroll', ver, {passive:true});
   window.addEventListener('resize', ver);
   ver();
 })();
 
-/* ===== ORIGEM ATE O CHECKOUT (06/10/2026) =====
-   Esta pagina e aberta pelo app (utm_source=app&utm_medium=preco). Sem repassar,
+/* ===== ORIGEM ATE O CHECKOUT (06/10/2026, mantido na reescrita de 14/10) =====
+   Esta pagina e aberta pelo app (utm_source=app&utm_medium=controle|divulga|preco). Sem repassar,
    o pedido chegava na Cakto sem UTM e o painel nao tinha como saber de onde veio.
    Repassa a query inteira, do jeito que chegou, nos dois botoes de compra. */
 (function(){
