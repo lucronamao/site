@@ -12,7 +12,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="favicon-96.png">
 <link rel="apple-touch-icon" href="favicon-180.png">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Você vende todo dia. Mas sabe quanto sobrou?">
+<meta property="og:title" content="Tem revendedora pagando pra trabalhar sem saber.">
 <meta property="og:description" content="O aplicativo que registra a venda em poucos toques e mostra na hora o seu lucro. R$ 47, uma vez só.">
 <meta property="og:image" content="https://lucronamao.online/og.png">
 <meta property="og:image:width" content="1200">
@@ -64,6 +64,12 @@ h3{font-size:var(--s2)}
 .hero h1 .serif{display:block;color:#ffd7e8}
 .sub{font-size:clamp(16px,15px + .5vw,19px);color:#f7e4ec;max-width:34ch;margin-bottom:26px}
 .sub b{color:#fff;font-weight:700}
+/* hero agressivo (19/10/2026, Vini): a 2a linha do H1 sai do italico rosa e vira negrito branco; o soco
+   ("pagando pra trabalhar") ganha marca-texto amarelo e a solucao na sub sai em amarelo negrito */
+.hero h1 .l2{display:block;color:#fff}
+.hero h1 mark{background:linear-gradient(transparent 8%,#ffd84d 8%,#ffd84d 92%,transparent 92%);color:#3d0f24;
+  padding:0 .14em;margin:0 -.04em;border-radius:3px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.hero .sub mark{background:none;color:#ffd84d;font-weight:700}
 
 /* palco do celular */
 .palco{position:relative;display:flex;justify-content:center;padding:8px 0 4px}
@@ -89,7 +95,7 @@ h3{font-size:var(--s2)}
   .hero .marca{height:24px;margin-bottom:8px}
   .chapeu{font-size:10px;margin-bottom:6px}
   .hero h1{font-size:clamp(22px,5.8vw,27px);margin-bottom:7px}
-  .sub{font-size:14px;line-height:1.36;margin-bottom:10px}
+  .sub{font-size:14px;line-height:1.36;margin-bottom:10px;max-width:none} /* sub de 104 car. (19/10): presa em 32ch ia a 4 linhas e cortava a base da VSL */
   .fone{width:min(228px,58vw)}
 }
 @media (max-width:899px){
@@ -419,7 +425,9 @@ footer .f-links a{color:#fff;text-decoration:none;display:inline-flex;align-item
   section{padding:76px 0}
   .hero{padding:34px 0 66px}
   .hero .grade{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center}
-  .hero h1{max-width:16ch}
+  /* H1 de 23 e 24 caracteres por linha (19/10/2026): com 16ch e 52px ia a 4 linhas e partia "sem / saber".
+     Medido: cabe em 2 linhas a 41px na coluna de 543px e a 32px na de 427px (tela de 900) */
+  .hero h1{max-width:none;font-size:min(41px,3.55vw)}
   .sub{font-size:19.5px}
   .tags{grid-template-columns:1fr 1fr;gap:9px;max-width:440px}
   .oferta{max-width:430px}
@@ -471,10 +479,10 @@ alt=""/></noscript>
     <div class="grade">
       <div class="hero-txt">
         <div class="chapeu">Para quem vende roupa, maquiagem ou acessório</div>
-        <h1>Você vende todo dia.
-          <span class="serif">Mas sabe quanto sobrou?</span></h1>
-        <p class="sub">Vende bem, repõe peça, paga frete, e no fim do mês
-          <b>o dinheiro sumiu sem explicação</b>.</p>
+        <h1>Tem revendedora <mark>pagando</mark>
+          <span class="l2"><mark>pra trabalhar</mark> sem saber.</span></h1>
+        <p class="sub">Profissional não faz a conta no caderno:
+          <mark>usa um app no celular que mostra o lucro de cada venda na hora.</mark></p>
 
         <div class="palco palco-mob">
           <div class="fone fone-vsl">
@@ -865,7 +873,7 @@ alt=""/></noscript>
 <!-- barra fixa (aparece depois do hero) -->
 <div class="barra" id="barra">
   <div class="p">R$ 47<small>uma vez</small></div>
-  <a class="cta" href="#" data-checkout>Quero o app</a>
+  <a class="cta" href="#" data-checkout>Quero ver meu lucro</a>
 </div>
 
 <script>
