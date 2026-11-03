@@ -64,7 +64,7 @@ h3{font-size:var(--s2)}
 .hero .w{position:relative;z-index:2}
 .marca{height:38px;width:auto;margin-bottom:30px}
 .chapeu{font-size:11.5px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;
-  color:#f0c6d8;margin-bottom:12px}
+  color:#fbe3ee;margin-bottom:12px}
 .hero h1{font-size:var(--s5);margin-bottom:16px}
 .hero h1 .serif{display:block;color:#ffd7e8}
 .sub{font-size:clamp(16px,15px + .5vw,19px);color:#f7e4ec;max-width:34ch;margin-bottom:26px}
@@ -428,7 +428,7 @@ footer .f-links a{color:#fff;text-decoration:none;display:inline-flex;align-item
    e o trilho parecia travado; no celular as setas dizem que tem mais para o lado */
 .pontos{align-items:center}
 .pontos i{cursor:pointer}
-.pontos button{width:34px;height:34px;flex:0 0 34px;margin:0 8px;padding:0;border-radius:50%;border:1px solid var(--linha);
+.pontos button{width:44px;height:44px;flex:0 0 44px;margin:0 8px;padding:0;border-radius:50%;border:1px solid var(--linha);
   background:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 4px 12px -6px rgba(42,31,40,.35)}
 .pontos button svg{width:18px;height:18px;fill:none;stroke:var(--vinho);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .pontos button:disabled{opacity:.35;cursor:default;box-shadow:none}
@@ -486,7 +486,11 @@ footer .f-links a{color:#fff;text-decoration:none;display:inline-flex;align-item
 .xa-vis img{border-radius:var(--r-sm);width:100%;height:auto}
 .xa-vis.zap{background:#0b141a;border-radius:var(--r-sm);padding:12px 8px;min-height:150px;display:flex;align-items:center}
 .bolha{background:#005c4b;color:#e9edef;border-radius:10px 10px 2px 10px;padding:8px 9px;font-size:11.5px;line-height:1.35}
-.bolha small{display:block;text-align:right;font-size:9.5px;opacity:.7;margin-top:4px}
+/* foco visivel dentro de caixas com overflow:hidden (QA de 03/11/2026) */
+.st-tela:focus-visible{outline:3px solid #fff;outline-offset:-5px}
+.som:focus-visible{outline:none}
+.som:focus-visible b{outline:3px solid #fff;outline-offset:3px;box-shadow:0 0 0 6px rgba(142,39,87,.9)}
+.bolha small{display:block;text-align:right;font-size:9.5px;opacity:.88;margin-top:4px}
 .xa .tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
   color:var(--vinho);background:var(--rose);border-radius:999px;padding:3px 9px;margin-bottom:6px}
 .xa h3{font-size:17px;margin-bottom:4px}
@@ -506,7 +510,7 @@ footer .f-links a{color:#fff;text-decoration:none;display:inline-flex;align-item
 .oferta .lanc{font-size:12.5px;font-weight:800;color:var(--vinho);letter-spacing:.02em;margin-top:8px}
 .oferta .lanc + .uma{margin-top:6px}
 .oferta .mensal{font-size:13px;line-height:1.45;color:var(--cinza);margin:-4px 0 12px}
-.oferta .mensal s{opacity:.85}
+.oferta .mensal s{opacity:1}
 @media (min-width:900px){
   /* no computador não tem dedo pra deslizar: os trilhos viram grade e os pontos somem */
   .trilho{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;overflow:visible;
@@ -626,7 +630,7 @@ alt=""/></noscript>
         <div class="palco palco-mob">
           <div class="story" data-story role="region" aria-roledescription="carrossel" aria-label="O app por dentro, em 5 partes, com valores de exemplo">
             <div class="fone"><div class="cel"><div class="vetro"><span class="isola"></span><div class="stato"><span>14:32</span><i><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2" fill="currentColor"/></svg></i></div>
-              <div class="st-tela" tabindex="0" aria-label="Toque para avançar, segure para pausar">
+              <div class="st-tela" tabindex="0" role="button" aria-label="Toque para avançar, segure para pausar">
                 <div class="st-barras" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
                 <div class="st-parte on">
                   <div class="st-zoom"><video class="st-midia" data-src="venda-passo-a-passo.mp4" poster="venda-toques-capa.webp" width="600" height="1298" muted playsinline preload="none" disablepictureinpicture aria-label="Vídeo sem som de uma venda no app: toque em Registrar venda, escolha um perfume decant e um body, marque Pix e confirme."></video></div>
@@ -668,7 +672,7 @@ alt=""/></noscript>
       <div class="palco palco-desk">
         <div class="story" data-story role="region" aria-roledescription="carrossel" aria-label="O app por dentro, em 5 partes, com valores de exemplo">
           <div class="fone"><div class="cel"><div class="vetro"><span class="isola"></span><div class="stato"><span>14:32</span><i><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2" fill="currentColor"/></svg></i></div>
-            <div class="st-tela" tabindex="0" aria-label="Toque para avançar, segure para pausar">
+            <div class="st-tela" tabindex="0" role="button" aria-label="Toque para avançar, segure para pausar">
               <div class="st-barras" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
               <div class="st-parte on">
                 <div class="st-zoom"><video class="st-midia" data-src="venda-passo-a-passo.mp4" poster="venda-toques-capa.webp" width="600" height="1298" muted playsinline preload="none" disablepictureinpicture aria-label="Vídeo sem som de uma venda no app: toque em Registrar venda, escolha um perfume decant e um body, marque Pix e confirme."></video></div>
@@ -706,7 +710,7 @@ alt=""/></noscript>
     <h2 class="centro">O que <span class="serif">contaram</span></h2>
     <!-- depoimentos em video (11/2026): compradores reais, cortados sem mudar o sentido; o nome e o que
          cada um diz no video. Sem legenda (decisao do Vini). Igual na A e na B. -->
-    <div class="trilho depo-trilho" data-trilho tabindex="0" aria-label="Depoimentos em vídeo">
+    <div class="trilho depo-trilho" data-trilho tabindex="0" role="region" aria-label="Depoimentos em vídeo">
       <figure class="depo">
         <div class="depo-tela">
           <div class="vsl" data-depo>
@@ -737,7 +741,7 @@ alt=""/></noscript>
       </figure>
     </div>
     <div class="pontos depo-pontos" data-pontos></div>
-    <div class="trilho" data-trilho tabindex="0" aria-label="Prints de conversas com clientes">
+    <div class="trilho" data-trilho tabindex="0" role="region" aria-label="Prints de conversas com clientes">
       <figure class="prova">
         <img class="print" src="dep-melissa-26-pr.webp" width="600" height="508" loading="lazy" decoding="async" alt="Print de conversa no WhatsApp: “tô usando todo dia, antes eu nao sabia nem direito quanto eu tava lucrando, achava que sabia mas não sabia. agora ali no aplicativo me mostra tudo certinho, me ajudou demais mesmo principalmente no fim do mês quando vou fazer as contas”">
         <figcaption class="quem"><span class="ini" aria-hidden="true">M</span><span class="nome">Melissa, 26<span class="onde">Paraná</span></span><span class="est" role="img" aria-label="5 de 5 estrelas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5L2.5 9.4l6.6-.9z"/></svg></span></figcaption>
@@ -787,7 +791,7 @@ alt=""/></noscript>
   <div class="w">
     <div class="olho rivela">Como funciona</div>
     <h2 class="rivela">Agora são <span class="serif">poucos toques, e pronto</span></h2>
-    <div class="trilho telas" data-trilho tabindex="0" aria-label="Telas do aplicativo">
+    <div class="trilho telas" data-trilho tabindex="0" role="region" aria-label="Telas do aplicativo">
       <figure class="slide">
         <div class="cel"><div class="vetro"><span class="isola"></span><div class="stato"><span>14:32</span><i><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2" fill="currentColor"/></svg></i></div><img class="schermo" src="tela-01-vender.webp" width="360" height="720" loading="lazy" decoding="async" alt="Tela do aplicativo: venda em poucos toques"></div></div>
         <figcaption><b>Venda em poucos toques</b>O lucro daquela venda aparece na hora.</figcaption>
@@ -964,7 +968,7 @@ alt=""/></noscript>
       <a href="privacidade.html">Política de privacidade</a>
     </div>
     <div class="f-id">
-      CNPJ 67.603.542/0001-20 · <a href="mailto:canarimtech@gmail.com">canarimtech@gmail.com</a>
+      CNPJ 67.603.542/0001-20 · <a href="mailto:contato@lucronamao.online">contato@lucronamao.online</a>
     </div>
   </div>
 </footer>
@@ -1041,7 +1045,7 @@ var CHECKOUT = 'https://pay.cakto.com.br/3ko7pit';   /* front R$ 47, oferta 3ko7
 
     /* a previa muda nao para; com som, a pausa e da cliente e aparece o botao de continuar */
     v.addEventListener('pause', function(){
-      if (!somOn) { if (!v.ended) v.play().catch(function(){}); return; }
+      if (!somOn) { if (!v.ended && !reduzVsl) v.play().catch(function(){}); return; }
       if (!v.ended) box.classList.add('pausado');
     });
     v.addEventListener('play', function(){ box.classList.remove('pausado'); });
@@ -1082,9 +1086,12 @@ var CHECKOUT = 'https://pay.cakto.com.br/3ko7pit';   /* front R$ 47, oferta 3ko7
        Com autoplay no HTML as duas baixavam, e a VSL visivel ficava com metade da banda no 4G.
        Agora so a visivel carrega e toca; a escondida nunca baixa. */
     function visivel(){ return box.offsetParent !== null && box.getBoundingClientRect().width > 0; }
+    var reduzVsl = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
     function comecar(){
       if (!visivel() || box.dataset.iniciada) return;
       box.dataset.iniciada = '1';
+      /* "reduzir movimento": fica na capa, sem tocar sozinha; o Ouvir continua valendo */
+      if (reduzVsl) { v.preload = 'metadata'; return; }
       v.preload = 'auto';
       v.play().catch(function(){});
     }
@@ -1335,24 +1342,39 @@ var CHECKOUT = 'https://pay.cakto.com.br/3ko7pit';   /* front R$ 47, oferta 3ko7
     v.addEventListener('click', function(e){ e.preventDefault(); if (!somOn) return; if (v.paused) tocar(); else v.pause(); });
     v.addEventListener('ended', function(){ box.__mudo(); v.currentTime = 0; if (naTela && !reduz) tocar(); });
     if (!('IntersectionObserver' in window)) { carregar(); return; }
-    new IntersectionObserver(function(es){ if (es[0].isIntersecting) carregar(); }, { rootMargin: '150px 0px' }).observe(box);
+    /* perto da tela so a capa (13 KB); o video baixa quando aparece de verdade (QA de 03/11/2026:
+       no computador a secao comeca na dobra e os 2,9 MB baixavam sem ninguem ver) */
+    new IntersectionObserver(function(es, io){ if (es[0].isIntersecting) { io.disconnect(); if (!v.poster) v.poster = v.dataset.poster; } }, { rootMargin: '150px 0px' }).observe(box);
     new IntersectionObserver(function(es){
       naTela = es[0].isIntersecting;
       if (naTela) { carregar(); if (somOn || (!reduz && !falando)) tocar(); }
       else if (!v.paused) v.pause();
     }, { threshold: 0.5 }).observe(box);
   });
+  var meus = caixas.map(function(b){ return b.querySelector('video'); });
+  /* 'volumechange' tambem: a VSL ja toca muda, e ao ligar o som ela nao dispara 'play' de novo */
+  function outroFalou(e){
+    var o = e.target;
+    if (!o || o.tagName !== 'VIDEO' || o.muted || o.paused || meus.indexOf(o) >= 0) return;
+    caixas.forEach(function(b){ if (b.__parar) b.__parar(); });
+    falando = null;
+  }
+  document.addEventListener('play', outroFalou, true);
+  document.addEventListener('volumechange', outroFalou, true);
 })();
 </script>
 <script>
 /* so um video com som por vez na pagina (03/11/2026): o que comeca a falar pausa quem ja falava */
-document.addEventListener('play', function(e){
+function umComSom(e){
   var v = e.target;
-  if (!v || v.tagName !== 'VIDEO' || v.muted) return;
+  if (!v || v.tagName !== 'VIDEO' || v.muted || v.paused) return;
   [].forEach.call(document.querySelectorAll('video'), function(o){
     if (o !== v && !o.paused && !o.muted) o.pause();
   });
-}, true);
+}
+/* 'volumechange' tambem: video que ja tocava mudo e liga o som nao dispara 'play' de novo */
+document.addEventListener('play', umComSom, true);
+document.addEventListener('volumechange', umComSom, true);
 </script>
 </body>
 </html>
