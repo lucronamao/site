@@ -1,6 +1,33 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
+<script>
+/* TESTE A/B DO TOPO (11/2026). Roda ANTES de tudo: sorteia A ou B uma vez por visitante e guarda
+   (localStorage, cookie de reserva). Quem cai em B vai para /v2/ com a mesma query (utm, fbclid,
+   lab_teste) e o mesmo hash. ?v=a e ?v=b forcam a versao e nao mexem no sorteio guardado.
+   /v2/ nao tem este script, entao ninguem e redirecionado duas vezes.
+   Quem vai para B nao dispara nada aqui: o pixel, a tag do painel e a VSL olham window.__lnmParaB.
+   Para encerrar o teste: apagar este script e as condicoes __lnmParaB. */
+(function(){
+  try {
+    var m = location.search.match(/[?&]v=(a|b)(?:&|$)/i);
+    var lado = m ? m[1].toLowerCase() : null;
+    if (!lado) {
+      try { lado = localStorage.getItem('lnm_ab'); } catch (e) {}
+      if (lado !== 'a' && lado !== 'b') { var c = document.cookie.match(/(?:^|; )lnm_ab=(a|b)/); lado = c ? c[1] : null; }
+      if (lado !== 'a' && lado !== 'b') lado = Math.random() < 0.5 ? 'a' : 'b';
+      try { localStorage.setItem('lnm_ab', lado); } catch (e) {}
+      try { document.cookie = 'lnm_ab=' + lado + '; max-age=7776000; path=/; SameSite=Lax'; } catch (e) {}
+    }
+    if (lado === 'b' && !/^\/v2\//.test(location.pathname)) {
+      window.__lnmParaB = 1;
+      document.documentElement.style.visibility = 'hidden';
+      location.replace('/v2/' + location.search + location.hash);
+      setTimeout(function(){ document.documentElement.style.visibility = ''; }, 4000);
+    }
+  } catch (e) {}
+})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="facebook-domain-verification" content="vtnvldkyr68784f80i4v81797m9en3" />
@@ -380,6 +407,7 @@ footer .f-links a{color:#fff;text-decoration:none;display:inline-flex;align-item
 .barra.on{display:flex}
 .barra .p{font-weight:800;color:var(--vinho);font-size:19px;line-height:1;white-space:nowrap}
 .barra .p small{display:block;font-size:10.5px;color:var(--cinza);font-weight:700}
+.barra .p s{display:block;font-size:11px;color:var(--cinza);font-weight:700;margin-bottom:2px}
 .barra .cta{flex:1;padding:14px 12px;font-size:16px}
 @media (min-width:900px){ .barra,.barra.on{display:none} }
 
@@ -418,6 +446,18 @@ footer .f-links a{color:#fff;text-decoration:none;display:inline-flex;align-item
 .pontos{display:flex;justify-content:center;gap:7px;margin-top:2px}
 .pontos i{width:7px;height:7px;border-radius:50%;background:#e2cbd6;transition:.2s}
 .pontos i.on{width:20px;border-radius:4px;background:var(--vinho)}
+/* setas, pontos clicaveis e arraste (03/11/2026): no computador com a janela estreita nao ha dedo
+   e o trilho parecia travado; no celular as setas dizem que tem mais para o lado */
+.pontos{align-items:center}
+.pontos i{cursor:pointer}
+.pontos button{width:34px;height:34px;flex:0 0 34px;margin:0 8px;padding:0;border-radius:50%;border:1px solid var(--linha);
+  background:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 4px 12px -6px rgba(42,31,40,.35)}
+.pontos button svg{width:18px;height:18px;fill:none;stroke:var(--vinho);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.pontos button:disabled{opacity:.35;cursor:default;box-shadow:none}
+.pontos button[hidden]{display:none}
+@media (max-width:899px) and (hover:hover) and (pointer:fine){ .trilho{cursor:grab} .trilho.arrastando{cursor:grabbing} }
+.trilho.arrastando{scroll-snap-type:none;user-select:none}
+.trilho.arrastando *{pointer-events:none}
 .provas{background:var(--rose2);border-bottom:1px solid var(--linha);padding:30px 0 34px}
 .provas .trilho{align-items:flex-start}
 /* antes e depois: o caderno dela contra o resumo do app */
@@ -481,6 +521,14 @@ footer .f-links a{color:#fff;text-decoration:none;display:inline-flex;align-item
 .garantia.mini{display:flex;gap:14px;align-items:center;text-align:left;margin-top:16px;padding:16px 18px}
 .garantia.mini svg{flex:none;margin:0}
 .garantia.mini p{max-width:none;font-size:14px}
+/* preco de lancamento (Vini, 03/11/2026): "de R$ 97 por R$ 47", o mesmo padrao do upsell.html.
+   Sem contador e sem "por tempo limitado": nao ha data de fim. */
+.oferta .de-por{font-size:17px;color:var(--cinza);font-weight:600;line-height:1.2;margin-bottom:4px}
+.oferta .de-por s{text-decoration-thickness:2px;text-decoration-color:var(--verm);color:var(--tinta)}
+.oferta .lanc{font-size:12.5px;font-weight:800;color:var(--vinho);letter-spacing:.02em;margin-top:8px}
+.oferta .lanc + .uma{margin-top:6px}
+.oferta .mensal{font-size:13px;line-height:1.45;color:var(--cinza);margin:-4px 0 12px}
+.oferta .mensal s{opacity:.85}
 @media (min-width:900px){
   /* no computador não tem dedo pra deslizar: os trilhos viram grade e os pontos somem */
   .trilho{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;overflow:visible;
@@ -491,6 +539,25 @@ footer .f-links a{color:#fff;text-decoration:none;display:inline-flex;align-item
   .xapps{grid-template-columns:1fr 1fr}
   .antes-depois{max-width:560px}
 }
+/* ---------------- DEPOIMENTOS EM VIDEO (11/2026), igual na A e na B ---------------- */
+.depo-trilho{margin-bottom:6px}
+.depo-trilho>*{flex:0 0 72%;max-width:280px}
+.depo{margin:0}
+.depo-tela{position:relative;aspect-ratio:540/960;border-radius:var(--r);overflow:hidden;background:#2a1f28;
+  box-shadow:0 14px 30px -20px rgba(61,15,36,.55)}
+.depo-tela .vsl{position:absolute;inset:0}
+.depo-tela video{width:100%;height:100%;object-fit:cover;display:block}
+/* o Ouvir fica embaixo, numa pilula, para nao cobrir o rosto; o toque em qualquer ponto do video vale */
+.depo-tela .vsl .som{align-items:flex-end;padding-bottom:16px;background:linear-gradient(transparent 62%,rgba(20,4,12,.45))}
+.depo-tela .vsl .som b{width:auto;height:auto;flex-direction:row;gap:8px;padding:10px 18px 10px 14px;border-radius:999px;animation:none}
+.depo-tela .vsl .som svg{width:24px;height:24px}
+.depo-tela .vsl .som span{font-size:13px}
+.depo figcaption{padding:10px 4px 0;font-size:14px;font-weight:700;color:var(--tinta);text-align:center}
+.depo-pontos{margin-bottom:22px}
+@media (min-width:900px){
+  .trilho.depo-trilho{grid-template-columns:repeat(2,minmax(0,280px));justify-content:center;gap:24px}
+  .depo-pontos{margin-bottom:10px}
+}
 </style>
 
 <!-- Meta Pixel: SO o base e o PageView.
@@ -499,6 +566,7 @@ footer .f-links a{color:#fff;text-decoration:none;display:inline-flex;align-item
      conversao, o Meta passa a achar que o CPA e metade do real e escala
      criativo que da prejuizo. Nao adicionar fbq('track','Purchase') aqui. -->
 <script>
+if (!window.__lnmParaB) {
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -509,6 +577,7 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '1541556727158977');
 fbq('track', 'PageView');
+}
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1541556727158977&ev=PageView&noscript=1"
@@ -516,7 +585,11 @@ alt=""/></noscript>
 <!-- Visitas do painel (08/10/2026): registra a visita e liga a venda a ela. Nao dispara nada
      no Meta e nao troca UTM, sck nem fbclid: so acrescenta lab=lv_<sessao> no inicio da URL do
      checkout, no toque do botao. Para desfazer, apagar a linha. -->
-<script async src="https://painel.labofertas.com/api/lp/script?o=2026-08-lucro-na-mao"></script>
+<!-- (11/2026) carregada por JS so para nao contar a visita de quem o sorteio manda para /v2/ -->
+<script>
+if (!window.__lnmParaB) { (function(d){ var s = d.createElement('script'); s.async = true;
+  s.src = 'https://painel.labofertas.com/api/lp/script?o=2026-08-lucro-na-mao'; d.head.appendChild(s); })(document); }
+</script>
 </head>
 <body>
 
@@ -558,9 +631,11 @@ alt=""/></noscript>
         </div>
 
         <div class="oferta">
-          <!-- mesma âncora do cartão da oferta: 12 x R$ 39, o plano mais barato da categoria -->
-          <div class="riscado">App de mensalidade, no 1º ano<s>R$ 468</s></div>
+          <!-- preço de lançamento (03/11/2026): de R$ 97 por R$ 47. A comparação com a mensalidade
+               (12 x R$ 39, o plano mais barato da categoria) segue no cartão de #comprar. -->
+          <div class="de-por">de <s>R$ 97</s> por</div>
           <div class="val"><sup>R$</sup>47</div>
+          <div class="lanc">preço de lançamento</div>
           <div class="uma">uma vez só, é seu pra sempre</div>
           <a class="cta" href="https://pay.cakto.com.br/3ko7pit" data-checkout>Quero organizar minha lojinha</a>
           <div class="sob">Acesso imediato no e-mail · 7 dias de garantia</div>
@@ -591,7 +666,40 @@ alt=""/></noscript>
 <section class="provas" id="depoimentos">
   <div class="w">
     <div class="olho centro">Quem já usa</div>
-    <h2 class="centro">O que elas <span class="serif">contaram</span></h2>
+    <h2 class="centro">O que <span class="serif">contaram</span></h2>
+    <!-- depoimentos em video (11/2026): compradores reais, cortados sem mudar o sentido; o nome e o que
+         cada um diz no video. Sem legenda (decisao do Vini). Igual na A e na B. -->
+    <div class="trilho depo-trilho" data-trilho tabindex="0" aria-label="Depoimentos em vídeo">
+      <figure class="depo">
+        <div class="depo-tela">
+          <div class="vsl" data-depo>
+            <video data-lab-depoimento="depoimento-1" data-src="depoimento-1.mp4" data-poster="depoimento-1-capa.webp" width="540" height="960" muted playsinline preload="none" disablepictureinpicture
+                   aria-label="Depoimento em vídeo de Alexandra, compradora do aplicativo Lucro na Mão"></video>
+            <div class="barra"><i></i></div>
+            <div class="som" role="button" tabindex="0" aria-label="Ouvir o depoimento de Alexandra com som, do início">
+              <b><svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/></svg><span>Ouvir</span></b>
+            </div>
+            <div class="pausa" aria-hidden="true"><b><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z"/></svg><span>Continuar</span></b></div>
+          </div>
+        </div>
+        <figcaption>Alexandra</figcaption>
+      </figure>
+      <figure class="depo">
+        <div class="depo-tela">
+          <div class="vsl" data-depo>
+            <video data-lab-depoimento="depoimento-2" data-src="depoimento-2.mp4" data-poster="depoimento-2-capa.webp" width="540" height="960" muted playsinline preload="none" disablepictureinpicture
+                   aria-label="Depoimento em vídeo de Luiz, comprador do aplicativo Lucro na Mão"></video>
+            <div class="barra"><i></i></div>
+            <div class="som" role="button" tabindex="0" aria-label="Ouvir o depoimento de Luiz com som, do início">
+              <b><svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/></svg><span>Ouvir</span></b>
+            </div>
+            <div class="pausa" aria-hidden="true"><b><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z"/></svg><span>Continuar</span></b></div>
+          </div>
+        </div>
+        <figcaption>Luiz</figcaption>
+      </figure>
+    </div>
+    <div class="pontos depo-pontos" data-pontos></div>
     <div class="trilho" data-trilho tabindex="0" aria-label="Prints de conversas com clientes">
       <figure class="prova">
         <img class="print" src="dep-melissa-26-pr.webp" width="600" height="508" loading="lazy" decoding="async" alt="Print de conversa no WhatsApp: “tô usando todo dia, antes eu nao sabia nem direito quanto eu tava lucrando, achava que sabia mas não sabia. agora ali no aplicativo me mostra tudo certinho, me ajudou demais mesmo principalmente no fim do mês quando vou fazer as contas”">
@@ -675,7 +783,7 @@ alt=""/></noscript>
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Funciona até sem sinal</li>
     </ul>
     <a class="cta meio" href="#" data-checkout>Quero organizar minha lojinha</a>
-    <p class="sob-cta">R$ 47 uma vez · 7 dias de garantia</p>
+    <p class="sob-cta"><s>R$ 97</s> R$ 47 uma vez · 7 dias de garantia</p>
   </div>
 </section>
 
@@ -717,11 +825,15 @@ alt=""/></noscript>
     <div class="olho centro">A oferta</div>
     <h2 class="centro">Comece hoje pelo preço <span class="serif">de um almoço</span></h2>
     <div class="oferta" style="margin:22px auto 0;box-shadow:0 18px 40px -22px rgba(61,15,36,.4);border:2px solid var(--vinho)">
-      <!-- âncora verdadeira: 12 x R$ 39, o plano mais barato do Stoqui e do Revendi (medido em 17/08/2026).
-           Nunca um "de R$ X" que o app nunca cobrou. -->
-      <div class="riscado">App de mensalidade, no 1º ano<s>R$ 468</s></div>
+      <!-- âncora da mensalidade: 12 x R$ 39, o plano mais barato do Stoqui e do Revendi (medido em 17/08/2026).
+           "de R$ 97 por R$ 47, preço de lançamento": decisão do Vini em 03/11/2026, mesmo padrão do upsell.
+           A regra antiga daqui era nunca usar "de R$ X" que o app nunca cobrou: o R$ 97 precisa ser preço
+           real (praticado antes ou a praticar depois do lançamento). Sem contador nem prazo inventado. -->
+      <div class="de-por">de <s>R$ 97</s> por</div>
       <div class="val"><sup>R$</sup>47</div>
+      <div class="lanc">preço de lançamento</div>
       <div class="uma">uma vez só, é seu pra sempre</div>
+      <div class="mensal">App de mensalidade, no 1º ano: <s>R$ 468</s></div>
       <p class="tudo">Vendas, estoque, fiado, despesas, resumo do mês, backup e recibo. Tudo incluso.</p>
       <a class="cta" href="#" data-checkout>Quero organizar minha lojinha</a>
       <div class="sob">Pix ou cartão · pagamento seguro · acesso imediato</div>
@@ -777,7 +889,7 @@ alt=""/></noscript>
   <div class="w">
     <h2>Amanhã você pode saber
       <span class="serif">exatamente quanto lucrou hoje</span></h2>
-    <p>R$ 47, uma vez só. Com 7 dias de garantia.</p>
+    <p>De <s>R$ 97</s> por R$ 47, uma vez só. Com 7 dias de garantia.</p>
     <a class="cta claro" href="#" data-checkout>Quero organizar minha lojinha</a>
     <div class="obs">Acesso imediato após o pagamento</div>
   </div>
@@ -801,7 +913,7 @@ alt=""/></noscript>
 
 <!-- barra fixa (aparece depois do hero) -->
 <div class="barra" id="barra">
-  <div class="p">R$ 47<small>uma vez</small></div>
+  <div class="p"><s>R$ 97</s>R$ 47<small>uma vez</small></div>
   <a class="cta" href="#" data-checkout>Quero o app</a>
 </div>
 
@@ -864,6 +976,7 @@ var CHECKOUT = 'https://pay.cakto.com.br/3ko7pit';   /* front R$ 47, oferta 3ko7
    - com som, um toque no video pausa e outro continua de onde parou
    - nao da pra arrastar nem voltar: a barrinha de baixo so mostra o progresso */
 (function(){
+  if (window.__lnmParaB) return;   /* indo para a versao B: nao baixa a VSL daqui */
   document.querySelectorAll('[data-vsl]').forEach(function(box){
     var v = box.querySelector('video');
     var fill = box.querySelector('.barra i');
@@ -958,6 +1071,58 @@ var CHECKOUT = 'https://pay.cakto.com.br/3ko7pit';   /* front R$ 47, oferta 3ko7
     }
     t.addEventListener('scroll', function(){ requestAnimationFrame(marca); }, {passive:true});
     marca();
+    /* setas e pontos levam ao cartao; o mouse arrasta (no dedo, o deslize nativo segue igual) */
+    var seta = function(cls, rot, d){
+      var b = document.createElement('button'); b.type = 'button'; b.className = cls; b.setAttribute('aria-label', rot);
+      b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + d + '"/></svg>'; return b;
+    };
+    var ant = seta('ant', 'Anterior', 'M15 6l-6 6 6 6'), prox = seta('prox', 'Próximo', 'M9 6l6 6-6 6');
+    pts.insertBefore(ant, pts.firstChild); pts.appendChild(prox);
+    function indice(){
+      var passo = cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : 1;
+      return t.scrollLeft + t.clientWidth >= t.scrollWidth - 4 ? cards.length - 1 : Math.round(t.scrollLeft / passo);
+    }
+    function ir(k){
+      k = Math.max(0, Math.min(cards.length - 1, k));
+      t.scrollTo({ left: cards[k].offsetLeft - cards[0].offsetLeft, behavior: 'smooth' });
+    }
+    function setas(){
+      /* tudo cabe na tela: nada para o lado, as setas somem */
+      var sobra = t.scrollWidth > t.clientWidth + 4;
+      ant.hidden = prox.hidden = !sobra;
+      ant.disabled = t.scrollLeft <= 4;
+      prox.disabled = t.scrollLeft + t.clientWidth >= t.scrollWidth - 4;
+    }
+    ant.addEventListener('click', function(){ ir(indice() - 1); });
+    prox.addEventListener('click', function(){ ir(indice() + 1); });
+    [].forEach.call(pts.querySelectorAll('i'), function(p, k){ p.addEventListener('click', function(){ ir(k); }); });
+    t.addEventListener('scroll', function(){ requestAnimationFrame(setas); }, {passive:true});
+    window.addEventListener('resize', setas);
+    setas();
+    var x0 = 0, s0 = 0, movendo = false, arrastou = false;
+    t.addEventListener('pointerdown', function(e){
+      if (e.pointerType !== 'mouse' || e.button !== 0 || t.scrollWidth <= t.clientWidth) return;
+      x0 = e.clientX; s0 = t.scrollLeft; movendo = true; arrastou = false;
+    });
+    window.addEventListener('pointermove', function(e){
+      if (!movendo) return;
+      var dx = e.clientX - x0;
+      if (!arrastou && Math.abs(dx) > 6) { arrastou = true; t.classList.add('arrastando'); }
+      if (arrastou) t.scrollLeft = s0 - dx;
+    });
+    window.addEventListener('pointerup', function(){
+      if (!movendo) return; movendo = false;
+      if (arrastou) { t.classList.remove('arrastando'); ir(indice()); setTimeout(function(){ arrastou = false; }, 0); }
+    });
+    /* o clique que fecha um arraste nao liga o som nem abre nada */
+    t.addEventListener('click', function(e){
+      if (arrastou) { e.stopPropagation(); e.preventDefault(); arrastou = false; return; }
+      /* tocou no cartao do lado (cortado na borda): a tela vai ate ele */
+      var k = [].indexOf.call(cards, [].filter.call(cards, function(c){ return c.contains(e.target); })[0]);
+      if (k < 0) return;
+      var r = cards[k].getBoundingClientRect(), rt = t.getBoundingClientRect();
+      if (r.left < rt.left - 2 || r.right > rt.right + 2) ir(k);
+    }, true);
   });
   var els = document.querySelectorAll('.rivela');
   if (!('IntersectionObserver' in window)) { [].forEach.call(els, function(e){ e.classList.add('visto'); }); return; }
@@ -966,6 +1131,70 @@ var CHECKOUT = 'https://pay.cakto.com.br/3ko7pit';   /* front R$ 47, oferta 3ko7
   }, {rootMargin:'0px 0px -8% 0px'});
   [].forEach.call(els, function(e){ io.observe(e); });
 })();
+</script>
+<script>
+/* DEPOIMENTOS EM VIDEO (11/2026): o mesmo jeito da VSL.
+   - so carregam quando chegam perto da tela; tocam mudos, em loop, quando aparecem; param quando saem
+   - "Ouvir" recomeca do zero com som e toca uma vez; tocar com som pausa o outro depoimento
+   - com som, um toque no video pausa e outro continua */
+(function(){
+  var caixas = [].slice.call(document.querySelectorAll('[data-depo]'));
+  if (!caixas.length) return;
+  var reduz = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var falando = null; /* o depoimento que esta com som: os outros ficam parados ate ele acabar */
+  caixas.forEach(function(box){
+    var v = box.querySelector('video'), fill = box.querySelector('.barra i'), somOn = false, naTela = false;
+    function tocar(){ var p = v.play(); if (p && p.catch) p.catch(function(){}); }
+    function carregar(){
+      if (v.dataset.carregado) return; v.dataset.carregado = '1';
+      v.poster = v.dataset.poster; v.src = v.dataset.src; v.preload = 'auto';
+    }
+    v.addEventListener('pause', function(){ if (somOn && naTela && !v.ended) box.classList.add('pausado'); });
+    v.addEventListener('play', function(){ box.classList.remove('pausado'); });
+    v.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+    v.addEventListener('timeupdate', function(){ if (v.duration) fill.style.width = (v.currentTime / v.duration * 100) + '%'; });
+    function ligarSom(){
+      if (somOn) return;
+      caixas.forEach(function(o){ if (o !== box && o.__parar) o.__parar(); });
+      falando = box;
+      carregar(); somOn = true; box.classList.add('tocando');
+      v.loop = false; v.muted = false; v.currentTime = 0;
+      var p = v.play(); if (p && p.catch) p.catch(function(){ v.muted = true; v.loop = true; somOn = false; box.classList.remove('tocando'); });
+    }
+    box.__mudo = function(){
+      if (!somOn) return;
+      somOn = false; box.classList.remove('tocando'); box.classList.remove('pausado');
+      v.muted = true; v.loop = true; if (!naTela) v.pause();
+      if (falando === box) { falando = null; caixas.forEach(function(o){ if (o !== box && o.__voltar) o.__voltar(); }); }
+    };
+    /* outro depoimento ligou o som: este para (mudo e pausado) */
+    box.__parar = function(){ box.__mudo(); v.pause(); box.classList.remove('pausado'); };
+    /* o que falava acabou: este volta ao loop mudo se estiver na tela */
+    box.__voltar = function(){ if (naTela && !reduz && !somOn) tocar(); };
+    var botao = box.querySelector('.som');
+    botao.addEventListener('click', function(e){ e.stopPropagation(); ligarSom(); });
+    botao.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); ligarSom(); } });
+    v.addEventListener('click', function(e){ e.preventDefault(); if (!somOn) return; if (v.paused) tocar(); else v.pause(); });
+    v.addEventListener('ended', function(){ box.__mudo(); v.currentTime = 0; if (naTela && !reduz) tocar(); });
+    if (!('IntersectionObserver' in window)) { carregar(); return; }
+    new IntersectionObserver(function(es){ if (es[0].isIntersecting) carregar(); }, { rootMargin: '150px 0px' }).observe(box);
+    new IntersectionObserver(function(es){
+      naTela = es[0].isIntersecting;
+      if (naTela) { carregar(); if (somOn || (!reduz && !falando)) tocar(); }
+      else if (!v.paused) v.pause();
+    }, { threshold: 0.5 }).observe(box);
+  });
+})();
+</script>
+<script>
+/* so um video com som por vez na pagina (03/11/2026): o que comeca a falar pausa quem ja falava */
+document.addEventListener('play', function(e){
+  var v = e.target;
+  if (!v || v.tagName !== 'VIDEO' || v.muted) return;
+  [].forEach.call(document.querySelectorAll('video'), function(o){
+    if (o !== v && !o.paused && !o.muted) o.pause();
+  });
+}, true);
 </script>
 </body>
 </html>
