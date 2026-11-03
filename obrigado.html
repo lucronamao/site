@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Compra aprovada | Lucro na Mão</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<!-- PAGINA DE OBRIGADO (03/11/2026, decisao do Vini): o upsell pos-compra saiu.
+     A Cakto manda pra ca depois do pagamento aprovado. Nao vende nada: so leva ao app.
+     O link e um so (/app/c/) para qualquer compra: o app libera pelo e-mail da compra
+     o que ela levou junto (Cobrar, Catalogo). Sem pixel aqui: o Purchase quem manda e a
+     Cakto, e um PageView nesta pagina nao serve a campanha nenhuma. -->
+<style>
+:root{--vinho:#8e2757;--vinho-esc:#5c1838;--creme:#fffaf6;--rose2:#fdf6f9;
+  --tinta:#2a1f28;--cinza:#6f6478;--linha:#ecdfe6;--verde:#1e7d4f;--verde-bg:#e8f5ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+  background:var(--creme);color:var(--tinta);font-size:16.5px;line-height:1.6}
+.topo{background:linear-gradient(168deg,var(--vinho),var(--vinho-esc));padding:22px 0}
+.topo img{height:38px;width:auto;margin:0 auto;display:block}
+.w{max-width:520px;margin:0 auto;padding:0 20px}
+main.w{padding:30px 20px 40px}
+.ok{width:58px;height:58px;border-radius:50%;background:var(--verde-bg);display:grid;place-items:center;margin:0 auto 14px}
+.ok svg{width:30px;height:30px;fill:none;stroke:var(--verde);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+h1{font-size:26px;line-height:1.22;letter-spacing:-.4px;text-align:center;margin-bottom:22px}
+.cta{display:block;text-align:center;background:var(--vinho);color:#fff;text-decoration:none;font-weight:800;
+  font-size:18px;padding:18px;border-radius:14px;box-shadow:0 12px 26px -14px rgba(142,39,87,.75)}
+.cta:focus-visible{outline:3px solid var(--tinta);outline-offset:3px}
+.passos{list-style:none;counter-reset:p;margin:24px 0 8px}
+.passos li{counter-increment:p;position:relative;padding:0 0 14px 42px}
+.passos li:before{content:counter(p);position:absolute;left:0;top:-1px;width:28px;height:28px;border-radius:50%;
+  background:var(--vinho);color:#fff;font-weight:800;font-size:14.5px;display:grid;place-items:center}
+/* Apple Pay em destaque (pedido do Vini): quem paga assim costuma errar o e-mail na ativacao */
+.apple{display:flex;gap:12px;align-items:flex-start;background:#fff4e0;border:2px solid #e8a33a;border-radius:14px;
+  padding:14px 16px;margin:6px 0 22px;font-size:16px;line-height:1.45}
+.apple svg{width:26px;height:26px;flex:0 0 26px;fill:none;stroke:#9a5b00;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-top:1px}
+.apple b{color:#7a4500;display:block;font-size:16.5px;margin-bottom:2px}
+.box{background:#fff;border:1px solid var(--linha);border-radius:14px;padding:16px 16px 6px;margin:0 0 18px}
+.box h2{font-size:16.5px;margin-bottom:10px}
+.box p{margin-bottom:10px;font-size:15.5px}
+.box b{color:var(--vinho)}
+.email{text-align:center;font-size:15px;color:var(--cinza);margin:6px 0 0}
+footer{border-top:1px solid var(--linha);padding:20px 0 28px;font-size:14.5px;color:var(--cinza);text-align:center}
+footer a{color:var(--vinho);font-weight:700;text-decoration:none;display:inline-block;padding:8px 2px}
+</style>
+</head>
+<body>
+<div class="topo"><img src="logo-branca.png" alt="Lucro na Mão" width="434" height="136"></div>
+<main class="w">
+  <div class="ok" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+  <h1>Compra aprovada! Agora é só abrir o seu app.</h1>
+
+  <a class="cta" href="https://lucronamao.github.io/app/c/">Abrir meu app</a>
+
+  <ol class="passos">
+    <li>Toque em Abrir meu app.</li>
+    <li>Digite o e-mail que você usou na compra.</li>
+    <li>Pronto. Se você levou o Cobrar ou o Catálogo junto, eles já aparecem liberados.</li>
+  </ol>
+  <div class="apple" role="note">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5"/><path d="M12 16.5h.01"/></svg>
+    <div><b>Pagou com Apple Pay?</b>Use o e-mail da sua conta Apple, não outro.</div>
+  </div>
+
+  <div class="box">
+    <h2>Deixe o app na tela do celular</h2>
+    <p><b>iPhone:</b> no Safari, toque em Compartilhar e depois em Adicionar à Tela de Início.</p>
+    <p><b>Android:</b> no Chrome, toque nos três pontinhos e depois em Adicionar à tela inicial (ou Instalar app).</p>
+  </div>
+
+  <p class="email">O link também foi para o seu e-mail. Não achou? Olhe no spam e em promoções.</p>
+</main>
+<footer class="w">
+  Alguma dúvida? Escreva para<br><a href="mailto:contato@lucronamao.online">contato@lucronamao.online</a>
+</footer>
+</body>
+</html>
