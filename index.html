@@ -1,40 +1,18 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<script>
-/* TESTE A/B DO TOPO (11/2026). Roda ANTES de tudo: sorteia A ou B uma vez por visitante e guarda
-   (localStorage, cookie de reserva). Quem cai em B vai para /v2/ com a mesma query (utm, fbclid,
-   lab_teste) e o mesmo hash. ?v=a e ?v=b forcam a versao e nao mexem no sorteio guardado.
-   /v2/ nao tem este script, entao ninguem e redirecionado duas vezes.
-   Quem vai para B nao dispara nada aqui: o pixel, a tag do painel e a VSL olham window.__lnmParaB.
-   Para encerrar o teste: apagar este script e as condicoes __lnmParaB. */
-(function(){
-  try {
-    var m = location.search.match(/[?&]v=(a|b)(?:&|$)/i);
-    var lado = m ? m[1].toLowerCase() : null;
-    if (!lado) {
-      try { lado = localStorage.getItem('lnm_ab'); } catch (e) {}
-      if (lado !== 'a' && lado !== 'b') { var c = document.cookie.match(/(?:^|; )lnm_ab=(a|b)/); lado = c ? c[1] : null; }
-      if (lado !== 'a' && lado !== 'b') lado = Math.random() < 0.5 ? 'a' : 'b';
-      try { localStorage.setItem('lnm_ab', lado); } catch (e) {}
-      try { document.cookie = 'lnm_ab=' + lado + '; max-age=7776000; path=/; SameSite=Lax'; } catch (e) {}
-    }
-    if (lado === 'b' && !/^\/v2\//.test(location.pathname)) {
-      window.__lnmParaB = 1;
-      document.documentElement.style.visibility = 'hidden';
-      location.replace('/v2/' + location.search + location.hash);
-      setTimeout(function(){ document.documentElement.style.visibility = ''; }, 4000);
-    }
-  } catch (e) {}
-})();
-</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="facebook-domain-verification" content="vtnvldkyr68784f80i4v81797m9en3" />
 <title>Controle da Lojinha | Lucro na Mão</title>
 <meta name="description" content="O aplicativo que registra a venda em poucos toques e mostra na hora o seu lucro. Pago uma vez, sem planilha e sem mensalidade.">
 <meta name="theme-color" content="#8e2757">
-<link rel="preload" as="image" href="vsl-v9-capa.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="venda-toques-capa.webp" fetchpriority="high">
+<link rel="canonical" href="https://lucronamao.online/">
+<!-- A PAGINA PRINCIPAL desde 03/11/2026 (decisao do Vini, sem sorteio): era a versao B do teste A/B
+     do topo. No lugar da VSL, UM celular com o app em partes (estilo Stories, valores de exemplo da loja
+     "Lojinha da Bia"); chapeu e titulo proprios, sem subtitulo e sem as etiquetas. A VSL desceu para
+     antes de #comprar. /v2/ so redireciona para ca. A versao A antiga fica no historico do git. -->
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="96x96" href="favicon-96.png">
 <link rel="apple-touch-icon" href="favicon-180.png">
@@ -539,6 +517,55 @@ footer .f-links a{color:#fff;text-decoration:none;display:inline-flex;align-item
   .xapps{grid-template-columns:1fr 1fr}
   .antes-depois{max-width:560px}
 }
+/* ---------------- VERSAO B: um celular com o app em partes, estilo Stories ---------------- */
+.hero h1 .serif.junto{display:inline}
+@media (max-width:899px){
+  .hero-txt .palco-mob{order:3;padding:2px 0 0}
+  .hero-txt .oferta{margin-top:18px}
+}
+/* largura do celular: no celular cabe inteiro na primeira tela, embaixo do titulo; no computador,
+   inteiro acima da dobra ate 1366x768. 2,11 = altura do celular / largura (aro, barra e tela 600x1298) */
+.story{--fone-w:min(330px,86vw,calc((100vh - 190px) / 2.11));--fone-w:min(330px,86vw,calc((100svh - 190px) / 2.11));
+  width:var(--fone-w);margin:0 auto}
+@media (min-width:900px){
+  .hero .grade{align-items:start}
+  .hero-txt .oferta{margin-top:26px}
+  .story{--fone-w:min(340px,calc((100vh - 150px) / 2.11));--fone-w:min(340px,calc((100svh - 150px) / 2.11))}
+}
+/* parado de proposito: a flutuacao (translateY em loop) fazia o video do carrossel pixelar */
+.story .fone{width:100%;padding:0;background:none;box-shadow:none;border-radius:0;animation:none}
+.story .cel{box-shadow:0 26px 50px -24px rgba(20,4,12,.9),inset 0 0 0 1px rgba(255,255,255,.25)}
+.st-tela{position:relative;aspect-ratio:600/1298;overflow:hidden;border-radius:0 0 10cqw 10cqw;background:#fdf4f8;
+  cursor:pointer;touch-action:pan-y;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
+  -webkit-tap-highlight-color:transparent;outline-offset:3px}
+.st-parte{position:absolute;inset:0;opacity:0;transform:translateX(7%);pointer-events:none;
+  transition:opacity .5s ease,transform .55s cubic-bezier(.2,.7,.2,1)}
+.st-parte.on{opacity:1;transform:none}
+.st-parte.foi{transform:translateX(-7%)}
+.st-zoom{position:absolute;inset:0}
+.st-midia{display:block;width:100%;height:100%;object-fit:cover;object-position:top;background:#fdf4f8}
+/* o realce do numero que importa: um contorno suave que aparece meio segundo depois da troca */
+.st-realce{position:absolute;border-radius:2.6cqw;opacity:0;transform:scale(.96);
+  box-shadow:0 0 0 .75cqw var(--c,#1e7d4f);
+  box-shadow:0 0 0 .75cqw var(--c,#1e7d4f),0 0 0 2.6cqw color-mix(in srgb,var(--c,#1e7d4f) 16%,transparent);
+  transition:opacity .45s ease .55s,transform .45s ease .55s}
+.st-parte.on .st-realce{opacity:1;transform:none}
+.st-barras{position:absolute;top:1.8cqw;left:2.8cqw;right:2.8cqw;display:flex;gap:1.2cqw;z-index:3;pointer-events:none}
+.st-barras i{flex:1;height:.9cqw;min-height:2.5px;border-radius:9px;background:rgba(255,255,255,.42);overflow:hidden}
+.st-barras b{display:block;height:100%;width:0;background:#fff}
+.st-rot{position:absolute;left:50%;bottom:2.4cqw;transform:translateX(-50%);z-index:3;white-space:nowrap;
+  font:800 4.7cqw/1.2 var(--sans);letter-spacing:-.1px;color:#fff;background:rgba(42,16,30,.88);
+  padding:2.3cqw 4.4cqw;border-radius:99px;box-shadow:0 6px 18px -8px rgba(0,0,0,.6);pointer-events:none}
+.story.parado .st-barras{display:none}
+@media (prefers-reduced-motion:reduce){
+  .st-parte,.st-realce{transition:none}
+  .story .fone{animation:none}
+}
+/* a VSL que desceu: mesmo player do topo da versao A, logo antes do preco */
+.vsl-desceu{padding:44px 0 0}
+.vsl-desceu .palco{padding:0}
+.vsl-desceu .fone{width:min(300px,76vw)}
+@media (min-width:900px){ .vsl-desceu{padding-top:66px} .vsl-desceu .fone{width:320px} }
 /* ---------------- DEPOIMENTOS EM VIDEO (11/2026), igual na A e na B ---------------- */
 .depo-trilho{margin-bottom:6px}
 .depo-trilho>*{flex:0 0 72%;max-width:280px}
@@ -566,7 +593,6 @@ footer .f-links a{color:#fff;text-decoration:none;display:inline-flex;align-item
      conversao, o Meta passa a achar que o CPA e metade do real e escala
      criativo que da prejuizo. Nao adicionar fbq('track','Purchase') aqui. -->
 <script>
-if (!window.__lnmParaB) {
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -577,7 +603,6 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '1541556727158977');
 fbq('track', 'PageView');
-}
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1541556727158977&ev=PageView&noscript=1"
@@ -585,11 +610,7 @@ alt=""/></noscript>
 <!-- Visitas do painel (08/10/2026): registra a visita e liga a venda a ela. Nao dispara nada
      no Meta e nao troca UTM, sck nem fbclid: so acrescenta lab=lv_<sessao> no inicio da URL do
      checkout, no toque do botao. Para desfazer, apagar a linha. -->
-<!-- (11/2026) carregada por JS so para nao contar a visita de quem o sorteio manda para /v2/ -->
-<script>
-if (!window.__lnmParaB) { (function(d){ var s = d.createElement('script'); s.async = true;
-  s.src = 'https://painel.labofertas.com/api/lp/script?o=2026-08-lucro-na-mao'; d.head.appendChild(s); })(document); }
-</script>
+<script async src="https://painel.labofertas.com/api/lp/script?o=2026-08-lucro-na-mao"></script>
 </head>
 <body>
 
@@ -599,35 +620,37 @@ if (!window.__lnmParaB) { (function(d){ var s = d.createElement('script'); s.asy
     <img src="logo-branca.png" alt="Lucro na Mão" width="434" height="136" class="marca">
     <div class="grade">
       <div class="hero-txt">
-        <div class="chapeu">Para quem vende roupa, maquiagem ou acessório</div>
-        <h1>Você vende todo dia.
-          <span class="serif">Mas sabe quanto sobrou?</span></h1>
-        <p class="sub">Vende bem, repõe peça, paga frete, e no fim do mês
-          <b>o dinheiro sumiu sem explicação</b>.</p>
+        <div class="chapeu">Pra quem vende perfume, roupa, maquiagem ou acessório</div>
+        <h1>Registre a venda e veja <span class="serif junto">seu lucro</span></h1>
 
         <div class="palco palco-mob">
-          <div class="fone fone-vsl">
-            <div class="tela">
-              <div class="vsl" id="vslMob" data-vsl>
-                <video data-lab-vsl="vsl-v9" src="vsl.mp4" poster="vsl-v9-capa.jpg" width="406" height="728" muted loop playsinline preload="none"
-                       aria-label="Como o aplicativo funciona, do cadastro do produto ao lucro da venda"></video>
-                <div class="barra"><i></i></div>
-                <div class="som" role="button" tabindex="0" aria-label="Ouvir: tocar com som, do início">
-                  <b><svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/></svg><span>Ouvir</span></b>
+          <div class="story" data-story role="region" aria-roledescription="carrossel" aria-label="O app por dentro, em 5 partes, com valores de exemplo">
+            <div class="fone"><div class="cel"><div class="vetro"><span class="isola"></span><div class="stato"><span>14:32</span><i><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2" fill="currentColor"/></svg></i></div>
+              <div class="st-tela" tabindex="0" aria-label="Toque para avançar, segure para pausar">
+                <div class="st-barras" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+                <div class="st-parte on">
+                  <div class="st-zoom"><video class="st-midia" data-src="venda-passo-a-passo.mp4" poster="venda-toques-capa.webp" width="600" height="1298" muted playsinline preload="none" disablepictureinpicture aria-label="Vídeo sem som de uma venda no app: toque em Registrar venda, escolha um perfume decant e um body, marque Pix e confirme."></video></div>
+                  <span class="st-rot"><!-- LEGENDA: parte-1 -->Venda em poucos toques</span>
                 </div>
-                <div class="pausa" aria-hidden="true"><b><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z"/></svg><span>Continuar</span></b></div>
+                <div class="st-parte" data-dur="3000">
+                  <div class="st-zoom"><img class="st-midia" data-src="tela-venda.webp" width="600" height="1298" decoding="async" alt="Tela Vender do app, com valores de exemplo, logo depois da venda de R$ 94 no Pix: aviso Venda registrada! Você lucrou R$ 49,00."><span class="st-realce" aria-hidden="true" style="left:24%;top:81.5%;width:52%;height:8.5%;--c:#1e7d4f"></span></div>
+                  <span class="st-rot"><!-- LEGENDA: parte-2 -->O lucro aparece na hora</span>
+                </div>
+                <div class="st-parte" data-dur="3000">
+                  <div class="st-zoom"><img class="st-midia" data-src="tela-estoque.webp" width="600" height="1298" decoding="async" alt="Tela Estoque do app, com valores de exemplo: 79 peças em estoque, R$ 2.506,00 investido e o Body canelado com 4 unidades depois da venda."><span class="st-realce" aria-hidden="true" style="left:8.5%;top:68.6%;width:83%;height:7.6%;--c:#8e2757"></span></div>
+                  <span class="st-rot"><!-- LEGENDA: parte-3 -->O estoque baixa sozinho</span>
+                </div>
+                <div class="st-parte" data-dur="3000">
+                  <div class="st-zoom"><img class="st-midia" data-src="tela-fiado.webp" width="600" height="1298" decoding="async" alt="Tela Vendas do app no filtro fiado pendente, com valores de exemplo: R$ 385 a receber de 4 clientes, Ana R$ 120, Paula R$ 110, Jéssica R$ 95 e Carla R$ 60, cada uma com o botão receber."><span class="st-realce" aria-hidden="true" style="left:27%;top:10.2%;width:52%;height:5%;--c:#8e2757"></span></div>
+                  <span class="st-rot"><!-- LEGENDA: parte-4 -->Quem te deve e quanto</span>
+                </div>
+                <div class="st-parte" data-dur="3000">
+                  <div class="st-zoom"><img class="st-midia" data-src="tela-resumo.webp" width="600" height="1298" decoding="async" alt="Tela Resumo do app Lucro na Mão no celular, com valores de exemplo: entrou no caixa R$ 2.340, lucro do que entrou R$ 1.050, despesas R$ 270 e sobrou de verdade R$ 780."><span class="st-realce" aria-hidden="true" style="left:50.5%;top:29.5%;width:43%;height:9.5%;--c:#1e7d4f"></span></div>
+                  <span class="st-rot"><!-- LEGENDA: parte-5 -->Quanto sobrou no mês</span>
+                </div>
               </div>
-            </div>
+            </div></div></div>
           </div>
-        </div>
-
-        <div class="tags">
-          <div class="tg"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span>Registrar venda<small>em poucos toques</small></span></div>
-          <div class="tg verde"><svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg><span>Lucro na tela<small>na hora</small></span></div>
-          <div class="tg"><svg viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><path d="M3.3 8.3L12 13l8.7-4.7"/></svg><span>Controle de estoque<small>baixa automática</small></span></div>
-          <div class="tg"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Resumo do mês<small>quanto sobrou</small></span></div>
-          <div class="tg"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 01-9.3 8.4 8.6 8.6 0 01-3.9-1L3 20l1.2-4.6a8.4 8.4 0 1116.8-3.9z"/></svg><span>Recibo no WhatsApp<small>pra cliente</small></span></div>
-          <div class="tg"><svg viewBox="0 0 24 24"><path d="M16 3h-2a2 2 0 00-2 2v0a2 2 0 01-2 2H8"/><rect x="4" y="7" width="16" height="14" rx="2"/><path d="M9 13h6M9 17h4"/></svg><span>Fiado anotado<small>com nome</small></span></div>
         </div>
 
         <div class="oferta">
@@ -643,18 +666,32 @@ if (!window.__lnmParaB) { (function(d){ var s = d.createElement('script'); s.asy
       </div>
 
       <div class="palco palco-desk">
-        <div class="fone fone-vsl">
-          <div class="tela">
-            <div class="vsl" id="vslDesk" data-vsl>
-                <video data-lab-vsl="vsl-v9" src="vsl.mp4" poster="vsl-v9-capa.jpg" width="406" height="728" muted loop playsinline preload="none"
-                       aria-label="Como o aplicativo funciona, do cadastro do produto ao lucro da venda"></video>
-                <div class="barra"><i></i></div>
-                <div class="som" role="button" tabindex="0" aria-label="Ouvir: tocar com som, do início">
-                  <b><svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/></svg><span>Ouvir</span></b>
-                </div>
-                <div class="pausa" aria-hidden="true"><b><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z"/></svg><span>Continuar</span></b></div>
+        <div class="story" data-story role="region" aria-roledescription="carrossel" aria-label="O app por dentro, em 5 partes, com valores de exemplo">
+          <div class="fone"><div class="cel"><div class="vetro"><span class="isola"></span><div class="stato"><span>14:32</span><i><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2" fill="currentColor"/></svg></i></div>
+            <div class="st-tela" tabindex="0" aria-label="Toque para avançar, segure para pausar">
+              <div class="st-barras" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+              <div class="st-parte on">
+                <div class="st-zoom"><video class="st-midia" data-src="venda-passo-a-passo.mp4" poster="venda-toques-capa.webp" width="600" height="1298" muted playsinline preload="none" disablepictureinpicture aria-label="Vídeo sem som de uma venda no app: toque em Registrar venda, escolha um perfume decant e um body, marque Pix e confirme."></video></div>
+                <span class="st-rot"><!-- LEGENDA: parte-1 -->Venda em poucos toques</span>
               </div>
-          </div>
+              <div class="st-parte" data-dur="3000">
+                <div class="st-zoom"><img class="st-midia" data-src="tela-venda.webp" width="600" height="1298" decoding="async" alt="Tela Vender do app, com valores de exemplo, logo depois da venda de R$ 94 no Pix: aviso Venda registrada! Você lucrou R$ 49,00."><span class="st-realce" aria-hidden="true" style="left:24%;top:81.5%;width:52%;height:8.5%;--c:#1e7d4f"></span></div>
+                <span class="st-rot"><!-- LEGENDA: parte-2 -->O lucro aparece na hora</span>
+              </div>
+              <div class="st-parte" data-dur="3000">
+                <div class="st-zoom"><img class="st-midia" data-src="tela-estoque.webp" width="600" height="1298" decoding="async" alt="Tela Estoque do app, com valores de exemplo: 79 peças em estoque, R$ 2.506,00 investido e o Body canelado com 4 unidades depois da venda."><span class="st-realce" aria-hidden="true" style="left:8.5%;top:68.6%;width:83%;height:7.6%;--c:#8e2757"></span></div>
+                <span class="st-rot"><!-- LEGENDA: parte-3 -->O estoque baixa sozinho</span>
+              </div>
+              <div class="st-parte" data-dur="3000">
+                <div class="st-zoom"><img class="st-midia" data-src="tela-fiado.webp" width="600" height="1298" decoding="async" alt="Tela Vendas do app no filtro fiado pendente, com valores de exemplo: R$ 385 a receber de 4 clientes, Ana R$ 120, Paula R$ 110, Jéssica R$ 95 e Carla R$ 60, cada uma com o botão receber."><span class="st-realce" aria-hidden="true" style="left:27%;top:10.2%;width:52%;height:5%;--c:#8e2757"></span></div>
+                <span class="st-rot"><!-- LEGENDA: parte-4 -->Quem te deve e quanto</span>
+              </div>
+              <div class="st-parte" data-dur="3000">
+                <div class="st-zoom"><img class="st-midia" data-src="tela-resumo.webp" width="600" height="1298" decoding="async" alt="Tela Resumo do app Lucro na Mão no celular, com valores de exemplo: entrou no caixa R$ 2.340, lucro do que entrou R$ 1.050, despesas R$ 270 e sobrou de verdade R$ 780."><span class="st-realce" aria-hidden="true" style="left:50.5%;top:29.5%;width:43%;height:9.5%;--c:#1e7d4f"></span></div>
+                <span class="st-rot"><!-- LEGENDA: parte-5 -->Quanto sobrou no mês</span>
+              </div>
+            </div>
+          </div></div></div>
         </div>
       </div>
     </div>
@@ -819,6 +856,27 @@ if (!window.__lnmParaB) { (function(d){ var s = d.createElement('script'); s.asy
   </div>
 </section>
 
+<!-- ============ VSL: na versao B ela sai do topo e fica aqui, antes do preco ============ -->
+<section class="vsl-desceu" id="video">
+  <div class="w">
+    <div class="palco">
+      <div class="fone fone-vsl">
+        <div class="tela">
+          <div class="vsl" id="vslMob" data-vsl>
+            <video data-lab-vsl="vsl-v9" src="vsl.mp4" data-poster="vsl-v9-capa.jpg" width="406" height="728" muted loop playsinline preload="none"
+                   aria-label="Como o aplicativo funciona, do cadastro do produto ao lucro da venda"></video>
+            <div class="barra"><i></i></div>
+            <div class="som" role="button" tabindex="0" aria-label="Ouvir: tocar com som, do início">
+              <b><svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/></svg><span>Ouvir</span></b>
+            </div>
+            <div class="pausa" aria-hidden="true"><b><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z"/></svg><span>Continuar</span></b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ OFERTA E GARANTIA ============ -->
 <section id="comprar">
   <div class="w">
@@ -976,7 +1034,6 @@ var CHECKOUT = 'https://pay.cakto.com.br/3ko7pit';   /* front R$ 47, oferta 3ko7
    - com som, um toque no video pausa e outro continua de onde parou
    - nao da pra arrastar nem voltar: a barrinha de baixo so mostra o progresso */
 (function(){
-  if (window.__lnmParaB) return;   /* indo para a versao B: nao baixa a VSL daqui */
   document.querySelectorAll('[data-vsl]').forEach(function(box){
     var v = box.querySelector('video');
     var fill = box.querySelector('.barra i');
@@ -1031,8 +1088,13 @@ var CHECKOUT = 'https://pay.cakto.com.br/3ko7pit';   /* front R$ 47, oferta 3ko7
       v.preload = 'auto';
       v.play().catch(function(){});
     }
-    comecar();
-    window.addEventListener('resize', comecar);
+    /* VERSAO B: a VSL mora antes do preco, longe da dobra. So carrega e toca (mudo) quando chega
+       perto da tela; sem isso os 3,8 MB dela baixariam junto com o topo. */
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function(es, io){
+        if (es[0].isIntersecting) { io.disconnect(); if (!v.poster && v.dataset.poster) v.poster = v.dataset.poster; comecar(); }
+      }, { rootMargin: '300px 0px' }).observe(box);
+    } else { comecar(); window.addEventListener('resize', comecar); }
 
     /* terminou com som: volta pro estado inicial, mudo em loop */
     v.addEventListener('ended', function(){
@@ -1130,6 +1192,102 @@ var CHECKOUT = 'https://pay.cakto.com.br/3ko7pit';   /* front R$ 47, oferta 3ko7
     es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('visto'); io.unobserve(e.target); } });
   }, {rootMargin:'0px 0px -8% 0px'});
   [].forEach.call(els, function(e){ io.observe(e); });
+})();
+</script>
+<script>
+/* VERSAO B: o celular do topo em partes, estilo Stories. Sem biblioteca.
+   - cada parte 3 s; a 1 (o video da venda, 9 s, com o carrinho e o Pix parados para ler) dura o video
+   - toque avanca, segurar pausa; seta para os lados no teclado; loop infinito
+   - para quando sai da tela ou a aba fica escondida
+   - so a copia visivel (celular ou computador) carrega; cada parte carrega a seguinte
+   - com "reduzir movimento": parado no Resumo, sem video */
+(function(){
+  var reduz = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var todos = [].slice.call(document.querySelectorAll('[data-story]'));
+  function visivel(el){ return el.offsetParent !== null && el.getBoundingClientRect().width > 0; }
+  function carregar(p){
+    if (!p) return; var m = p.querySelector('[data-src]');
+    if (m && !m.getAttribute('src')) { m.src = m.dataset.src; if (m.tagName === 'VIDEO') m.preload = 'auto'; }
+  }
+  function iniciar(st){
+    if (st.dataset.ligado) return; st.dataset.ligado = '1';
+    var partes = [].slice.call(st.querySelectorAll('.st-parte'));
+    var barras = [].slice.call(st.querySelectorAll('.st-barras b'));
+    var tela = st.querySelector('.st-tela');
+    var n = partes.length, atual = 0, gasto = 0, ultimo = 0, segurando = false, fora = false, escondida = false;
+    if (reduz) {
+      st.classList.add('parado');
+      partes.forEach(function(p, k){ p.classList.toggle('on', k === n - 1); });
+      carregar(partes[n - 1]); return;
+    }
+    function video(i){ return partes[i].querySelector('video'); }
+    function tocar(v){ var pr = v.play(); if (pr && pr.catch) pr.catch(function(){ v.dataset.falhou = '1'; }); }
+    function mostrar(i){
+      var antes = atual;
+      partes.forEach(function(p, k){
+        p.classList.toggle('on', k === i);
+        p.classList.toggle('foi', k === antes && k !== i);
+        var v = video(k); if (v && k !== i) v.pause();
+      });
+      barras.forEach(function(b, k){ b.style.width = k < i ? '100%' : '0%'; });
+      atual = i; gasto = 0;
+      carregar(partes[i]); carregar(partes[(i + 1) % n]);
+      var v = video(i);
+      if (v && !v.dataset.falhou) { try { v.currentTime = 0; } catch (e) {} if (!fora && !escondida) tocar(v); }
+    }
+    function proximo(){ mostrar((atual + 1) % n); }
+    function anterior(){ mostrar((atual - 1 + n) % n); }
+    function parado(){ return segurando || fora || escondida; }
+    function quadro(t){
+      requestAnimationFrame(quadro);
+      var dt = ultimo ? Math.min(t - ultimo, 100) : 0; ultimo = t;
+      if (parado()) return;
+      var v = video(atual), fr;
+      if (v && !v.dataset.falhou) {
+        if (v.readyState < 2 || !v.duration) { gasto += dt; if (gasto > 3000) v.dataset.falhou = '1'; return; }
+        if (v.paused && !v.ended) tocar(v);
+        fr = v.currentTime / v.duration;
+        if (v.ended || fr >= 0.995) { proximo(); return; }
+      } else {
+        gasto += dt; fr = gasto / (+partes[atual].dataset.dur || 3200);
+        if (fr >= 1) { proximo(); return; }
+      }
+      barras[atual].style.width = (Math.min(fr, 1) * 100) + '%';
+    }
+    function pausar(sim){
+      var v = video(atual);
+      if (v && !v.dataset.falhou) { if (sim) v.pause(); else if (!parado()) tocar(v); }
+    }
+    /* toque avanca; segurar (mais de 0,2 s) pausa ate soltar; rolar a pagina nao conta */
+    var timer = 0, apertou = false;
+    tela.addEventListener('pointerdown', function(e){
+      if (e.button > 0) return; apertou = true;
+      timer = setTimeout(function(){ segurando = true; pausar(true); }, 200);
+    });
+    function soltar(avanca){
+      clearTimeout(timer);
+      if (!apertou) return; apertou = false;
+      if (segurando) { segurando = false; pausar(false); }
+      else if (avanca) proximo();
+    }
+    tela.addEventListener('pointerup', function(){ soltar(true); });
+    tela.addEventListener('pointercancel', function(){ soltar(false); });
+    tela.addEventListener('pointerleave', function(){ soltar(false); });
+    tela.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+    tela.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); proximo(); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); anterior(); }
+    });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function(es){ fora = !es[0].isIntersecting; pausar(fora); }, { threshold: 0.2 }).observe(st);
+    }
+    document.addEventListener('visibilitychange', function(){ escondida = document.hidden; pausar(escondida); });
+    mostrar(0);
+    requestAnimationFrame(quadro);
+  }
+  function ligar(){ todos.forEach(function(st){ if (visivel(st)) iniciar(st); }); }
+  ligar();
+  window.addEventListener('resize', ligar);
 })();
 </script>
 <script>
