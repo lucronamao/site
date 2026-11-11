@@ -615,6 +615,52 @@ alt=""/></noscript>
      no Meta e nao troca UTM, sck nem fbclid: so acrescenta lab=lv_<sessao> no inicio da URL do
      checkout, no toque do botao. Para desfazer, apagar a linha. -->
 <script async src="https://painel.labofertas.com/api/lp/script?o=2026-08-lucro-na-mao"></script>
+<script>
+var CHECKOUT = 'https://pay.cakto.com.br/3ko7pit';   /* front R$ 47, oferta 3ko7pit */
+function lnmAplicarCheckout(){
+  /* Repasse de UTM + fbclid + src + sck da landing para o checkout.
+     10/11/2026: aplica o href assim que o primeiro CTA entra no HTML, pra
+     nao perder a query se a pessoa tocar no botao do hero antes do script
+     do fim da pagina. Descarta so o valor cru de placeholder do Meta
+     ({{campaign.id}} e afins) e mantem os demais parametros. localStorage
+     com validade de 7 dias (casa com a janela de clique do Meta), so com a
+     query ja limpa: sobrevive ao fechar a aba e a ida aos Termos. Sem TTL
+     uma UTM velha carimbaria visita organica futura. localStorage e isolado
+     por navegador, entao isto NAO cobre o pulo do Instagram pro Chrome;
+     esse caso depende do _fbc na CAPI. */
+  var TTL = 7 * 24 * 60 * 60 * 1000;
+  var MACRO = /\{\{[^}]+\}\}/;
+  function limpar(qs){
+    if (!qs) return '';
+    var p, out, s;
+    try { p = new URLSearchParams(String(qs).replace(/^\?/, '')); }
+    catch (e) { return ''; }
+    out = new URLSearchParams();
+    p.forEach(function(valor, chave){
+      if (MACRO.test(chave) || MACRO.test(valor)) return;
+      out.append(chave, valor);
+    });
+    s = out.toString();
+    return s ? ('?' + s) : '';
+  }
+  var qs = '';
+  try {
+    var bruto = location.search || '';
+    var chegada = limpar(bruto);
+    if (chegada) {
+      qs = chegada;
+      localStorage.setItem('lnm_qs', JSON.stringify({qs: qs, em: Date.now()}));
+    } else if (!bruto) {
+      var salvo = JSON.parse(localStorage.getItem('lnm_qs') || 'null');
+      if (salvo && salvo.qs && (Date.now() - salvo.em) < TTL) qs = limpar(salvo.qs);
+      else if (salvo) localStorage.removeItem('lnm_qs');
+    }
+  } catch (e) {}
+  var alvo = qs ? CHECKOUT + (CHECKOUT.indexOf('?') >= 0 ? '&' : '?') + qs.replace(/^\?/, '') : CHECKOUT;
+  document.querySelectorAll('a[data-checkout]').forEach(function(a){ a.href = alvo; });
+  return alvo;
+}
+</script>
 </head>
 <body>
 
@@ -664,6 +710,7 @@ alt=""/></noscript>
           <div class="val"><sup>R$</sup>47</div>
           <div class="uma">uma vez só, é seu pra sempre</div>
           <a class="cta" href="https://pay.cakto.com.br/3ko7pit" data-checkout>Quero organizar minha lojinha</a>
+          <script>lnmAplicarCheckout();</script>
           <div class="sob">Acesso imediato no e-mail · 7 dias de garantia</div>
         </div>
       </div>
@@ -978,28 +1025,8 @@ alt=""/></noscript>
 </div>
 
 <script>
-var CHECKOUT = 'https://pay.cakto.com.br/3ko7pit';   /* front R$ 47, oferta 3ko7pit */
 (function(){
-  /* repasse de UTM + fbclid da landing para o checkout (fase 2.4 da funil-montar).
-     localStorage com validade de 7 dias (casa com a janela de clique do Meta), pra
-     sobreviver ao fechamento da aba: em 29/08/2026 medimos 12 de 109 pedidos chegando
-     na Cakto sem UTM nenhuma, com checkoutUrl limpa. O TTL nao e opcional: sem ele uma
-     UTM velha carimbaria uma visita organica futura, trocando erro visivel por invisivel.
-     ATENCAO ao alcance: localStorage e isolado por navegador, entao isto NAO cobre o pulo
-     do navegador do Instagram pro Chrome. Esse caso depende do _fbc na CAPI. */
-  var TTL = 7 * 24 * 60 * 60 * 1000;
-  var qs = location.search || '';
-  try {
-    if (qs) {
-      localStorage.setItem('lnm_qs', JSON.stringify({qs: qs, em: Date.now()}));
-    } else {
-      var salvo = JSON.parse(localStorage.getItem('lnm_qs') || 'null');
-      if (salvo && salvo.qs && (Date.now() - salvo.em) < TTL) qs = salvo.qs;
-      else if (salvo) localStorage.removeItem('lnm_qs');
-    }
-  } catch(e){}
-  var alvo = qs ? CHECKOUT + (CHECKOUT.indexOf('?')>=0?'&':'?') + qs.replace(/^\?/,'') : CHECKOUT;
-  document.querySelectorAll('[data-checkout]').forEach(function(a){ a.href = alvo; });
+  lnmAplicarCheckout();
 
   /* barra fixa: ancora no HERO (elemento que comeca visivel; um alvo abaixo da
      dobra nunca cruza a borda e o observer nao dispara). Recolhe quando um CTA
