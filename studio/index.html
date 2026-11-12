@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Controle do Studio | Lucro na Mão</title>
-<meta name="description" content="O app que registra cada atendimento de cílios, unha ou sobrancelha em 3 toques e mostra na hora quanto você lucrou, já tirando o material. Pago uma vez, sem mensalidade.">
+<meta name="facebook-domain-verification" content="vtnvldkyr68784f80i4v81797m9en3" />
+<title>Depois de tirar o material, quanto sobra de cada cliente que você atende? | Lucro na Mão Studio</title>
+<meta name="description" content="Cadastra cada serviço uma vez, com o preço e o gasto de material. Depois, a cada cliente, 3 toques: o lucro daquele atendimento aparece na hora, e no fim do mês você vê quanto sobrou de verdade.">
 <meta name="theme-color" content="#8e2757">
 <link rel="preload" as="image" href="atendimento-capa.webp" fetchpriority="high">
 <link rel="canonical" href="https://lucronamao.online/studio/">
@@ -12,14 +13,32 @@
 <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96.png">
 <link rel="apple-touch-icon" href="../favicon-180.png">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Você atende o dia todo. Sabe quanto sobrou?">
-<meta property="og:description" content="O app que registra cada atendimento de cílios, unha ou sobrancelha em 3 toques e mostra na hora quanto você lucrou, já tirando o material. Pago uma vez, sem mensalidade.">
-<meta property="og:url" content="https://lucronamao.online/studio/">
-<meta property="og:image" content="https://lucronamao.online/studio/og.jpg">
+<meta property="og:title" content="Depois de tirar o material, quanto sobra de cada cliente que você atende? | Lucro na Mão Studio">
+<meta property="og:description" content="Cadastra cada serviço uma vez, com o preço e o gasto de material. Depois, a cada cliente, 3 toques: o lucro daquele atendimento aparece na hora, e no fim do mês você vê quanto sobrou de verdade.">
+<meta property="og:image" content="https://lucronamao.online/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:url" content="https://lucronamao.online/studio/">
+<meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
+<script>
+window.LNM_CFG = { BANNER_RISCADO: true, BF_FIM: '2026-12-01T00:00:00-03:00' };
+(function(){
+  var q = new URLSearchParams(location.search);
+  var r = q.get('riscado');
+  var riscado = (r === '0') ? false : (r === '1') ? true : !!window.LNM_CFG.BANNER_RISCADO;
+  var agora = q.get('agora');
+  var now = agora ? new Date(agora) : new Date();
+  if (isNaN(now.getTime())) now = new Date();
+  var fim = new Date(window.LNM_CFG.BF_FIM);
+  var bf = now < fim;
+  var html = document.documentElement;
+  html.classList.add(bf ? 'bf-on' : 'bf-off');
+  html.classList.add(riscado ? 'com-riscado' : 'sem-riscado');
+})();
+</script>
 <style>
+
 :root{
   --vinho:#8e2757; --vinho-esc:#5c1838; --vinho-prof:#3d0f24;
   --rose:#f6e7ee; --rose2:#fdf6f9; --creme:#fffaf6;
@@ -588,7 +607,75 @@ footer .f-links a{color:#fff;text-decoration:none;display:inline-flex;align-item
 
 .oficios.oficios-3{grid-template-columns:repeat(3,1fr)}
 @media (min-width:900px){.oficios.oficios-3{max-width:720px}}
+
+
+/* --- LP nova 12/11/2026: banner, flag, mockup maior, 14 dias --- */
+.bf-banner{display:none;position:sticky;top:0;z-index:80;background:#111;color:#fff;
+  text-align:center;padding:10px 16px;font-size:13px;font-weight:700;letter-spacing:.01em;
+  cursor:pointer;line-height:1.4}
+.bf-banner b{font-weight:800;letter-spacing:.06em}
+.bf-banner .de{text-decoration:line-through;text-decoration-thickness:1.5px;opacity:.7;font-weight:700}
+html.bf-on .bf-banner{display:block}
+html.bf-off [data-bf]{display:none!important}
+html.com-riscado .so-limpo{display:none!important}
+html.sem-riscado .so-riscado{display:none!important}
+.hero .ex-label{margin:8px 0 0;text-align:center;font-size:12px;font-weight:600;color:#f7e4ec;opacity:.9}
+.ex-label{margin:8px 0 0;text-align:center;font-size:12px;font-weight:600;color:var(--cinza)}
+.selo-bf{display:none;margin:0 auto 10px;background:var(--dourado);color:#3a2c05;font-size:11px;
+  font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:5px 12px;width:max-content}
+html.bf-on .selo-bf{display:inline-block}
+.hero h1{max-width:22ch}
+@media (max-width:899px){ .hero h1{max-width:none} }
+.hero-txt .sub{max-width:46ch}
+.oferta .sob{font-size:13px;line-height:1.5}
+.dores p{font-size:16.5px;line-height:1.6;color:var(--tinta);margin:0 0 14px;max-width:46ch}
+.dores .fecho{font-size:18px;font-weight:800;line-height:1.4;margin-top:18px;max-width:36ch}
+.bens{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:10px}
+.bens li{position:relative;padding-left:32px;font-size:16px;line-height:1.45}
+.bens li:before{content:"";position:absolute;left:0;top:3px;width:18px;height:18px;border-radius:50%;
+  background:var(--verde-bg) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='%231e7d4f' d='M6.2 11.2 3.4 8.4l1.1-1.1 1.7 1.7 5-5 1.1 1.1z'/></svg>") center/14px no-repeat}
+.bf-meio{background:#111;color:#fff;padding:48px 0;text-align:center}
+.bf-meio .faixa{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.16em;margin-bottom:14px}
+.bf-meio h2{color:#fff;font-size:clamp(26px,4vw,36px);margin:0 auto 16px;max-width:18ch}
+.bf-meio p{color:#f0f0f0;max-width:42ch;margin:0 auto 12px;font-size:16.5px;line-height:1.5}
+.bf-meio .cta{max-width:420px;margin:22px auto 0;background:#fff;color:var(--vinho)}
+.faixa-bf{display:none;background:#111;color:#fff;text-align:center;font-size:12px;font-weight:800;
+  letter-spacing:.08em;padding:8px 16px;border-radius:var(--r) var(--r) 0 0;margin:0 0 0}
+html.bf-on .faixa-bf{display:block}
+#comprar .oferta.tem-faixa{border-radius:0 0 var(--r-lg) var(--r-lg);border:2px solid var(--vinho)}
+.urg{font-size:14.5px;line-height:1.5;color:var(--tinta);background:var(--rose);border-radius:var(--r-sm);
+  padding:12px 14px;margin:0 0 16px;text-align:left}
+.gar-box{margin-top:18px;border:1px solid var(--linha);border-radius:var(--r);padding:14px 16px;
+  background:var(--creme);text-align:left;font-size:14.5px;line-height:1.5}
+.inv{font-size:15.5px;line-height:1.55;margin:0 0 12px;color:var(--tinta);text-align:left}
+.nota-opc{font-size:14.5px;color:var(--cinza);text-align:center;margin:16px 0 0}
+.story{--fone-w:min(336px,88vw);width:var(--fone-w);margin:0 auto}
+@media (min-width:900px){
+  .story{--fone-w:min(360px,calc((100svh - 140px) / 2.11))}
+}
+
+/* LNM-FONE-88 */
+.palco{flex-direction:column;align-items:center}
+.hero-txt .palco-mob,.hero-txt .story,.story{flex-shrink:0}
+.story{--fone-w:min(336px,88vw);width:var(--fone-w);max-width:88vw}
+@media (min-width:900px){
+  .story{--fone-w:min(360px,calc((100svh - 140px) / 2.11));max-width:none}
+}
+
+/* LNM-DESK-DOBRA */
+@media (min-width:900px) and (max-height:850px){
+  .bf-banner{padding:8px 16px;font-size:12.5px}
+  .hero{padding:12px 0 28px}
+  .hero .cta{padding:14px 18px}
+  .marca{margin-bottom:16px}
+  .chapeu{margin-bottom:8px}
+  .hero h1{margin-bottom:10px}
+  .hero .sub{margin-bottom:14px}
+  .hero-txt .oferta{margin-top:14px;padding:16px 18px}
+  .oferta .sob{margin-top:8px}
+}
 </style>
+
 
 <!-- Meta Pixel: SO o base e o PageView, o mesmo da Lucro na Mao (decisao do dono, 09/11/2026).
      O Purchase sai EXCLUSIVAMENTE pela CAPI: nao adicionar fbq('track','Purchase') aqui. -->
@@ -633,6 +720,7 @@ function lnmAplicarCheckout(){
     out = new URLSearchParams();
     p.forEach(function(valor, chave){
       if (MACRO.test(chave) || MACRO.test(valor)) return;
+      if (chave === 'agora' || chave === 'riscado') return;
       out.append(chave, valor);
     });
     s = out.toString();
@@ -656,18 +744,30 @@ function lnmAplicarCheckout(){
   return alvo;
 }
 </script>
+
 </head>
 <body>
+<!-- Some da página em 30/11. Data fixa no código, igual para todo visitante. -->
+<div class="bf-banner so-riscado" data-bf role="link" tabindex="0"
+     onclick="document.getElementById('comprar').scrollIntoView({behavior:'smooth'})">
+  <b>BLACK FRIDAY LUCRO NA MÃO STUDIO</b><br>
+  de <span class="de">R$ 97</span> por <b>R$ 47</b>, pagamento único · Oferta válida até 30/11
+</div>
+<div class="bf-banner so-limpo" data-bf role="link" tabindex="0"
+     onclick="document.getElementById('comprar').scrollIntoView({behavior:'smooth'})">
+  <b>BLACK FRIDAY LUCRO NA MÃO STUDIO</b><br>
+  <b>R$ 47, pagamento único.</b> Sem mensalidade · Oferta válida até 30/11
+</div>
 
-<!-- ============ HERO ============ -->
 <header class="hero">
   <div class="w">
     <img src="../logo-branca.png" alt="Lucro na Mão" width="434" height="136" class="marca">
     <div class="grade">
       <div class="hero-txt">
         <div class="chapeu">Pra lash designer, nail designer e designer de sobrancelha</div>
-        <h1>Registre o atendimento e veja <span class="serif junto">seu lucro na hora</span></h1>
-
+        <!-- Correção 12/11: o H1 dizia «Manicure», mas o público da página é lash, nail e sobrancelha. Manicure só aparece no FAQ. O chapéu identifica o público; o H1 fala a dor comum aos três. -->
+        <h1>Depois de tirar o material, quanto sobra de cada cliente que você atende?</h1>
+        <p class="sub">Cadastra cada serviço uma vez, com o preço e o gasto de material. Depois, a cada cliente, 3 toques: o lucro daquele atendimento aparece na hora, e no fim do mês você vê quanto sobrou de verdade.</p>
         <div class="palco palco-mob">
           <div class="story" data-story role="region" aria-roledescription="carrossel" aria-label="O app por dentro, em 5 partes, com valores de exemplo">
             <div class="fone"><div class="cel"><div class="vetro"><span class="isola"></span><div class="stato"><span>14:32</span><i><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2" fill="currentColor"/></svg></i></div>
@@ -696,18 +796,24 @@ function lnmAplicarCheckout(){
               </div>
             </div></div></div>
           </div>
-        </div>
-
+        <p class="ex-label">valores de exemplo</p>
+</div>
         <div class="oferta">
-          <!-- R$ 47, aprovado pelo dono em 09/11/2026. Sem preco riscado. -->
-          <div class="val"><sup>R$</sup>47</div>
-          <div class="uma">uma vez só, é seu pra sempre</div>
-          <a class="cta" href="https://pay.cakto.com.br/5j6pgva" data-checkout>Quero organizar meu studio</a>
-          <script>lnmAplicarCheckout();</script>
-          <div class="sob">Acesso imediato no e-mail · 7 dias de garantia</div>
+          <div class="selo-bf" data-bf>Black Friday</div>
+          <div class="so-riscado">
+            <div class="de-por">de <s>R$ 97</s> por</div>
+            <div class="val"><sup>R$</sup>47</div>
+            <p class="tudo">pagamento único. Sem mensalidade.</p>
+          </div>
+          <div class="so-limpo">
+            <div class="val"><sup>R$</sup>47</div>
+            <p class="tudo">R$ 47, pagamento único. Sem mensalidade.</p>
+          </div>
+
+        <a class="cta" href="https://pay.cakto.com.br/5j6pgva" data-checkout>Quero saber quanto sobra de cada cliente</a>
+        <p class="sob">Você vai pro pagamento na Cakto. O link do app chega no seu e-mail. 14 dias de garantia.</p>
         </div>
       </div>
-
       <div class="palco palco-desk">
         <div class="story" data-story role="region" aria-roledescription="carrossel" aria-label="O app por dentro, em 5 partes, com valores de exemplo">
             <div class="fone"><div class="cel"><div class="vetro"><span class="isola"></span><div class="stato"><span>14:32</span><i><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2" fill="currentColor"/></svg></i></div>
@@ -736,34 +842,37 @@ function lnmAplicarCheckout(){
               </div>
             </div></div></div>
           </div>
-      </div>
+      <p class="ex-label">valores de exemplo</p>
+</div>
     </div>
   </div>
 </header>
+<script>lnmAplicarCheckout();</script>
 <main>
 
-<!-- PROVA: secao de depoimentos removida a pedido do dono (09/11/2026) ate existir depoimento real de lash, nail ou designer de sobrancelha. Volta no padrao da raiz (#depoimentos). -->
-
-<!-- ============ A DOR: a anotacao de papel contra a tela do app ============ -->
 <section>
   <div class="w">
-    <div class="olho rivela">A conta que nunca fecha</div>
-    <h2 class="rivela">Você sabe quanto sobra <span class="serif">de cada atendimento?</span></h2>
-    <div class="antes-depois rivela">
-      <figure class="ad"><img src="caderno.webp" width="480" height="600" loading="lazy" decoding="async" alt="Página de caderno com os atendimentos do mês anotados à mão"><figcaption><b>No caderninho</b>Sobrou quanto? Ninguém sabe.</figcaption></figure>
-      <figure class="ad depois"><img src="t-resumo.webp" width="360" height="720" loading="lazy" decoding="async" alt="Resumo do mês no aplicativo, com valores de exemplo: sobrou R$ 700,10 de verdade"><figcaption><b>No app</b>Sobrou de verdade: na tela.</figcaption></figure>
+    <h2 class="rivela">Você trabalha o dia inteiro. Mas sabe quanto ficou pra você?</h2>
+    <div class="dores rivela">
+      <p>Faz a manutenção e não sabe quanto foi de cola, de fio, de gel ou de henna.</p>
+      <p>Compra material todo mês e não lembra quanto gastou.</p>
+      <p>A cliente fala "te passo o Pix depois" e você esquece de lembrar.</p>
+      <p>O dinheiro do studio e o de casa caem na mesma conta.</p>
+      <p>Faz promoção de R$ 10 e nem sabe se o material cobre.</p>
+      <p class="fecho">Agenda cheia não é lucro. Se o material e o aluguel comem o que você cobra, você está pagando pra trabalhar.</p>
     </div>
-    <ul class="dores-ic rivela">
-      <li>Faz a manutenção e não sabe quanto foi de material</li>
-      <li>Compra gel, cola ou henna e não lembra quanto gastou no mês</li>
-      <li>Esquece quem ficou de pagar depois</li>
-      <li>Mistura o dinheiro do studio com o de casa</li>
-    </ul>
-    <p class="remate rivela"><b>Agenda cheia não é lucro. Se o material e o aluguel comem o que você cobra, você está pagando pra trabalhar.</b></p>
   </div>
 </section>
 
-<!-- ============ COMO FUNCIONA: as telas do Studio, uma por vez ============ -->
+<section style="background:var(--rose2);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)">
+  <div class="w">
+    <h2 class="rivela">O caderninho anota o nome da cliente. Mas não desconta o material.</h2>
+    <div class="dores rivela">
+      <p>Aqui, cada serviço já tem o gasto dele: você atende, toca, e o que sobra de verdade aparece.</p>
+    </div>
+  </div>
+</section>
+
 <section style="background:var(--rose2);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)">
   <div class="w">
     <div class="olho rivela">Como funciona</div>
@@ -801,24 +910,35 @@ function lnmAplicarCheckout(){
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Funciona até sem sinal</li>
     </ul>
     <a class="cta meio" href="https://pay.cakto.com.br/5j6pgva" data-checkout>Quero organizar meu studio</a>
-    <p class="sob-cta">R$ 47 uma vez · 7 dias de garantia</p>
+    <p class="sob-cta">R$ 47 uma vez · 14 dias de garantia</p>
   </div>
 </section>
 
-<!-- ============ É PRA VOCÊ ============ -->
-<section>
+<section style="background:var(--rose2);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)">
   <div class="w">
-    <div class="olho rivela">Feito pra você</div>
-    <h2 class="rivela">Pra quem atende <span class="serif">em casa ou no próprio studio</span></h2>
-    <div class="oficios oficios-3 rivela">
-      <figure><img src="oficio-lash.webp" width="400" height="400" loading="lazy" decoding="async" alt=""><figcaption>Lash designer</figcaption></figure>
-      <figure><img src="oficio-nail.webp" width="400" height="400" loading="lazy" decoding="async" alt=""><figcaption>Nail designer</figcaption></figure>
-      <figure><img src="oficio-sobrancelha.webp" width="400" height="400" loading="lazy" decoding="async" alt=""><figcaption>Designer de sobrancelha</figcaption></figure>
-    </div>
+    <h2 class="rivela">Com isso no seu celular, você:</h2>
+    <ul class="bens rivela">
+          <li>Sabe quanto sobra de cada serviço depois do material.</li>
+          <li>Vê quais serviços dão mais lucro e quais só ocupam a agenda.</li>
+          <li>Lança despesa de material, aluguel e passagem, e já desconta do que sobrou.</li>
+          <li>Anota quem ficou de pagar, com o nome, e divide em vezes se precisar.</li>
+          <li>Registra entre uma cliente e outra, até sem sinal.</li>
+          <li>Troca de celular sem perder nada, com o backup.</li>
+    </ul>
   </div>
 </section>
 
-<!-- ============ OS OPCIONAIS: os dois order bumps aprovados em 09/11/2026. Texto pelo oferta.md ============ -->
+<!-- Urgência no meio. Bloco inteiro some em 30/11. -->
+<section class="bf-meio" data-bf>
+  <div class="w">
+    <div class="faixa">BLACK FRIDAY</div>
+    <h2>A Black Friday da Lucro na Mão Studio vai até 30/11</h2>
+    <p class="so-riscado">O app completo, que é seu pra sempre, de <s>R$ 97</s> por R$ 47, pagamento único. Sem mensalidade e sem renovação.</p>
+    <p class="so-limpo">O app completo, que é seu pra sempre, por R$ 47, pagamento único. Sem mensalidade e sem renovação.</p>
+    <a class="cta" href="https://pay.cakto.com.br/5j6pgva" data-checkout>Quero aproveitar a Black Friday</a>
+  </div>
+</section>
+
 <section style="background:var(--rose2);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)">
   <div class="w">
     <div class="olho rivela">A família Lucro na Mão</div>
@@ -833,71 +953,76 @@ function lnmAplicarCheckout(){
         <div class="xa-txt"><span class="tag">Opcional · +R$ 27</span><h3>Controle de Estoque</h3><p>Gel, fibra, cola, fios, henna e o resto: quanto você tem de cada um. Baixa sozinho a cada atendimento, avisa quando está acabando e monta a lista de compra.</p></div>
       </div>
     </div>
-  </div>
+      <p class="nota-opc rivela">Eles aparecem no pagamento. Você escolhe se quer levar junto.</p>
+    </div>
 </section>
 
-<!-- VSL: o Studio ainda nao tem VSL (09/11/2026). O atendimento em video ja esta no topo; quando houver, volta aqui antes de #comprar, no padrao da raiz. -->
-
-<!-- ============ OFERTA E GARANTIA ============ -->
+<!-- Oferta. Faixa e frase de urgência somem em 30/11. -->
 <section id="comprar">
   <div class="w">
-    <div class="olho centro">A oferta</div>
-    <h2 class="centro">Pague uma vez <span class="serif">e use pra sempre</span></h2>
-    <div class="oferta" style="margin:22px auto 0;box-shadow:0 18px 40px -22px rgba(61,15,36,.4);border:2px solid var(--vinho)">
-      <!-- R$ 47 aprovado pelo dono em 09/11/2026. Sem preco riscado e sem ancora riscada. -->
-      <div class="val"><sup>R$</sup>47</div>
-      <div class="uma">uma vez só, é seu pra sempre</div>
-      <p class="tudo">Atendimentos, serviços com o gasto de material, lucro de cada atendimento, fiado, despesas, resumo do mês e backup. Tudo incluso.</p>
-      <a class="cta" href="https://pay.cakto.com.br/5j6pgva" data-checkout>Quero organizar meu studio</a>
-      <div class="sob">Pix ou cartão · pagamento seguro · acesso imediato</div>
-    </div>
-    <div class="garantia mini">
-      <svg viewBox="0 0 24 24"><path d="M12 2.6l7.5 3v6.2c0 4.4-3 8.2-7.5 9.6-4.5-1.4-7.5-5.2-7.5-9.6V5.6l7.5-3z"/><path d="M8.6 12.2l2.4 2.4 4.4-4.8"/></svg>
-      <p><b>7 dias de garantia.</b> Não gostou, manda uma mensagem e devolvemos o valor integral.</p>
+    <div class="faixa-bf" data-bf>BLACK FRIDAY · válida até 30/11</div>
+    <div class="oferta tem-faixa" style="margin:0 auto;box-shadow:0 18px 40px -22px rgba(61,15,36,.4);border:2px solid var(--vinho)">
+      <h2 class="centro" style="margin-bottom:16px">No próximo atendimento você já sabe quanto sobrou.</h2>
+      <div class="so-riscado">
+        <div class="de-por">de <s>R$ 97</s> por</div>
+        <div class="val"><sup>R$</sup>47</div>
+        <p class="tudo">pagamento único, é seu pra sempre.</p>
+      </div>
+      <div class="so-limpo">
+        <div class="val"><sup>R$</sup>47</div>
+        <p class="tudo">R$ 47, pagamento único, é seu pra sempre.</p>
+      </div>
+      <!-- [PARCELAMENTO: só entra depois do teste do Checkout no celular] -->
+      <p class="urg" data-bf>
+        <span class="so-riscado">Esse é o preço da Black Friday Lucro na Mão, válido até 30/11. Quem garante agora paga uma vez só e usa pra sempre.</span>
+        <span class="so-limpo">Esse é o preço da Black Friday Lucro na Mão, válido até 30/11. Paga uma vez só e usa pra sempre.</span>
+      </p>
+      <a class="cta" href="https://pay.cakto.com.br/5j6pgva" data-checkout>Quero meu app por R$ 47</a>
+      <p class="sob">Pix, Apple Pay ou cartão. O link chega no seu e-mail assim que o pagamento é confirmado.</p>
+      <div class="gar-box"><b>14 dias de garantia.</b> Testou e não gostou? Manda uma mensagem e devolvemos o valor inteiro.</div>
     </div>
   </div>
 </section>
 
-<!-- ============ FAQ ============ -->
-<section style="background:var(--rose2);border-top:1px solid var(--linha)">
+<section>
   <div class="w">
-    <div class="olho">Dúvidas</div>
-    <h2>Perguntas de quem <span class="serif">chegou até aqui</span></h2>
+    <div class="olho rivela">Dúvidas</div>
+    <h2 class="rivela">Perguntas que chegam</h2>
     <div class="faq">
-      <details><summary>Como instalo no meu celular?</summary>
-        <div class="r">Você recebe um link, abre no celular e, em 2 toques, coloca o ícone na tela inicial, do lado do WhatsApp e do Instagram (o próprio app mostra o passo a passo do seu aparelho). Não passa pela Play Store nem pela App Store e <b>não ocupa espaço</b>. Depois ele abre em tela cheia, como qualquer aplicativo.</div></details>
       <details><summary>É mensalidade?</summary>
-        <div class="r">Não. Você paga <b>uma vez</b> e o app é seu, com as atualizações incluídas. Não existe assinatura, renovação nem cobrança automática.</div></details>
+        <div class="r">Não. Você paga uma vez e o app é seu, com as atualizações. Não tem assinatura, renovação nem cobrança automática.</div></details>
+      <details><summary>Sou péssima com celular. Vou conseguir?</summary>
+        <div class="r">Vai. Não tem fórmula nem planilha: você toca no serviço, no jeito que ela pagou, e o atendimento está lançado. Feito pro dedão.</div></details>
+      <details><summary>Como instalo?</summary>
+        <div class="r">Você recebe um link, abre no celular e coloca o ícone na tela inicial, do lado do WhatsApp. Não passa por loja de aplicativo e não ocupa espaço. O próprio app mostra o passo a passo do seu aparelho.</div></details>
+      <details><summary>Como recebo?</summary>
+        <div class="r">Assim que o pagamento é confirmado, o link chega no seu e-mail. Você abre e já está usando, sem esperar liberação.</div></details>
+      <details><summary>Precisa de internet?</summary>
+        <div class="r">Só pra abrir a primeira vez e instalar. Depois funciona sem sinal, porque fica tudo salvo no seu celular.</div></details>
       <details><summary>Ele marca horário? Tem agenda?</summary>
         <div class="r">Marca, no <b>Agenda Cheia</b>, o opcional de R$ 67: agenda da semana, ficha de cada cliente, lembrete da véspera em 1 toque no WhatsApp e aviso do dia da manutenção. O Controle do Studio sozinho registra o atendimento quando você termina e mostra o lucro.</div></details>
-      <details><summary>Não entendo nada de planilha. Vou conseguir usar?</summary>
-        <div class="r">É justamente por isso que ele existe. Não tem fórmula, não tem célula, não tem aba: você toca na cliente, no serviço e na forma de pagamento, e o atendimento está registrado. <b>Dá pra fazer entre uma cliente e outra.</b></div></details>
-      <details><summary>Preciso de internet pra usar?</summary>
-        <div class="r">Só pra abrir da primeira vez e instalar. Depois ele funciona <b>mesmo sem sinal</b>, porque tudo fica salvo no seu celular: você registra no studio, em casa ou na casa da cliente.</div></details>
-      <details><summary>Faço mais de um serviço, tipo cílios e sobrancelha. Serve?</summary>
-        <div class="r">Serve. Você cadastra todos os serviços que faz, com o preço e o gasto de material de cada um, e o resumo do mês mostra quais deram mais lucro. Serve também pra manicure.</div></details>
-      <details><summary>E se eu trocar de celular? Perco tudo?</summary>
-        <div class="r">Não, se você usar o backup. Em um toque o app gera um arquivo com tudo e você manda pro seu próprio WhatsApp. No celular novo, escolhe restaurar e continua de onde parou. <b>O app te lembra de fazer o backup.</b></div></details>
+      <details><summary>E se eu trocar de celular?</summary>
+        <div class="r">Você faz o backup num toque, manda pro seu próprio WhatsApp e restaura no celular novo. O app te lembra de fazer.</div></details>
       <details><summary>Emite nota fiscal?</summary>
-        <div class="r">Não. Ele é um app de controle: mostra seus atendimentos, suas despesas e seu lucro. Nota fiscal é assunto do seu contador.</div></details>
-      <details><summary>Como recebo depois de pagar?</summary>
-        <div class="r">Assim que o pagamento é confirmado, o link de acesso chega no seu e-mail. Você abre e já está usando: sem espera e sem liberação manual.</div></details>
+        <div class="r">Não. É pra você controlar atendimentos, material e lucro. Nota é com o contador.</div></details>
+      <details><summary>E se eu não gostar?</summary>
+        <div class="r">Você tem 14 dias. Manda uma mensagem e devolvemos o valor inteiro.</div></details>
+      <details data-bf><summary>Até quando vale a Black Friday?</summary>
+        <div class="r">Até 30/11.</div></details>
     </div>
   </div>
 </section>
 
-<!-- ============ FECHAMENTO ============ -->
 <section class="fim">
   <div class="w">
-    <h2>No próximo atendimento você já sabe <span class="serif">quanto sobrou</span></h2>
-    <p>R$ 47, uma vez só. Com 7 dias de garantia.</p>
-    <a class="cta claro" href="https://pay.cakto.com.br/5j6pgva" data-checkout>Quero organizar meu studio</a>
-    <div class="obs">Acesso imediato após o pagamento</div>
+    <h2 class="centro rivela">No próximo atendimento você já sabe quanto sobrou.</h2>
+    <p class="centro remate so-riscado">de <s>R$ 97</s> por R$ 47, pagamento único. 14 dias de garantia.</p>
+    <p class="centro remate so-limpo">R$ 47, pagamento único. 14 dias de garantia.</p>
+    <a class="cta meio" href="https://pay.cakto.com.br/5j6pgva" data-checkout>Quero o meu app agora</a>
   </div>
 </section>
 
 </main>
-
 <footer>
   <div class="w">
     <img src="../logo-branca.png" alt="Lucro na Mão" width="150" height="37" class="f-logo">
@@ -912,9 +1037,9 @@ function lnmAplicarCheckout(){
   </div>
 </footer>
 
-<!-- barra fixa (aparece depois do hero) -->
 <div class="barra" id="barra">
-  <div class="p">R$ 47<small>uma vez</small></div>
+  <div class="p so-riscado"><s>R$ 97</s>R$ 47<small>pagamento único</small></div>
+  <div class="p so-limpo">R$ 47<small>pagamento único</small></div>
   <a class="cta" href="https://pay.cakto.com.br/5j6pgva" data-checkout>Quero o app</a>
 </div>
 
@@ -1298,3 +1423,4 @@ document.addEventListener('volumechange', umComSom, true);
 </script>
 </body>
 </html>
+
