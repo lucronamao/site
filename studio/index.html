@@ -674,6 +674,14 @@ html.bf-on .faixa-bf{display:block}
   .hero-txt .oferta{margin-top:14px;padding:16px 18px}
   .oferta .sob{margin-top:8px}
 }
+
+/* Um depoimento em video, mesma moldura da Revendedora; um item so, centrado. */
+.trilho.depo-trilho.dep-um{justify-content:center}
+/* h2.centro nao casa com ".centro h2"; no desktop o max-width:22ch deixava o titulo a esquerda. */
+#depoimentos h2.centro{max-width:none;margin-left:auto;margin-right:auto;text-align:center}
+@media (min-width:900px){
+  .trilho.depo-trilho.dep-um{grid-template-columns:minmax(0,280px);justify-content:center}
+}
 </style>
 
 
@@ -864,6 +872,33 @@ function lnmAplicarCheckout(){
   </div>
 </section>
 
+<section class="provas" id="depoimentos">
+  <div class="w">
+    <h2 class="centro rivela">Quem já trocou o caderninho pelo celular</h2>
+    <div class="trilho depo-trilho dep-um" role="region" aria-label="Depoimento em vídeo">
+      <figure class="depo">
+        <div class="depo-tela">
+          <video id="dep-video" data-lab-depoimento="depoimento-cliente"
+                 src="depoimento-cliente.mp4" poster="depoimento-cliente-capa.webp"
+                 width="720" height="1280" controls playsinline preload="none"
+                 aria-label="Depoimento em vídeo sobre o aplicativo Lucro na Mão"></video>
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+<script>
+/* Troca o depoimento aqui: arquivo do video e do poster. O HTML acima e o fallback sem JS. */
+const DEP_VIDEO = 'depoimento-cliente.mp4';
+const DEP_POSTER = 'depoimento-cliente-capa.webp';
+(function(){
+  var v = document.getElementById('dep-video');
+  if (!v) return;
+  if (v.getAttribute('src') !== DEP_VIDEO) v.src = DEP_VIDEO;
+  if (v.getAttribute('poster') !== DEP_POSTER) v.poster = DEP_POSTER;
+})();
+</script>
+
 <section style="background:var(--rose2);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)">
   <div class="w">
     <h2 class="rivela">O caderninho anota o nome da cliente. Mas não desconta o material.</h2>
@@ -927,6 +962,7 @@ function lnmAplicarCheckout(){
     </ul>
   </div>
 </section>
+
 
 <!-- Urgência no meio. Bloco inteiro some em 30/11. -->
 <section class="bf-meio" data-bf>
