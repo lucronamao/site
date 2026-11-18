@@ -755,7 +755,7 @@ function lnmAplicarCheckout(){
     out = new URLSearchParams();
     p.forEach(function(valor, chave){
       if (MACRO.test(chave) || MACRO.test(valor)) return;
-      if (chave === 'agora' || chave === 'riscado') return;
+      if (chave === 'agora' || chave === 'riscado' || chave === 'v') return;
       out.append(chave, valor);
     });
     s = out.toString();
@@ -804,7 +804,7 @@ html.bf-on .bf-banner{display:flex;align-items:center;justify-content:center;gap
 .bf-tag{background:var(--bf-tinta);color:var(--bf);font-size:10.5px;font-weight:800;letter-spacing:.1em;
   text-transform:uppercase;padding:4px 8px;border-radius:6px}
 .bf-preco b{font-weight:800;font-size:15.5px}
-.bf-preco s{opacity:.6;font-weight:600;text-decoration-thickness:1.5px}
+.bf-preco s{color:#5a430f;font-weight:600;text-decoration-thickness:1.5px}
 .bf-ate{font-size:12px;font-weight:600;opacity:.75}
 @media (max-width:359px){ html.bf-on .bf-banner{gap:7px;font-size:13px} .bf-ate{font-size:11px} }
 /* cores do app (bloco 8b) */
