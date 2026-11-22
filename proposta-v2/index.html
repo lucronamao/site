@@ -9,14 +9,14 @@
 <meta name="theme-color" content="#18161b">
 <!-- PROPOSTA V2 (22/11/2026, Vini t1739u/t1740u): visual da LP Guadagno in Mano (studio-it/site-v2) com a
      identidade Lucro na Mao (grafite #3F3A45 + verde #1E7D4F), mantendo a essencia da pagina de 03-12/11:
-     headline curta, celular com o app no topo, prova logo depois e CTA unico. Demo: um video so, ~6 s em loop
-     (venda-passo-a-passo.mp4 acelerado 1,9x + 1,3 s parado no "Voce lucrou R$ 50,00"), 3 legendas.
+     headline curta, celular com o app no topo, prova logo depois e CTA unico. Demo: um video so, ~12,5 s em loop
+     (venda-passo-a-passo.mp4 a 0,85x ate o toque final, depois 1x, + 1,5 s parado no "Voce lucrou R$ 50,00"; Vini t1744u: o 1,9x estava rapido demais), 3 legendas.
      Pixel, painel e checkout copiados verbatim da pagina restaurada. Black Friday automatica ate 01/12 00:00.
      NAO publicada: so para ver no localhost/LAN. Proposta: restaura-registre-2026-11-22/proposta-v2-controle.md -->
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
 <link rel="apple-touch-icon" href="../favicon-180.png">
 <link rel="preload" as="font" type="font/woff2" href="font/outfit-700-latin.woff2" crossorigin>
-<link rel="preload" as="image" href="demo-venda-capa.webp" fetchpriority="high">
+<link rel="preload" as="image" href="demo-venda-capa.webp?v=2211b" fetchpriority="high">
 <script>
 window.LNM_CFG = { BANNER_RISCADO: true, BF_FIM: '2026-12-01T00:00:00-03:00' };
 (function(){
@@ -349,6 +349,13 @@ footer{display:grid;gap:4px;justify-items:center}
 .chapeu{font:700 11.5px/1.35 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#cfcbd6;margin:0 0 8px}
 .hero h1{margin-bottom:16px}
 
+.chips-sob{margin:18px auto 0;width:100%;max-width:460px}
+@media (min-width:960px){.hero .chips-sob{grid-column:1;grid-row:3;margin:16px 0 0}}
+.marca-riga{justify-content:space-between}
+.insta{display:inline-flex;align-items:center;gap:6px;color:#e7e2ea;text-decoration:none;font:600 13px var(--sans);border:1px solid rgba(255,255,255,.18);border-radius:99px;padding:6px 11px 6px 8px;background:rgba(255,255,255,.06)}
+.insta .ic{width:18px;height:18px}
+.insta:active{background:rgba(255,255,255,.14)}
+
 </style>
 
 <!-- Meta Pixel: SO o base e o PageView.
@@ -447,6 +454,7 @@ function lnmAplicarCheckout(){
  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
   <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></symbol>
  <symbol id="i-sound" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/></symbol>
+ <symbol id="i-insta" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></symbol>
  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z"/></symbol>
 </svg>
 
@@ -458,27 +466,28 @@ function lnmAplicarCheckout(){
   <div class="w">
     <div class="testo">
       <!-- topo igual ao da pagina de 03-12/11 (Vini t1741u): logo, chapeu, H1; sem subtitulo -->
-      <div class="marca-riga"><img class="marca" src="../logo-branca.png" alt="Lucro na Mão" width="114" height="28"></div>
+      <div class="marca-riga"><img class="marca" src="../logo-branca.png" alt="Lucro na Mão" width="114" height="28"><a class="insta" href="https://instagram.com/applucro" target="_blank" rel="noopener" aria-label="Instagram da Lucro na Mão, @applucro (abre em nova aba)"><svg class="ic" aria-hidden="true"><use href="#i-insta"/></svg><span>@applucro</span></a></div>
       <div class="chapeu">Pra quem vende perfume, roupa, maquiagem ou acessório</div>
       <h1>Registre a venda e veja <span class="serif">seu lucro</span></h1>
-      <div class="chips">
-        <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg>Lucro de cada venda</span>
-        <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-box"/></svg>Estoque que baixa sozinho</span>
-        <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Fiado com o nome dela</span>
-        <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Paga uma vez</span>
-      </div>
     </div>
     <div class="palco">
       <!-- demo: um video so em loop, legenda pelo tempo do video -->
       <div class="demo" data-demo>
         <div class="cel"><div class="vetro"><span class="isola"></span>
           <div class="tela t600">
-            <video src="demo-venda-6s.mp4" poster="demo-venda-capa.webp" width="600" height="1298" muted playsinline loop autoplay preload="auto" disablepictureinpicture aria-label="Gravação de tela do app: registrar uma venda e ver o lucro na hora"></video>
+            <video src="demo-venda-12s.mp4?v=2211b" poster="demo-venda-capa.webp?v=2211b" width="600" height="1298" muted playsinline loop autoplay preload="auto" disablepictureinpicture aria-label="Gravação de tela do app: registrar uma venda e ver o lucro na hora"></video>
             <span class="rot" aria-live="polite">1. Toca no produto</span>
           </div>
         </div></div>
       </div>
     </div>
+    <!-- selos abaixo do celular (Vini t1745u) -->
+      <div class="chips chips-sob">
+        <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg>Lucro de cada venda</span>
+        <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-box"/></svg>Estoque que baixa sozinho</span>
+        <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Fiado com o nome do cliente</span>
+        <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Paga uma vez</span>
+      </div>
     <div class="compra">
       <p class="prezzo"><span class="risc">de <s>R$ 97</s> por </span><b>R$ 47</b> uma vez só · 7 dias de garantia</p>
       <a class="cta" href="https://pay.cakto.com.br/3ko7pit" data-checkout>Quero organizar minha lojinha <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -546,7 +555,7 @@ function lnmAplicarCheckout(){
       <figure class="slide"><div class="cel"><div class="vetro"><span class="isola"></span><div class="tela t360"><img src="../tela-01-vender.webp" width="360" height="720" loading="lazy" decoding="async" alt="Tela do app: venda em poucos toques"></div></div></div>
         <figcaption><b><span class="num">1</span>Venda em poucos toques</b>O lucro aparece na hora.</figcaption></figure>
       <figure class="slide"><div class="cel"><div class="vetro"><span class="isola"></span><div class="tela t360"><img src="../tela-02-pagamento.webp" width="360" height="720" loading="lazy" decoding="async" alt="Tela do app: forma de pagamento"></div></div></div>
-        <figcaption><b><span class="num">2</span>Pix, cartão ou fiado</b>O fiado fica com o nome dela.</figcaption></figure>
+        <figcaption><b><span class="num">2</span>Pix, cartão ou fiado</b>O fiado fica com o nome do cliente.</figcaption></figure>
       <figure class="slide"><div class="cel"><div class="vetro"><span class="isola"></span><div class="tela t360"><img src="../tela-03-estoque.webp" width="360" height="720" loading="lazy" decoding="async" alt="Tela do app: estoque"></div></div></div>
         <figcaption><b><span class="num">3</span>Estoque que baixa sozinho</b>E avisa quando está acabando.</figcaption></figure>
       <figure class="slide"><div class="cel"><div class="vetro"><span class="isola"></span><div class="tela t360"><img src="../tela-05-resumo.webp" width="360" height="720" loading="lazy" decoding="async" alt="Tela do app: resumo do mês"></div></div></div>
@@ -644,11 +653,11 @@ function lnmAplicarCheckout(){
 lnmAplicarCheckout();
 var reduz = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* DEMO do hero: um video so (~6,2 s) em loop; 3 legendas pelo tempo do video */
+/* DEMO do hero: um video so (~12,5 s) em loop; 3 legendas pelo tempo do video */
 (function(){
   var box = document.querySelector('[data-demo]'); if (!box) return;
   var v = box.querySelector('video'), rot = box.querySelector('.rot');
-  var LEG = [[0,'1. Toca no produto'],[2.6,'2. Escolhe como pagou'],[4.75,'3. Pronto: o lucro aparece']];
+  var LEG = [[0,'1. Toca no produto'],[8.2,'2. Escolhe como pagou'],[10.5,'3. Pronto: o lucro aparece']]; /* video 0,85x: pagamento comeca em 8,2 s, toque final em 10,5 s */
   function leg(){
     var t = v.currentTime, txt = LEG[0][1], k = 0;
     for (var i = 0; i < LEG.length; i++) if (t >= LEG[i][0]) { txt = LEG[i][1]; k = i; }
