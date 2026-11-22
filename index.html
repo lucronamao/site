@@ -368,6 +368,14 @@ footer{display:grid;gap:4px;justify-items:center}
 .insta .ic{width:18px;height:18px}
 .insta:active{background:rgba(255,255,255,.14)}
 
+
+/* CELULAR INTEIRO NA 1a TELA (22/11/2026, Vini t1753u): no celular a largura do mockup segue a altura visivel
+   (svh), mantendo a proporcao do aparelho (altura = 2,19 x largura). 241px = faixa BF + logo + chapeu + H1 + folga.
+   Piso de 170px para telas muito baixas. Desktop (960px+) nao muda. */
+@media (max-width:959px){
+  .hero .demo{width:clamp(170px,calc((100vh - 241px) / 2.19),min(300px,78vw))}
+  @supports (height:100svh){.hero .demo{width:clamp(170px,calc((100svh - 241px) / 2.19),min(300px,78vw))}}
+}
 </style>
 
 <!-- Meta Pixel: SO o base e o PageView.
