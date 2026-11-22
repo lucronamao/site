@@ -369,12 +369,14 @@ footer{display:grid;gap:4px;justify-items:center}
 .insta:active{background:rgba(255,255,255,.14)}
 
 
-/* CELULAR INTEIRO NA 1a TELA (22/11/2026, Vini t1753u): no celular a largura do mockup segue a altura visivel
-   (svh), mantendo a proporcao do aparelho (altura = 2,19 x largura). 241px = faixa BF + logo + chapeu + H1 + folga.
-   Piso de 170px para telas muito baixas. Desktop (960px+) nao muda. */
+/* CELULAR LARGO NO TOPO (22/11/2026, Vini t1753u + t1754u): no celular o mockup ocupa 88% da largura da tela
+   (ate 340px), mantendo a proporcao do aparelho (o video nao e cortado). Para ele aparecer o maximo possivel na
+   primeira tela, o topo do hero ficou mais justo (respiro acima do logo, logo-H1 e H1-celular); a linha Pra quem vende... saiu do topo e da faixa pos-BF (Vini t1755u). Desktop (960px+) nao muda. */
 @media (max-width:959px){
-  .hero .demo{width:clamp(170px,calc((100vh - 241px) / 2.19),min(300px,78vw))}
-  @supports (height:100svh){.hero .demo{width:clamp(170px,calc((100svh - 241px) / 2.19),min(300px,78vw))}}
+  .hero{padding-top:10px}
+  .hero .marca-riga{margin-bottom:8px}
+  .hero h1{margin-bottom:10px}
+  .hero .demo{width:min(340px,88vw)}
 }
 </style>
 
@@ -480,14 +482,12 @@ function lnmAplicarCheckout(){
 
 <!-- faixa do topo: Black Friday ate 30/11; depois volta a frase de publico -->
 <a class="faixa faixa-bf" data-bf href="#comprar"><span class="bf-tag">Black Friday</span><span><span class="risc">de <s>R$ 97</s> por </span><b>R$ 47</b></span><span class="bf-ate">até 30/11</span></a>
-<div class="faixa" data-pos-bf>Pra quem vende perfume, roupa, maquiagem ou acessório</div>
 
 <header class="hero">
   <div class="w">
     <div class="testo">
-      <!-- topo igual ao da pagina de 03-12/11 (Vini t1741u): logo, chapeu, H1; sem subtitulo -->
+      <!-- topo: logo e H1, sem subtitulo (Vini t1741u) e sem a linha Pra quem vende... (Vini t1755u) -->
       <div class="marca-riga"><img class="marca" src="logo-branca.png" alt="Lucro na Mão" width="114" height="28"><a class="insta" href="https://instagram.com/applucro" target="_blank" rel="noopener" aria-label="Instagram da Lucro na Mão, @applucro (abre em nova aba)"><svg class="ic" aria-hidden="true"><use href="#i-insta"/></svg><span>@applucro</span></a></div>
-      <div class="chapeu">Pra quem vende perfume, roupa, maquiagem ou acessório</div>
       <h1>Registre a venda e veja <span class="serif">seu lucro</span></h1>
     </div>
     <div class="palco">
